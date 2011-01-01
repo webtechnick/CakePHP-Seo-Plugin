@@ -1,0 +1,14 @@
+<?php
+/**
+  * Seo Configuration file
+  *
+  * save the file to app/config/seo.php
+  */
+$config = array(
+  'Seo' => array(
+    'approverEmail' => 'nick@example.com',
+    'replyEmail' => 'noreply@example.com',
+    'parentDomain' => 'http://www.example.com'
+  )
+);
+?>
