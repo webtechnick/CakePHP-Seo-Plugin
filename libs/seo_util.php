@@ -43,6 +43,13 @@ class SeoUtil extends Object {
   }
   
   /**
+  	* Load the SeoAppError class
+  	*/
+  static function loadSeoError(){
+  	return require_once(dirname(__FILE__) . DS . '..' . DS . 'seo_app_error.php');
+  }
+  
+  /**
     * Testing getting a configuration option.
     * @param key to search for
     * @return mixed result of configuration key.
