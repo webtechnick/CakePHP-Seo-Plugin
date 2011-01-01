@@ -105,7 +105,7 @@ class SeoRedirect extends SeoAppModel {
 				PRIORITY: {$this->data[$this->alias]['priority']}<br /><br />
 				
 				Link to approve:<br />
-				". SeoUtil::getConfig('parentDomain') ."/admin/seo_redirects/approve/{$this->data[$this->alias]['id']}<br /><br />
+				". SeoUtil::getConfig('parentDomain') ."/admin/seo/seo_redirects/approve/{$this->data[$this->alias]['id']}<br /><br />
 				");
 		}
 	}
