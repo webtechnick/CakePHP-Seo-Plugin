@@ -15,6 +15,7 @@ create file *app/app_error.php* with the following:
 
 	<?php
 		App::import('Lib','Seo.SeoUtil');
+		SeoUtil::loadSeoError();
 		class AppError extends SeoAppError {
 		}
 	?>
