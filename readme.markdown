@@ -1,4 +1,7 @@
 # Search Engine Optimization CakePHP Plugin
+* Author: Nick Baker
+* Version: 1.0
+* License: MIT
 
 ## Install
 
