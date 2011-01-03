@@ -1,11 +1,14 @@
 <?php 
 App::import('Core',array('ErrorHandler','Controller'));
+App::import('Model','Seo.SeoRedirect');
 include_once(APP.'plugins'.DS.'seo'.DS.'seo_app_error.php');
 
 class AppErrorTestCase extends CakeTestCase {
   
   var $fixtures = array(
     'plugin.seo.seo_redirect',
+    'plugin.seo.seo_uri',
+    'plugin.seo.seo_meta_tag',
   );
   
   function startTest() {

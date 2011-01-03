@@ -56,7 +56,10 @@ class SeoAppError extends ErrorHandler {
 		
 		$run_redirect = false;
 		foreach($seo_redirects as $seo_redirect){
-			extract($seo_redirect['SeoRedirect']); //extract uri, request, and callback
+			$uri = $seo_redirect['SeoUri']['uri'];
+			$redirect = $seo_redirect['SeoRedirect']['redirect'];
+			$callback = $seo_redirect['SeoRedirect']['callback'];
+			
 			//Many To Many -- Using regular expression
 			if($this->SeoRedirect->isRegEx($uri)){
 				if(preg_match($uri, $request)){

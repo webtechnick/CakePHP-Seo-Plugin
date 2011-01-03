@@ -26,6 +26,8 @@ class SeoRedirectsController extends SeoAppController {
 				$this->Session->setFlash(__('The seo redirect could not be saved. Please, try again.', true));
 			}
 		}
+		$seoUris = $this->SeoRedirect->SeoUri->find('list');
+		$this->set(compact('seoUris'));
 	}
 
 	function admin_edit($id = null) {
@@ -44,29 +46,21 @@ class SeoRedirectsController extends SeoAppController {
 		if (empty($this->data)) {
 			$this->data = $this->SeoRedirect->read(null, $id);
 		}
+		$seoUris = $this->SeoRedirect->SeoUri->find('list');
+		$this->set(compact('seoUris'));
 	}
 
 	function admin_delete($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for seo redirect', true));
+			$this->redirect(array('action'=>'index'));
 		}
-		elseif ($this->SeoRedirect->delete($id)) {
+		if ($this->SeoRedirect->delete($id)) {
 			$this->Session->setFlash(__('Seo redirect deleted', true));
+			$this->redirect(array('action'=>'index'));
 		}
-		else {
-			$this->Session->setFlash(__('Seo redirect was not deleted', true));
-		}
+		$this->Session->setFlash(__('Seo redirect was not deleted', true));
 		$this->redirect(array('action' => 'index'));
-	}
-	
-	function admin_approve($id = null){
-	  if(!$id) {
-			$this->Session->setFlash(__('Invalid id for seo redirect', true));
-		}
-		elseif($this->SeoRedirect->setApproved($id)) {
-			$this->Session->setFlash(__('Seo redirect approved', true));
-		}
-		$this->redirect(array('admin' => true, 'action' => 'index'));
 	}
 }
 ?>

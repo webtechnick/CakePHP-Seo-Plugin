@@ -1,23 +1,18 @@
 <?php
 /* SeoRedirect Test cases generated on: 2010-10-05 18:10:19 : 1286323699*/
-App::import('Model', 'SeoRedirect');
+App::import('Model', 'Seo.SeoRedirect');
 App::import('Component', 'Email');
 Mock::generate('EmailComponent');
 
 class SeoRedirectTestCase extends CakeTestCase {
-	var $fixtures = array('plugin.seo.seo_redirect');
+	var $fixtures = array(
+		'plugin.seo.seo_redirect',
+		'plugin.seo.seo_uri',
+		'plugin.seo.seo_meta_tag',
+	);
 
 	function startTest() {
 		$this->SeoRedirect = ClassRegistry::init('Seo.SeoRedirect');
-		$this->SeoRedirect->Email = new MockEmailComponent();
-	}
-	
-	function testSendNotification(){
-	  $this->SeoRedirect->id = 6;
-	  $this->SeoRedirect->Email->expectOnce('send');
-	  $this->SeoRedirect->sendNotification();
-	  $this->assertEqual('301 Redirect: #(.*)#i to / needs approval', $this->SeoRedirect->Email->subject);
-	  $this->assertEqual('html', $this->SeoRedirect->Email->sendAs);
 	}
 	
 	function testIsRegEx(){
@@ -30,37 +25,33 @@ class SeoRedirectTestCase extends CakeTestCase {
 	function testBeforeSaveShouldSetApproved(){
 	  $this->SeoRedirect->data = array(
 	    'SeoRedirect' => array(
-	      'uri' => '/newuri',
 	      'redirect' => '/',
 	      'priority' => '5',
 	      'is_active' => 1,
+	    ),
+	    'SeoUri' => array(
+	    	'uri' => '/newuri'
 	    )
 	  );
-	  $this->assertTrue($this->SeoRedirect->save());
+	  $this->assertTrue($this->SeoRedirect->saveAll());
 	  $result = $this->SeoRedirect->find('last');
-	  $this->assertTrue($result['SeoRedirect']['is_approved']);
+	  $this->assertTrue($result['SeoUri']['is_approved']);
 	}
 	
 	function testBeforeSaveShouldNotSetApprovedOnRegEx(){
 	  $this->SeoRedirect->data = array(
 	    'SeoRedirect' => array(
-	      'uri' => '#(somenewregex)#i',
 	      'redirect' => '/',
 	      'priority' => '5',
 	      'is_active' => 1,
+	    ),
+	    'SeoUri' => array(
+	    	'uri' => '#(somenewregex)#i',
 	    )
 	  );
-	  $this->SeoRedirect->Email->expectOnce('send');
-	  $this->assertTrue($this->SeoRedirect->save());
+	  $this->assertTrue($this->SeoRedirect->saveAll());
 	  $result = $this->SeoRedirect->find('last');
-	  $this->assertFalse($result['SeoRedirect']['is_approved']);
-	}
-	
-	function testSetApproved(){
-	  $this->SeoRedirect->id = 6;
-	  $this->assertFalse($this->SeoRedirect->field('is_approved'));
-	  $this->SeoRedirect->setApproved();
-	  $this->assertTrue($this->SeoRedirect->field('is_approved'));
+	  $this->assertFalse($result['SeoUri']['is_approved']);
 	}
 	
 	function testFindRedirectListByPriority(){

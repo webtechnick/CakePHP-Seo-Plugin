@@ -3,7 +3,7 @@
   * Helper class to preform some basic tasks. 
   *
   * @author Nick Baker
-  * @version 0.1
+  * @since 2.0
   * @license MIT
   */
 class SeoUtil extends Object {
@@ -21,7 +21,7 @@ class SeoUtil extends Object {
     * @access public
     */
   static function version(){
-    return "1.0";
+    return "2.0";
   }
   
   /**

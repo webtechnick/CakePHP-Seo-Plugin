@@ -1,6 +1,7 @@
 <?php
 App::import('Lib','Seo.SeoUtil');
 class SeoAppModel extends AppModel {
+	var $actsAs = array('Containable');
 	/**
     * Overwrite find so I can do some nice things with it.
     * @param string find type
@@ -19,5 +20,14 @@ class SeoAppModel extends AppModel {
         return parent::find($type, $options);
     }
   }
+  
+  /**
+	* Return if the incoming URI is a regular expression
+	* @param string
+	* @return boolean if is regular expression (as two # marks)
+	*/
+	function isRegEx($uri){
+		return preg_match('/^#(.*)#(.*)/', $uri);
+	}
 }
 ?>

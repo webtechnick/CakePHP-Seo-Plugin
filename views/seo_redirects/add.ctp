@@ -1,7 +1,7 @@
 <div class="seoRedirects form">
 <?php echo $this->Form->create('SeoRedirect');?>
 	<fieldset>
- 		<legend><?php __('Admin Add Seo Redirect'); ?></legend>
+ 		<legend><?php __('Add Seo Redirect'); ?></legend>
 	<?php
 		echo $this->Form->input('seo_uri_id');
 		echo $this->Form->input('redirect');
