@@ -40,5 +40,5 @@ Alter your layout to include the Seo Meta Tags in the head of your layout
 
 
 # Wiki Links
-  * [[https://github.com/webtechnick/CakePHP-Seo-Plugin/wiki/Seo-Redirects]]
-  * [[https://github.com/webtechnick/CakePHP-Seo-Plugin/wiki/Seo-Meta-Tags]]
+  * https://github.com/webtechnick/CakePHP-Seo-Plugin/wiki/Seo-Redirects
+  * https://github.com/webtechnick/CakePHP-Seo-Plugin/wiki/Seo-Meta-Tags
