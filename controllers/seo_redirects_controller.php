@@ -19,7 +19,7 @@ class SeoRedirectsController extends SeoAppController {
 	function admin_add() {
 		if (!empty($this->data)) {
 			$this->SeoRedirect->create();
-			if ($this->SeoRedirect->save($this->data)) {
+			if ($this->SeoRedirect->saveAll($this->data)) {
 				$this->Session->setFlash(__('The seo redirect has been saved', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -36,7 +36,7 @@ class SeoRedirectsController extends SeoAppController {
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
-			if ($this->SeoRedirect->save($this->data)) {
+			if ($this->SeoRedirect->saveAll($this->data)) {
 				$this->Session->setFlash(__('The seo redirect has been saved', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
