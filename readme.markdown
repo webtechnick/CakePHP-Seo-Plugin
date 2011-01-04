@@ -13,6 +13,20 @@ Clone the repository into your `app/plugins/seo` directory:
 Run the schema into your database:
 
 	$ cake schema create seo -plugin seo
+	
+## Setup
+
+Create the file `app/config/seo.php` with the following configurations like so:
+
+	<?php
+	$config = array(
+		'Seo' => array(
+			'approverEmail' => 'nick@example.com',
+			'replyEmail' => 'noreply@example.com',
+			'parentDomain' => 'http://www.example.com'
+		)
+	);
+	?>
 
 ## SEO Redirect Quick Start
 create file `app/app_error.php` with the following:
