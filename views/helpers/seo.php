@@ -4,16 +4,12 @@ class SeoHelper extends AppHelper {
 	var $helpers = array('Html');
 	var $SeoMetaTag = null;
 	
-	function __construct($model = 'Seo.SeoMetaTag'){
-		App::import('Model',$model);
-		$this->SeoMetaTag = ClassRegistry::init($model);
-	}
-	
 	/**
 	* Show the meta tags designated for this uri
 	* @return string of meta tags to show.
 	*/
 	function metaTags(){
+		$this->loadSeoMetaTag();
 		$request = env('REQUEST_URI');
 		$meta_tags = $this->SeoMetaTag->findAllTagsByUri($request);
 		$retval = "";
@@ -28,6 +24,13 @@ class SeoHelper extends AppHelper {
 			$retval .= $this->Html->meta($data);
 		}
 		return $retval;
+	}
+	
+	function loadSeoMetaTag(){
+		if($this->SeoMetaTag == null){
+			App::import('Model','Seo.SeoMetaTag');
+			$this->SeoMetaTag = ClassRegistry::init('Seo.SeoMetaTag');
+		}
 	}
 	
 }
