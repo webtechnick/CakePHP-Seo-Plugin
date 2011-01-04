@@ -29,6 +29,14 @@ class SeoRedirect extends SeoAppModel {
 	);
 	
 	/**
+	* Check if SEO already exists, if so, unset it and set the ID then save.
+	*/
+	function beforeSave(){
+		$this->createOrSetUri();
+		return true;
+	}
+	
+	/**
 	* This is a helper function for testing.
 	*/
 	function callbackTest($request){

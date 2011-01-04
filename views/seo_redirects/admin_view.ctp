@@ -1,3 +1,4 @@
+<?php echo $this->element('seo_view_head', array('plugin' => 'seo')); ?>
 <div class="seoRedirects view">
 <h2><?php  __('Seo Redirect');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
@@ -48,9 +49,5 @@
 	<ul>
 		<li><?php echo $this->Html->link(__('Edit Seo Redirect', true), array('action' => 'edit', $seoRedirect['SeoRedirect']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('Delete Seo Redirect', true), array('action' => 'delete', $seoRedirect['SeoRedirect']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $seoRedirect['SeoRedirect']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Seo Redirects', true), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Seo Redirect', true), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Seo Uris', true), array('controller' => 'seo_uris', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Seo Uri', true), array('controller' => 'seo_uris', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

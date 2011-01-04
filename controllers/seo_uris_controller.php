@@ -2,7 +2,8 @@
 class SeoUrisController extends SeoAppController {
 
 	var $name = 'SeoUris';
-
+	var $helpers = array('Time');
+	
 	function admin_index() {
 		$this->SeoUri->recursive = 0;
 		$this->set('seoUris', $this->paginate());
@@ -57,6 +58,16 @@ class SeoUrisController extends SeoAppController {
 		}
 		$this->Session->setFlash(__('Seo uri was not deleted', true));
 		$this->redirect(array('action' => 'index'));
+	}
+	
+	function admin_approve($id = null){
+	  if(!$id) {
+			$this->Session->setFlash(__('Invalid id for seo uri', true));
+		}
+		elseif($this->SeoUri->setApproved($id)) {
+			$this->Session->setFlash(__('Seo Uri approved', true));
+		}
+		$this->redirect(array('admin' => true, 'action' => 'index'));
 	}
 }
 ?>

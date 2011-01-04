@@ -2,7 +2,8 @@
 class SeoRedirectsController extends SeoAppController {
 
 	var $name = 'SeoRedirects';
-
+	var $helpers = array('Time');
+	
 	function admin_index() {
 		$this->SeoRedirect->recursive = 0;
 		$this->set('seoRedirects', $this->paginate());
@@ -19,15 +20,13 @@ class SeoRedirectsController extends SeoAppController {
 	function admin_add() {
 		if (!empty($this->data)) {
 			$this->SeoRedirect->create();
-			if ($this->SeoRedirect->saveAll($this->data)) {
+			if ($this->SeoRedirect->save($this->data)) {
 				$this->Session->setFlash(__('The seo redirect has been saved', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The seo redirect could not be saved. Please, try again.', true));
 			}
 		}
-		$seoUris = $this->SeoRedirect->SeoUri->find('list');
-		$this->set(compact('seoUris'));
 	}
 
 	function admin_edit($id = null) {
@@ -36,7 +35,7 @@ class SeoRedirectsController extends SeoAppController {
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
-			if ($this->SeoRedirect->saveAll($this->data)) {
+			if ($this->SeoRedirect->save($this->data)) {
 				$this->Session->setFlash(__('The seo redirect has been saved', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -46,8 +45,6 @@ class SeoRedirectsController extends SeoAppController {
 		if (empty($this->data)) {
 			$this->data = $this->SeoRedirect->read(null, $id);
 		}
-		$seoUris = $this->SeoRedirect->SeoUri->find('list');
-		$this->set(compact('seoUris'));
 	}
 
 	function admin_delete($id = null) {

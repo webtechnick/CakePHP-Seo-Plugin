@@ -2,7 +2,8 @@
 class SeoMetaTagsController extends SeoAppController {
 
 	var $name = 'SeoMetaTags';
-
+	var $helpers = array('Time');
+	
 	function admin_index() {
 		$this->SeoMetaTag->recursive = 0;
 		$this->set('seoMetaTags', $this->paginate());
@@ -26,8 +27,6 @@ class SeoMetaTagsController extends SeoAppController {
 				$this->Session->setFlash(__('The seo meta tag could not be saved. Please, try again.', true));
 			}
 		}
-		$seoUris = $this->SeoMetaTag->SeoUri->find('list');
-		$this->set(compact('seoUris'));
 	}
 
 	function admin_edit($id = null) {
@@ -46,8 +45,6 @@ class SeoMetaTagsController extends SeoAppController {
 		if (empty($this->data)) {
 			$this->data = $this->SeoMetaTag->read(null, $id);
 		}
-		$seoUris = $this->SeoMetaTag->SeoUri->find('list');
-		$this->set(compact('seoUris'));
 	}
 
 	function admin_delete($id = null) {

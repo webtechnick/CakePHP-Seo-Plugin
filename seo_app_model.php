@@ -22,6 +22,30 @@ class SeoAppModel extends AppModel {
   }
   
   /**
+  * Set or create the model, this is useful to find the URI
+  */
+  function createOrSetUri($model = 'SeoUri', $field = 'uri'){
+    $ModelName = Inflector::camelize($model);
+    $model_underscore = Inflector::underscore($model);
+    
+    if(isset($this->data[$ModelName][$field])){
+      $this->$ModelName->contain();
+      $this->$ModelName->recursive = -1;
+      //Find the Model, and set the id.
+      if($associated_id = $this->$ModelName->field('id', array($field => $this->data[$ModelName][$field]))){
+        $this->data[$this->alias][$model_underscore . '_id'] = $associated_id;
+      }
+      else {
+      	$save = array();
+      	$save[$ModelName][$field] = $this->data[$ModelName][$field];
+				$this->$ModelName->create();
+				$this->$ModelName->save($save);
+				$this->data[$this->alias][$model_underscore . '_id'] = $this->$ModelName->id;
+			}
+    }
+  }
+  
+  /**
 	* Return if the incoming URI is a regular expression
 	* @param string
 	* @return boolean if is regular expression (as two # marks)

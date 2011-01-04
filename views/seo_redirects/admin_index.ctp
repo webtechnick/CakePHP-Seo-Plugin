@@ -1,15 +1,14 @@
+<?php echo $this->element('seo_view_head', array('plugin' => 'seo')); ?>
 <div class="seoRedirects index">
 	<h2><?php __('Seo Redirects');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('id');?></th>
 			<th><?php echo $this->Paginator->sort('seo_uri_id');?></th>
 			<th><?php echo $this->Paginator->sort('redirect');?></th>
-			<th><?php echo $this->Paginator->sort('priority');?></th>
-			<th><?php echo $this->Paginator->sort('is_active');?></th>
+			<th><?php echo $this->Paginator->sort('Queue','priority');?></th>
+			<th><?php echo $this->Paginator->sort('Active','is_active');?></th>
 			<th><?php echo $this->Paginator->sort('callback');?></th>
 			<th><?php echo $this->Paginator->sort('created');?></th>
-			<th><?php echo $this->Paginator->sort('modified');?></th>
 			<th class="actions"><?php __('Actions');?></th>
 	</tr>
 	<?php
@@ -21,7 +20,6 @@
 		}
 	?>
 	<tr<?php echo $class;?>>
-		<td><?php echo $seoRedirect['SeoRedirect']['id']; ?>&nbsp;</td>
 		<td>
 			<?php echo $this->Html->link($seoRedirect['SeoUri']['uri'], array('controller' => 'seo_uris', 'action' => 'view', $seoRedirect['SeoUri']['id'])); ?>
 		</td>
@@ -29,8 +27,7 @@
 		<td><?php echo $seoRedirect['SeoRedirect']['priority']; ?>&nbsp;</td>
 		<td><?php echo $seoRedirect['SeoRedirect']['is_active']; ?>&nbsp;</td>
 		<td><?php echo $seoRedirect['SeoRedirect']['callback']; ?>&nbsp;</td>
-		<td><?php echo $seoRedirect['SeoRedirect']['created']; ?>&nbsp;</td>
-		<td><?php echo $seoRedirect['SeoRedirect']['modified']; ?>&nbsp;</td>
+		<td><?php echo $this->Time->niceShort($seoRedirect['SeoRedirect']['created']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View', true), array('action' => 'view', $seoRedirect['SeoRedirect']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit', true), array('action' => 'edit', $seoRedirect['SeoRedirect']['id'])); ?>
@@ -39,25 +36,11 @@
 	</tr>
 <?php endforeach; ?>
 	</table>
-	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%', true)
-	));
-	?>	</p>
-
-	<div class="paging">
-		<?php echo $this->Paginator->prev('<< ' . __('previous', true), array(), null, array('class'=>'disabled'));?>
-	 | 	<?php echo $this->Paginator->numbers();?>
- |
-		<?php echo $this->Paginator->next(__('next', true) . ' >>', array(), null, array('class' => 'disabled'));?>
-	</div>
+	<?php echo $this->element('seo_paging', array('plugin' => 'seo')); ?>
 </div>
 <div class="actions">
 	<h3><?php __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New Seo Redirect', true), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Seo Uris', true), array('controller' => 'seo_uris', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Seo Uri', true), array('controller' => 'seo_uris', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

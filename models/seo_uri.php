@@ -9,6 +9,15 @@ class SeoUri extends SeoAppModel {
 		'Seo.SeoRedirect'
 	);
 	
+	var $validate = array(
+		'uri' => array(
+			'unique' => array(
+				'rule' => array('isUnique'),
+				'message' => 'Must be a unique url'
+			)
+		)
+	);
+	
 	/**
 	* If saving a regular expression, make sure to mark not approved unless
 	* is_approved is specifically being sent in.
@@ -33,6 +42,15 @@ class SeoUri extends SeoAppModel {
 		if(isset($this->data[$this->alias]['is_approved']) && !$this->data[$this->alias]['is_approved']){
 			$this->sendNotification(); //Email IT about needing approval... currently me.
 		}  
+	}
+	
+	/**
+		* Find the URI id by uri
+		* @param string uri
+		* @return mixed id
+		*/
+	function findIdByUri($uri = null){
+		return $this->field('id', array("{$this->alias}.uri" => $uri));
 	}
 	
 	/**

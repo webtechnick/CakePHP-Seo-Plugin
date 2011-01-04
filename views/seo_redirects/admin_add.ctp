@@ -1,23 +1,15 @@
+<?php echo $this->element('seo_view_head', array('plugin' => 'seo')); ?>
 <div class="seoRedirects form">
 <?php echo $this->Form->create('SeoRedirect');?>
 	<fieldset>
  		<legend><?php __('Admin Add Seo Redirect'); ?></legend>
 	<?php
-		echo $this->Form->input('seo_uri_id');
+		echo $this->Form->input('SeoUri.uri');
 		echo $this->Form->input('redirect');
-		echo $this->Form->input('priority');
+		echo $this->Form->input('priority', array('default' => 100));
 		echo $this->Form->input('is_active');
 		echo $this->Form->input('callback');
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit', true));?>
-</div>
-<div class="actions">
-	<h3><?php __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Html->link(__('List Seo Redirects', true), array('action' => 'index'));?></li>
-		<li><?php echo $this->Html->link(__('List Seo Uris', true), array('controller' => 'seo_uris', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Seo Uri', true), array('controller' => 'seo_uris', 'action' => 'add')); ?> </li>
-	</ul>
+<?php echo $this->Form->end(__('Save Seo Redirect', true));?>
 </div>
