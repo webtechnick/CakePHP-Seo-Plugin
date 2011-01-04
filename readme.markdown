@@ -6,7 +6,7 @@
 ## Install
 
 Clone the repository into your `app/plugins/seo` directory:
-   git clone git://github.com/webtechnick/CakePHP-Seo-Plugin.git app/plugins/seo
+   $ git clone git://github.com/webtechnick/CakePHP-Seo-Plugin.git app/plugins/seo
 
 Run the schema into your database:
 	 $ cake schema create seo -plugin seo
