@@ -34,7 +34,7 @@ Alter your layout to include the Seo Meta Tags in the head of your layout
      <?php echo $this->Seo->metaTags(); ?>
    </head>
 
-# Add Meta Tags
+### Add Meta Tags
 
 `http://www.example.com/seo/seo_meta_tags`
 
