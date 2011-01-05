@@ -60,6 +60,15 @@ class SeoMetaTagFixture extends CakeTestFixture {
 			'created' => '2011-01-03 10:04:07',
 			'modified' => '2011-01-03 10:04:07'
 		),
+		array(
+			'id' => 7,
+			'seo_uri_id' => 13,
+			'name' => 'wild_card_match',
+			'content' => 'wild_card_match_content',
+			'is_http_equiv' => 0,
+			'created' => '2011-01-03 10:04:07',
+			'modified' => '2011-01-03 10:04:07'
+		),
 	);
 }
 ?>

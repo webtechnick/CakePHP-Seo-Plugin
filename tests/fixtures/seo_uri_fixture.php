@@ -90,6 +90,13 @@ class SeoUriFixture extends CakeTestFixture {
 			'created' => '2011-01-03 10:04:34',
 			'modified' => '2011-01-03 10:04:34'
 		),
+		array(
+			'id' => 13,
+			'uri' => '/uri_for_meta_wild_card/*',
+			'is_approved' => 1,
+			'created' => '2011-01-03 10:04:34',
+			'modified' => '2011-01-03 10:04:34'
+		),
 	);
 }
 ?>

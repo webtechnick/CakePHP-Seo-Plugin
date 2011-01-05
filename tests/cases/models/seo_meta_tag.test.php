@@ -18,6 +18,16 @@ class SeoMetaTagTestCase extends CakeTestCase {
 		$this->assertEqual(2, count($results));
 	}
 	
+	function testFindAllTagsByUriRegEx(){
+		$results = $this->SeoMetaTag->findAllTagsByUri('/uri_for_meta_reg_ex/regex');
+		$this->assertEqual(2, count($results));
+	}
+	
+	function testFindAllTagsByUriWildCard(){
+		$results = $this->SeoMetaTag->findAllTagsByUri('/uri_for_meta_wild_card/wild');
+		$this->assertEqual(1, count($results));
+	}
+	
 	function testBeforeSaveShouldLinkToExistinUri(){
 		$this->SeoMetaTag->data = array(
 			'SeoMetaTag' => array(

@@ -44,6 +44,12 @@ class SeoHelperTestCase extends CakeTestCase {
 		$results = $this->Seo->metaTags();
 		$this->assertEqual('<meta content="direct_match_content" name="direct_match" />', $results);
 	}
+	
+	function testmetaTagsTagsWithWildCard(){
+		$_SERVER['REQUEST_URI'] = '/uri_for_meta_wild_card/wild_card';
+		$results = $this->Seo->metaTags();
+		$this->assertEqual('<meta content="wild_card_match_content" name="wild_card_match" />', $results);
+	}
 
 	function endTest() {
 		unset($this->SeometaTagsTag);

@@ -38,7 +38,8 @@ class SeoMetaTag extends SeoAppModel {
 	}
 	
 	/**
-		* TODO
+		* Find all the tags by a specific reuqest,
+		* This takes in a request URI and finds all matching meta_tags for this URI
 		* @param incoming request URI
 		* @return array of results
 		*/
@@ -58,14 +59,23 @@ class SeoMetaTag extends SeoAppModel {
 		$uri_ids = array();
 		$uris = $this->SeoUri->find('all', array(
 			'conditions' => array(
-				"{$this->SeoUri->alias}.uri LIKE" => '#%',
+				'OR' => array(
+					array("{$this->SeoUri->alias}.uri LIKE" => '#%'),
+					array("{$this->SeoUri->alias}.uri LIKE" => '%*'),
+				),
 				"{$this->SeoUri->alias}.is_approved" => true
 			),
-			'contain' => array()
+			'contain' => array(),
+			'fields' => array("{$this->SeoUri->alias}.id","{$this->SeoUri->alias}.uri")
 		));
 		
 		foreach($uris as $uri){
-			if(preg_match($uri[$this->SeoUri->alias]['uri'], $request)){
+			//Wildcard match
+			if(strpos($request, str_replace('*','', $uri[$this->SeoUri->alias]['uri'])) !== false){
+				$uri_ids[] = $uri[$this->SeoUri->alias]['id'];
+			}
+			//Regex match
+			elseif($this->isRegex($uri[$this->SeoUri->alias]['uri']) && preg_match($uri[$this->SeoUri->alias]['uri'], $request)){
 				$uri_ids[] = $uri[$this->SeoUri->alias]['id'];
 			}
 		}
