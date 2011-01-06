@@ -3,10 +3,18 @@ class SeoUri extends SeoAppModel {
 	var $name = 'SeoUri';
 	var $displayField = 'uri';
 	var $hasMany = array(
-		'Seo.SeoMetaTag'
+		'SeoMetaTag' => array(
+			'className' => 'Seo.SeoMetaTag',
+			'foreignKey' => 'seo_uri_id',
+			'dependent' => true,
+		)
 	);
 	var $hasOne = array(
-		'Seo.SeoRedirect'
+		'SeoRedirect' => array(
+			'className' => 'Seo.SeoRedirect',
+			'foreignKey' => 'seo_uri_id',
+			'dependent' => true,
+		)
 	);
 	
 	var $validate = array(

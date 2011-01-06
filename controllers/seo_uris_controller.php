@@ -15,6 +15,7 @@ class SeoUrisController extends SeoAppController {
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('seoUri', $this->SeoUri->read(null, $id));
+		$this->set('id', $id);
 	}
 
 	function admin_add() {
@@ -45,6 +46,7 @@ class SeoUrisController extends SeoAppController {
 		if (empty($this->data)) {
 			$this->data = $this->SeoUri->read(null, $id);
 		}
+		$this->set('id', $id);
 	}
 
 	function admin_delete($id = null) {

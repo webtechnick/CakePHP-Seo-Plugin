@@ -15,6 +15,7 @@ class SeoRedirectsController extends SeoAppController {
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('seoRedirect', $this->SeoRedirect->read(null, $id));
+		$this->set('id', $id);
 	}
 
 	function admin_add() {
@@ -45,6 +46,7 @@ class SeoRedirectsController extends SeoAppController {
 		if (empty($this->data)) {
 			$this->data = $this->SeoRedirect->read(null, $id);
 		}
+		$this->set('id', $id);
 	}
 
 	function admin_delete($id = null) {
