@@ -7,14 +7,19 @@ class SeoUri extends SeoAppModel {
 			'className' => 'Seo.SeoMetaTag',
 			'foreignKey' => 'seo_uri_id',
 			'dependent' => true,
-		)
+		),
 	);
 	var $hasOne = array(
 		'SeoRedirect' => array(
 			'className' => 'Seo.SeoRedirect',
 			'foreignKey' => 'seo_uri_id',
 			'dependent' => true,
-		)
+		),
+		'SeoTitle' => array(
+			'className' => 'Seo.SeoTitle',
+			'foreignKey' => 'seo_uri_id',
+			'dependant' => true
+		),
 	);
 	
 	var $validate = array(

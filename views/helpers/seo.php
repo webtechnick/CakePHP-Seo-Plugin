@@ -3,13 +3,14 @@ App::import('Lib','Seo.SeoUtil');
 class SeoHelper extends AppHelper {
 	var $helpers = array('Html');
 	var $SeoMetaTag = null;
+	var $SeoTitle = null;
 	
 	/**
 	* Show the meta tags designated for this uri
 	* @return string of meta tags to show.
 	*/
 	function metaTags(){
-		$this->loadSeoMetaTag();
+		$this->loadModel('SeoMetaTag');
 		$request = env('REQUEST_URI');
 		$meta_tags = $this->SeoMetaTag->findAllTagsByUri($request);
 		$retval = "";
@@ -26,10 +27,27 @@ class SeoHelper extends AppHelper {
 		return $retval;
 	}
 	
-	function loadSeoMetaTag(){
-		if($this->SeoMetaTag == null){
-			App::import('Model','Seo.SeoMetaTag');
-			$this->SeoMetaTag = ClassRegistry::init('Seo.SeoMetaTag');
+	/**
+		* Find the title tag related to this request and output the result.
+		* @return string title for requested uri
+		*/
+	function title(){
+		$this->loadModel('SeoTitle');
+		$request = env('REQUEST_URI');
+		$title = $this->SeoTitle->findTitleByUri($request);
+		return $title ? $title['SeoTitle']['title'] : "";
+	}
+	
+	
+	/**
+		* Load a plugin model 
+		* @param string modelname
+		* @return void
+		*/
+	function loadModel($model = null){
+		if($model && $this->$model == null){
+			App::import('Model',"Seo.$model");
+			$this->$model = ClassRegistry::init("Seo.$model");
 		}
 	}
 	

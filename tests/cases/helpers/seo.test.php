@@ -8,6 +8,7 @@ class SeoHelperTestCase extends CakeTestCase {
 		'plugin.seo.seo_meta_tag',
 		'plugin.seo.seo_redirect',
 		'plugin.seo.seo_uri',
+		'plugin.seo.seo_title',
 	);
 	
 	function startTest() {
@@ -49,6 +50,12 @@ class SeoHelperTestCase extends CakeTestCase {
 		$_SERVER['REQUEST_URI'] = '/uri_for_meta_wild_card/wild_card';
 		$results = $this->Seo->metaTags();
 		$this->assertEqual('<meta content="wild_card_match_content" name="wild_card_match" />', $results);
+	}
+	
+	function testTitleForUri(){
+		$_SERVER['REQUEST_URI'] = '/blah';
+		$results = $this->Seo->title();
+		$this->assertEqual('Title', $results);
 	}
 
 	function endTest() {

@@ -1,6 +1,6 @@
 # Search Engine Optimization CakePHP Plugin
 * Author: Nick Baker
-* Version: 2.1
+* Version: 3.0
 * License: MIT
 * Website: http://www.webtechnick.com
 
@@ -39,7 +39,7 @@ create file `app/app_error.php` with the following:
 	?>
 	
 ### Add Redirects	
-`http://www.example.com/seo/seo_redirects/`
+`http://www.example.com/admin/seo/seo_redirects/`
 
 ## SEO Meta Tags Quick Start
 
@@ -49,14 +49,32 @@ Include the `Seo.Seo` Helper to your `app_controller.php`:
 
 Alter your layout to include the Seo Meta Tags in the head of your layout
 
-   <head>
-     <!-- other head items -->
-     <?php echo $this->Seo->metaTags(); ?>
-   </head>
+		<head>
+			<!-- other head items -->
+			<?php echo $this->Seo->metaTags(); ?>
+    </head>
 
 ### Add Meta Tags
 
-`http://www.example.com/seo/seo_meta_tags`
+`http://www.example.com/admin/seo/seo_meta_tags`
+
+
+## SEO Titles Quick Start
+
+Include the `Seo.Seo` Helper to your `app_controller.php`:
+
+    var $helpers = array('Seo.Seo');
+
+Alter your layout to include the Seo Meta Tags in the head of your layout
+
+		<head>
+   		<!-- other head items -->
+   		<title><?php echo $this->Seo->title(); ?></title>
+   	</head>
+
+### Add Meta Tags
+
+`http://www.example.com/admin/seo/seo_titles`
 
 
 # Wiki Links

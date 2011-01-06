@@ -68,6 +68,28 @@
 			</ul>
 		</div>
 	</div>
+	
+	<div class="related">
+		<h3><?php __('Related Seo Titles');?></h3>
+	<?php if (!empty($seoUri['SeoTitle'])):?>
+		<dl>	<?php $i = 0; $class = ' class="altrow"';?>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Title');?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+	<?php echo $seoUri['SeoTitle']['title'];?>
+&nbsp;</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Created');?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+	<?php echo $seoUri['SeoTitle']['created'];?>
+&nbsp;</dd>
+		</dl>
+	<?php endif; ?>
+		<div class="actions">
+			<ul>
+				<li><?php echo $this->Html->link(__('Edit Seo Title', true), array('controller' => 'seo_titles', 'action' => 'edit', $seoUri['SeoTitle']['id'])); ?></li>
+			</ul>
+		</div>
+	</div>
+	
 	<div class="related">
 	<h3><?php __('Related Seo Meta Tags');?></h3>
 	<?php if (!empty($seoUri['SeoMetaTag'])):?>
