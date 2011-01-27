@@ -72,7 +72,7 @@ Alter your layout to include the Seo Meta Tags in the head of your layout
    		<title><?php echo $this->Seo->title(); ?></title>
    	</head>
 
-### Add Meta Tags
+### Add Title Tags
 
 `http://www.example.com/admin/seo/seo_titles`
 
