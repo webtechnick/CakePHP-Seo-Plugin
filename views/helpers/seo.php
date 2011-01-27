@@ -15,13 +15,14 @@ class SeoHelper extends AppHelper {
 		$meta_tags = $this->SeoMetaTag->findAllTagsByUri($request);
 		$retval = "";
 		foreach($meta_tags as $tag){
-			$data = array('content' => $tag['SeoMetaTag']['content']);
+			$data = array();
 			if($tag['SeoMetaTag']['is_http_equiv']){
 				$data['http-equiv'] = $tag['SeoMetaTag']['name'];
 			}
 			else {
 				$data['name'] = $tag['SeoMetaTag']['name'];
 			}
+			$data['content'] = $tag['SeoMetaTag']['content'];
 			$retval .= $this->Html->meta($data);
 		}
 		return $retval;
