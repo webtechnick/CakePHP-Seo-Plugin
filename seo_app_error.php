@@ -1,6 +1,9 @@
 <?php
 /**
-* This class will take in uri to redirects and 
+* This class will take in uri to redirects and
+* @since 3.1
+* @license MIT
+* @author Nick Baker (nick@webtechnick.com)
 */
 App::import('Lib','Seo.SeoUtil');
 class SeoAppError extends ErrorHandler {
@@ -97,6 +100,9 @@ class SeoAppError extends ErrorHandler {
 			}
 			//Run the redirect if we have one, and its not the same as it was coming in.
 			if($run_redirect && ($redirect != $request)){
+				if(SeoUtil::getConfig('log')){
+					$this->log("Redirecting $request to $redirect", 'seo_redirects');
+				}
 				$this->controller->redirect($redirect, 301);
 				return;
 			}

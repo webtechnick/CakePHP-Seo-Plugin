@@ -8,7 +8,8 @@ $config = array(
   'Seo' => array(
     'approverEmail' => 'nick@example.com',
     'replyEmail' => 'noreply@example.com',
-    'parentDomain' => 'http://www.example.com'
+    'parentDomain' => 'http://www.example.com',
+    'log' => true
   )
 );
 ?>
