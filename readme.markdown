@@ -1,6 +1,6 @@
 # Search Engine Optimization CakePHP Plugin
 * Author: Nick Baker
-* Version: 3.1
+* Version: 3.2
 * License: MIT
 * Website: http://www.webtechnick.com
 
@@ -23,10 +23,12 @@ Create the file `app/config/seo.php` with the following configurations like so:
 		'Seo' => array(
 			'approverEmail' => 'nick@example.com',
 			'replyEmail' => 'noreply@example.com',
-			'parentDomain' => 'http://www.example.com'
+			'parentDomain' => 'http://www.example.com',
+			'log' => true
 		)
 	);
 	?>
+
 
 ## SEO Redirect Quick Start
 create file `app/app_error.php` with the following:
@@ -65,11 +67,11 @@ Include the `Seo.Seo` Helper to your `app_controller.php`:
 
     var $helpers = array('Seo.Seo');
 
-Alter your layout to include the Seo Meta Tags in the head of your layout
+Alter your layout to include the Seo Title in the head of your layout
 
 		<head>
    		<!-- other head items -->
-   		<title><?php echo $this->Seo->title(); ?></title>
+   		<?php echo $this->Seo->title($title_for_layout); ?>
    	</head>
 
 ### Add Title Tags
@@ -80,3 +82,4 @@ Alter your layout to include the Seo Meta Tags in the head of your layout
 # Wiki Links
   * https://github.com/webtechnick/CakePHP-Seo-Plugin/wiki/Seo-Redirects
   * https://github.com/webtechnick/CakePHP-Seo-Plugin/wiki/Seo-Meta-Tags
+  * https://github.com/webtechnick/CakePHP-Seo-Plugin/wiki/Seo-Title-Tags

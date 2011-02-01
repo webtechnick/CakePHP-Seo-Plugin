@@ -19,13 +19,13 @@ class SeoHelperTestCase extends CakeTestCase {
 	function testmetaTagsTags(){
 		$_SERVER['REQUEST_URI'] = '/uri_for_meta';
 		$results = $this->Seo->metaTags();
-		$this->assertEqual('<meta content="content_1" name="keywords" /><meta content="content_2" name="description" />', $results);
+		$this->assertEqual('<meta name="keywords" content="content_1" /><meta name="description" content="content_2" />', $results);
 	}
 	
 	function testmetaTagsTagsWithHttpEquiv(){
 		$_SERVER['REQUEST_URI'] = '/uri_for_meta_equiv';
 		$results = $this->Seo->metaTags();
-		$this->assertEqual('<meta content="text/html" http-equiv="content-type" />', $results);
+		$this->assertEqual('<meta http-equiv="content-type" content="text/html" />', $results);
 	}
 	
 	function testmetaTagsTagsWithOutAny(){
@@ -37,25 +37,31 @@ class SeoHelperTestCase extends CakeTestCase {
 	function testmetaTagsTagsWithRegEx(){
 		$_SERVER['REQUEST_URI'] = '/uri_for_meta_reg_ex/this_should_match';
 		$results = $this->Seo->metaTags();
-		$this->assertEqual('<meta content="content_default" name="default" /><meta content="content_default_2" name="description_default" />', $results);
+		$this->assertEqual('<meta name="default" content="content_default" /><meta name="description_default" content="content_default_2" />', $results);
 	}
 	
 	function testmetaTagsTagsDirectMatchShouldOverwrite(){
 		$_SERVER['REQUEST_URI'] = '/uri_for_meta_reg_ex/this_is_direct_match';
 		$results = $this->Seo->metaTags();
-		$this->assertEqual('<meta content="direct_match_content" name="direct_match" />', $results);
+		$this->assertEqual('<meta name="direct_match" content="direct_match_content" />', $results);
 	}
 	
 	function testmetaTagsTagsWithWildCard(){
 		$_SERVER['REQUEST_URI'] = '/uri_for_meta_wild_card/wild_card';
 		$results = $this->Seo->metaTags();
-		$this->assertEqual('<meta content="wild_card_match_content" name="wild_card_match" />', $results);
+		$this->assertEqual('<meta name="wild_card_match" content="wild_card_match_content" />', $results);
 	}
 	
 	function testTitleForUri(){
 		$_SERVER['REQUEST_URI'] = '/blah';
 		$results = $this->Seo->title();
-		$this->assertEqual('Title', $results);
+		$this->assertEqual('<title>Title</title>', $results);
+	}
+	
+	function testTitleForUriWithDefault(){
+		$_SERVER['REQUEST_URI'] = '/blahNotDefined';
+		$results = $this->Seo->title('default');
+		$this->assertEqual('<title>default</title>', $results);
 	}
 
 	function endTest() {
