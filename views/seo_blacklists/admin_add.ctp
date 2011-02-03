@@ -8,6 +8,7 @@
 			echo $this->Form->input('ip_range_start', array('type' => 'text'));
 			echo $this->Form->input('ip_range_end', array('type' => 'text'));
 			echo $this->Form->input('note');
+			echo $this->Form->input('is_active');
 		?>
 		</fieldset>
 	<?php echo $this->Form->end(__('Save BlackList', true));?>

@@ -23,6 +23,11 @@
 				<?php echo $seoBlacklist['SeoBlacklist']['note']; ?>
 				&nbsp;
 			</dd>
+			<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Is Active'); ?></dt>
+			<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+				<?php echo $seoBlacklist['SeoBlacklist']['is_active']; ?>
+				&nbsp;
+			</dd>
 			<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Created'); ?></dt>
 			<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 				<?php echo $seoBlacklist['SeoBlacklist']['created']; ?>
