@@ -8,14 +8,9 @@ class BlackListComponent extends Object {
 	var $redirect = array('admin' => false, 'plugin' => 'seo', 'controller' => 'seo_blacklists', 'action' => 'banned');
 	
 	/**
-		* Time between triggers to auto ban in seconds
+		* CakePHP based URL to the honeypot action setup in config
 		*/
-	var $timeBetweenTriggers = 86400;
-	
-	/**
-		* How many triggers must be hit before autobanned
-		*/
-	var $triggerCount = 2;
+	var $honeyPot = null;
 	
 	/**
     * Error log
@@ -26,41 +21,56 @@ class BlackListComponent extends Object {
   	* Placeholder for the SeoBlacklist Model
   	*/
   var $SeoBlacklist = null;
+  
+  /**
+  	* Placeholder for the SeoHoneypotVisit Model
+  	*/
+  var $SeoHoneypotVisit = null;
 	
 	/**
 		* Initialize the component, set the settings
 		*/
 	function initialize(&$controller, $settings = array()){
 		$this->Controller = $controller;
-		$settings = array_merge(
-			array(
-				'triggerCount' => SeoUtil::getConfig('triggerCount'),
-				'timeBetweenTriggers' => SeoUtil::getConfig('timeBetweenTriggers'),
-			),
-			$settings
-		);
 		$this->_set($settings);
+		$this->honeyPot = SeoUtil::getConfig('honeyPot');
 		
-		//Always load the SeoBlacklist, as we will need direct access to this model
-		$this->loadModel('SeoBlacklist');
-		
-		$this->handleIfBanned();
+		if(!$this->__isBanned()){
+			$this->__handleIfHoneyPot();
+		}
 	}
 	
 	/**
 		* Handle the banned user, decide if banned,
 		* if so, redirect the user.
 		*/
-	private function handleIfBanned(){
+	function __isBanned(){
+		$this->loadModel('SeoBlacklist');
 		if($this->SeoBlacklist->isBanned()){
 			if($this->Controller->here != Router::url($this->redirect)){
 				$this->Controller->redirect($this->redirect);
 			}
-			return;
+			return true;
 		}
+		return false;
 	}
 	
-	
+	/**
+		* Handle if honeypot action.
+		*/
+	function __handleIfHoneyPot(){
+		if($this->Controller->here == Router::url($this->honeyPot)){
+			$this->loadModel('SeoHoneypotVisit');
+			$this->SeoHoneypotVisit->add();
+			if($this->SeoHoneypotVisit->isTriggered()){
+				$this->SeoBlacklist->addToBanned();
+				$this->isBanned();
+			}
+			else {
+				$this->Controller->redirect('/');
+			}
+		}
+	}
 	
 	/**
 		* Load a plugin model 
@@ -73,33 +83,5 @@ class BlackListComponent extends Object {
 			$this->$model = ClassRegistry::init("Seo.$model");
 		}
 	}
-	
-	/**
-    * Run the callback if it exists
-    * @param string callback
-    * @param mixed passed in variable (optional)
-    * @return mixed result of the callback function
-    */ 
-  private function __runCallback($callback, $passedIn = null){
-    if(is_callable(array($this, $callback))){
-      if($passedIn === null){
-        return $this->$callback();
-      }
-      else {
-        return $this->$callback($passedIn);
-      }
-    }
-    return false;
-  }
-  
-  /**
-    * Handle errors.
-    * @param string of error message
-    * @return void
-    * @access private
-    */
-  function __error($msg){
-    $this->errors[] = __($msg, true);
-  }
 }
 ?>

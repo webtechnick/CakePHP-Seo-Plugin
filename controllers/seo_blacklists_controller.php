@@ -7,16 +7,8 @@ class SeoBlacklistsController extends SeoAppController {
 	function beforeFilter(){
 		parent::beforeFilter();
 		if(isset($this->Auth)){
-			$this->Auth->allow('banned', 'honeypot');
+			$this->Auth->allow('banned');
 		}
-	}
-	
-	/**
-		* honeypot action, if called count how many times it's been called
-		* banns the incoming IP if hit a number of times within a limit
-		*/
-	function honeypot(){
-		$this->SeoBlacklist->addToBanned();
 	}
 	
 	/**

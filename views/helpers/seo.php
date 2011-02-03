@@ -51,7 +51,7 @@ class SeoHelper extends AppHelper {
 		);
 		return $this->Html->link(
 			$title,
-			array('plugin' => 'seo', 'controller' => 'seo_blacklists', 'action' => 'honeypot'),
+			SeoUtil::getConfig('honeyPot'),
 			$options
 		);
 	}

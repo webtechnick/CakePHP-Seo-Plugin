@@ -58,12 +58,20 @@ class seoSchema extends CakeSchema {
 	
 	var $seo_blacklists = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
-		'ip_range_start' => array('type' => 'long', 'null' => false),
+		'ip_range_start' => array('type' => 'integer', 'null' => false),
 		'ip_range_end' => array('type' => 'integer', 'null' => false),
 		'note' => array('type' => 'text', 'null' => true, 'default' => NULL),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1), 'ip_range_start' => array('column' => 'ip_range_start'), 'ip_range_end' => array('column' => 'ip_range_end')),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'MyISAM')
+	);
+	
+	var $seo_honeypot_visits = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'ip' => array('type' => 'integer', 'null' => false),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1), 'ip' => array('column' => 'ip')),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'MyISAM')
 	);
 }

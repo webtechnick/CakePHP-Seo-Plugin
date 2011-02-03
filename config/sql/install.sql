@@ -95,3 +95,14 @@ CREATE TABLE IF NOT EXISTS `seo_uris` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uri` (`uri`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `seo_honeypot_visits`
+--
+
+CREATE TABLE IF NOT EXISTS `seo_honeypot_visits` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `ip` bigint(20) unsigned NOT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;

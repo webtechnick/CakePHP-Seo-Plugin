@@ -26,47 +26,6 @@ class SeoBlacklist extends SeoAppModel {
 	);
 	
 	/**
-		* Custom validation.
-		* Using CakePHP IP validation would be nice, but
-		* since we're storing ips as longs in our database
-		* we need a custom validation.
-		* @param field to check
-		* @return boolean
-		*/
-	function isIp($check = null){
-		$ip_to_check = array_shift($check);
-		return (ip2long($ip_to_check));
-	}
-	
-	/**
-		* Save string IPs as longs
-		* @return true
-		*/
-	function beforeSave(){
-		foreach($this->fieldsToLong as $field){
-			if(isset($this->data[$this->alias][$field]) && !is_numeric($this->data[$this->alias][$field])){
-				$this->data[$this->alias][$field] = ip2long($this->data[$this->alias][$field]);
-			}
-		}
-		return true;
-	}
-	
-	/**
-		* Show the IPs back out.
-		* @return formatted results
-		*/
-	function afterFind($results){
-		foreach($results as $key => $val){
-			foreach($this->fieldsToLong as $field){
-				if(isset($val[$this->alias][$field]) && is_numeric($val[$this->alias][$field])){
-					$results[$key][$this->alias][$field] = long2ip($val[$this->alias][$field]);
-				}
-			}
-		}
-		return $results;
-	}
-	
-	/**
 		* Add the IP to the banned list.
 		* @param string ip to ban
 		* @param string note to add to this ban
@@ -104,22 +63,5 @@ class SeoBlacklist extends SeoAppModel {
 		));
 	}
 	
-	/**
-		* Returns the server IP
-		* @return string of incoming IP
-		*/
-	function getIpFromServer(){
-		$check_order = array(
-			'HTTP_CLIENT_IP', //shared client
-			'HTTP_X_FORWARDED_FOR', //proxy address
-			'REMOTE_ADDR', //fail safe
-		);
-		
-		foreach($check_order as $key){
-			if(isset($_SERVER[$key]) && !empty($_SERVER[$key])){
-				return $_SERVER[$key];
-			}
-		}
-	}
 }
 ?>
