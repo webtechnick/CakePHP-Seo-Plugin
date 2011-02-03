@@ -1,25 +1,25 @@
 /** containers **/
-div.form,
-div.index,
-div.view {
+div.seo_plugin div.form,
+div.seo_plugin div.index,
+div.seo_plugin div.view {
 	float:right;
 	width:76%;
 	border-left:1px solid #666;
 	padding:10px 2%;
 }
-div.actions {
+div.seo_plugin div.actions {
 	float:left;
 	width:16%;
 	padding:10px 1.5%;
 }
-div.actions h3 {
+div.seo_plugin div.actions h3 {
 	padding-top:0;
 	color:#777;
 }
 
 
 /** Tables **/
-table {
+div.seo_plugin table {
 	background: #fff;
 	border-right:0;
 	clear: both;
@@ -27,182 +27,182 @@ table {
 	margin-bottom: 10px;
 	width: 100%;
 }
-th {
+div.seo_plugin th {
 	border:0;
 	border-bottom:2px solid #555;
 	text-align: left;
 	padding:4px;
 }
-th a {
+div.seo_plugin th a {
 	display: block;
 	padding: 2px 4px;
 	text-decoration: none;
 }
-th a.asc:after {
+div.seo_plugin th a.asc:after {
 	content: ' ⇣';
 }
-th a.desc:after {
+div.seo_plugin th a.desc:after {
 	content: ' ⇡';
 }
-table tr td {
+div.seo_plugin table tr td {
 	background: #fff;
 	padding: 6px;
 	text-align: left;
 	vertical-align: top;
 	border-bottom:1px solid #ddd;
 }
-table tr:nth-child(2n) td {
+div.seo_plugin table tr:nth-child(2n) td {
 	background: #f5f5f5;
 }
-table .altrow td {
+div.seo_plugin table .altrow td {
 	background: #f5f5f5;
 }
-td.actions {
+div.seo_plugin td.actions {
 	text-align: center;
 	white-space: nowrap;
 }
-table td.actions a {
+div.seo_plugin table td.actions a {
 	margin: 0px 6px;
 	padding:2px 5px;
 }
 
 /** Paging **/
-div.paging {
+div.seo_plugin div.paging {
 	background:#fff;
 	color: #ccc;
 	margin-top: 1em;
 	clear:both;
 }
-div.paging span.disabled {
+div.seo_plugin div.paging span.disabled {
 	color: #ddd;
 	display: inline;
 }
-div.paging span.current {
+div.seo_plugin div.paging span.current {
 	color: #c73e14;
 }
-div.paging span a {
+div.seo_plugin div.paging span a {
 }
 
 /** Scaffold View **/
-dl {
+div.seo_plugin dl {
 	line-height: 2em;
 	margin: 0em 0em;
 	width: 60%;
 }
-dl .altrow {
+div.seo_plugin dl .altrow {
 	background: #f4f4f4;
 }
-dt {
+div.seo_plugin dt {
 	font-weight: bold;
 	padding-left: 4px;
 	vertical-align: top;
 }
-dd {
+div.seo_plugin dd {
 	margin-left: 10em;
 	margin-top: -2em;
 	vertical-align: top;
 }
 
 /** Forms **/
-form {
+div.seo_plugin form {
 	clear: both;
 	margin-right: 20px;
 	padding: 0;
 	width: 95%;
 }
-fieldset {
+div.seo_plugin fieldset {
 	border: 1px solid #ccc;
 	margin-bottom: 1em;
 	padding: 16px 20px;
 }
-fieldset legend {
+div.seo_plugin fieldset legend {
 	background:#fff;
 	color: #e32;
 	font-size: 160%;
 	font-weight: bold;
 }
-fieldset fieldset {
+div.seo_plugin fieldset fieldset {
 	margin-top: 0px;
 	margin-bottom: 20px;
 	padding: 16px 10px;
 }
-fieldset fieldset legend {
+div.seo_plugin fieldset fieldset legend {
 	font-size: 120%;
 	font-weight: normal;
 }
-fieldset fieldset div {
+div.seo_plugin fieldset fieldset div {
 	clear: left;
 	margin: 0 20px;
 }
-form div {
+div.seo_plugin form div {
 	clear: both;
 	margin-bottom: 1em;
 	padding: .5em;
 	vertical-align: text-top;
 }
-form .input {
+div.seo_plugin form .input {
 	color: #444;
 }
-form .required {
+div.seo_plugin form .required {
 	font-weight: bold;
 }
-form .required label:after {
+div.seo_plugin form .required label:after {
 	color: #e32;
 	content: '*';
 	display:inline;
 }
-form div.submit {
+div.seo_plugin form div.submit {
 	border: 0;
 	clear: both;
 	margin-top: 10px;
 }
-label {
+div.seo_plugin label {
 	display: block;
 	font-size: 110%;
 	margin-bottom:3px;
 }
-input, textarea {
+div.seo_plugin input, div.seo_plugin textarea {
 	clear: both;
 	font-size: 140%;
 	font-family: "frutiger linotype", "lucida grande", "verdana", sans-serif;
 	padding: 1%;
 	width:98%;
 }
-select {
+div.seo_plugin select {
 	clear: both;
 	font-size: 120%;
 	vertical-align: text-bottom;
 }
-select[multiple=multiple] {
+div.seo_plugin select[multiple=multiple] {
 	width: 100%;
 }
-option {
+div.seo_plugin option {
 	font-size: 120%;
 	padding: 0 3px;
 }
-input[type=checkbox] {
+div.seo_plugin input[type=checkbox] {
 	clear: left;
 	float: left;
 	margin: 0px 6px 7px 2px;
 	width: auto;
 }
-div.checkbox label {
+div.seo_plugin div.checkbox label {
 	display: inline;
 }
-input[type=radio] {
+div.seo_plugin input[type=radio] {
 	float:left;
 	width:auto;
 	margin: 0 3px 7px 0;
 }
-div.radio label {
+div.seo_plugin div.radio label {
 	margin: 0 0 6px 20px;
 }
-input[type=submit] {
+div.seo_plugin input[type=submit] {
 	display: inline;
 	font-size: 110%;
 	width: auto;
 }
-form .submit input[type=submit] {
+div.seo_plugin form .submit input[type=submit] {
 	background:#62af56;
 	background: -webkit-gradient(linear, left top, left bottom, from(#a8ea9c), to(#62af56));
 	background-image: -moz-linear-gradient(top, #a8ea9c, #62af56);
@@ -210,14 +210,14 @@ form .submit input[type=submit] {
 	color: #000;
 	text-shadow: #8cee7c 0px 1px 0px;
 }
-form .submit input[type=submit]:hover {
+div.seo_plugin form .submit input[type=submit]:hover {
 	background:#4ca83d;
 	background: -webkit-gradient(linear, left top, left bottom, from(#85e573), to(#4ca83d));
 	background-image: -moz-linear-gradient(top, #85e573, #4ca83d);
 }
 
 /** Notices and Errors **/
-div.message {
+div.seo_plugin div.message {
 	clear: both;
 	color: #fff;
 	font-size: 140%;
@@ -226,13 +226,13 @@ div.message {
 	background: #c73e14;
 	padding: 5px;
 }
-div.error-message {
+div.seo_plugin div.error-message {
 	clear: both;
 	color: #fff;
 	font-weight: bold;
 	background: #c73e14;
 }
-p.error {
+div.seo_plugin p.error {
 	background-color: #e32;
 	color: #fff;
 	font-family: Courier, monospace;
@@ -241,12 +241,12 @@ p.error {
 	padding: 0.8em;
 	margin: 1em 0;
 }
-p.error em {
+div.seo_plugin p.error em {
 	color: #000;
 	font-weight: normal;
 	line-height: 140%;
 }
-.notice {
+div.seo_plugin .notice {
 	background: #ffcc00;
 	color: #000;
 	display: block;
@@ -256,34 +256,34 @@ p.error em {
 	padding: 0.8em;
 	margin: 1em 0;
 }
-.success {
+div.seo_plugin .success {
 	background: green;
 	color: #fff;
 }
 
 /**  Actions  **/
-div.actions ul {
+div.seo_plugin div.actions ul {
 	margin: 0;
 	padding: 0;
 }
-div.actions li {
+div.seo_plugin div.actions li {
 	margin:0 0 0.5em 0;
 	list-style-type: none;
 	white-space: nowrap;
 	padding: 0;
 }
-div.actions ul li a {
+div.seo_plugin div.actions ul li a {
 	font-weight: normal;
 	display: block;
 	clear: both;
 }
-div.actions ul li a:hover {
+div.seo_plugin div.actions ul li a:hover {
 	text-decoration: underline;
 }
 
-input[type=submit],
-div.actions ul li a,
-td.actions a {
+div.seo_plugin input[type=submit],
+div.seo_plugin div.actions ul li a,
+div.seo_plugin td.actions a {
 	font-weight:normal;
 	padding: 4px 8px;
 	background:#e6e49f;
@@ -298,15 +298,15 @@ td.actions a {
 	text-shadow: #fff 0px 1px 0px;
 	min-width: 0;
 }
-input[type=submit]:hover,
-div.actions ul li a:hover,
-td.actions a:hover {
+div.seo_plugin input[type=submit]:hover,
+div.seo_plugin div.actions ul li a:hover,
+div.seo_plugin td.actions a:hover {
 	background: #f0f09a;
 	background: -webkit-gradient(linear, left top, left bottom, from(#f7f7e1), to(#eeeca9));
 }
 
 /** Related **/
-div.related {
+div.seo_plugin div.related {
 	clear: both;
 	display: block;
 }
