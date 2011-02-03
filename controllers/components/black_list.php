@@ -3,11 +3,6 @@ App::import('Lib','Seo.SeoUtil');
 class BlackListComponent extends Object {
 	
 	/**
-		* Store time into sessions
-		*/
-	var $components = array('Session');
-	
-	/**
 		* CakePHP based URL to redirect the banned uesr
 		*/
 	var $redirect = array('admin' => false, 'plugin' => 'seo', 'controller' => 'seo_blacklists', 'action' => 'banned');
