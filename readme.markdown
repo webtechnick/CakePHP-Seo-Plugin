@@ -1,6 +1,6 @@
 # Search Engine Optimization CakePHP Plugin
 * Author: Nick Baker
-* Version: 4.1
+* Version: 4.2
 * License: MIT
 * Website: http://www.webtechnick.com
 
@@ -35,6 +35,7 @@ Create the file `app/config/seo.php` with the following configurations like so:
 			'parentDomain' => 'http://www.example.com',
 			'triggerCount' => 2,
 			'timeBetweenTriggers' => 60 * 60 * 24, //seconds
+			'aggressive' => true, //if false, log affenders for later review instead of autobanning
 			'honeyPot' => array('admin' => false, 'plugin' => 'seo', 'controller' => 'seo_blacklists', 'action' => 'honeypot'),
 			'log' => true
 		)

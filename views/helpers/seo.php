@@ -2,7 +2,7 @@
 /**
 *	Seo Helper, handles title tags and meta tags
 * @author Nick Baker <nick@webtechnick.com>
-* @since 4.0
+* @since 4.2
 * @license MIT
 */
 App::import('Lib','Seo.SeoUtil');
@@ -10,6 +10,7 @@ class SeoHelper extends AppHelper {
 	var $helpers = array('Html');
 	var $SeoMetaTag = null;
 	var $SeoTitle = null;
+	var $honeyPotId = 1;
 	
 	/**
 	* Show the meta tags designated for this uri
@@ -44,16 +45,24 @@ class SeoHelper extends AppHelper {
 	function honeyPot($title = 'Click Here', $options = array()){
 		$options = array_merge(
 			array(
-				'style' => 'display:none;',
-				'rel' => 'nofollow'
+				'rel' => 'nofollow',
+				'id' => 'honeypot-' . $this->nextId()
 			),
 			$options
 		);
-		return $this->Html->link(
+		
+		$link = $this->Html->link(
 			$title,
 			SeoUtil::getConfig('honeyPot'),
 			$options
 		);
+		
+		$javascript = $this->Html->scriptBlock("
+			document.getElementById('{$options['id']}').style.display = 'none';
+			document.getElementById('{$options['id']}').style.zIndex = -1;
+		");
+		
+		return $link . $javascript; 
 	}
 	
 	/**
@@ -80,6 +89,13 @@ class SeoHelper extends AppHelper {
 			App::import('Model',"Seo.$model");
 			$this->$model = ClassRegistry::init("Seo.$model");
 		}
+	}
+	
+	/**
+	* Return the next Id to show.
+	*/
+	function nextId(){
+		return $this->honeyPotId++;
 	}
 	
 }

@@ -60,6 +60,7 @@ class seoSchema extends CakeSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
 		'ip_range_start' => array('type' => 'integer', 'null' => false),
 		'ip_range_end' => array('type' => 'integer', 'null' => false),
+		'is_active' => array('type' => 'boolean', 'null' => false, 'default' => '1'),
 		'note' => array('type' => 'text', 'null' => true, 'default' => NULL),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),

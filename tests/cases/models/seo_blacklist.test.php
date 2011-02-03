@@ -42,12 +42,19 @@ class SeoBlacklistTestCase extends CakeTestCase {
 		$this->assertTrue($this->SeoBlacklist->isBanned(2147483001));
 		$this->assertTrue($this->SeoBlacklist->isBanned(2147483002));
 		$this->assertFalse($this->SeoBlacklist->isBanned(2147483003));
+		$this->assertFalse($this->SeoBlacklist->isBanned(2147483100));
 	}
 	
 	function testAddSingleIp(){
 		$this->assertFalse($this->SeoBlacklist->isBanned('127.255.253.125'));
-		$this->assertTrue($this->SeoBlacklist->addToBanned('127.255.253.125'));
+		$this->assertTrue($this->SeoBlacklist->addToBanned('127.255.253.125', "note", true));
 		$this->assertTrue($this->SeoBlacklist->isBanned('127.255.253.125'));
+	}
+	
+	function testAddSingleIpIfNotAggressive(){
+		$this->assertFalse($this->SeoBlacklist->isBanned('127.255.253.125'));
+		$this->assertTrue($this->SeoBlacklist->addToBanned('127.255.253.125', "note", false));
+		$this->assertFalse($this->SeoBlacklist->isBanned('127.255.253.125'));
 	}
 	
 	function testGetIpFromServer(){

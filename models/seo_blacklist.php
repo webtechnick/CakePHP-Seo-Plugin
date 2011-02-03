@@ -31,16 +31,21 @@ class SeoBlacklist extends SeoAppModel {
 	* @param string note to add to this ban
 	* @return boolean success of save
 	*/
-	function addToBanned($ip = null, $note = "AutoBanned"){
+	function addToBanned($ip = null, $note = "AutoBanned", $is_active = null){
 		if(!$ip){
 			$ip = $this->getIpFromServer();
+		}
+		
+		if($is_active === null){
+			$is_active = SeoUtil::getConfig('aggressive');
 		}
 		
 		return $this->save(array(
 			$this->alias => array(
 				'ip_range_start' => $ip,
 				'ip_range_end' => $ip,
-				'note' => $note
+				'note' => $note,
+				'is_active' => $is_active
 			)
 		));
 	}
@@ -60,6 +65,7 @@ class SeoBlacklist extends SeoAppModel {
 		return $this->hasAny(array(
 			"{$this->alias}.ip_range_start <=" => $ip_query,
 			"{$this->alias}.ip_range_end >=" => $ip_query,
+			"{$this->alias}.is_active" => true
 		));
 	}
 	
