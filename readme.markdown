@@ -1,6 +1,6 @@
 # Search Engine Optimization CakePHP Plugin
 * Author: Nick Baker
-* Version: 4.0
+* Version: 4.1
 * License: MIT
 * Website: http://www.webtechnick.com
 
@@ -33,6 +33,9 @@ Create the file `app/config/seo.php` with the following configurations like so:
 			'approverEmail' => 'nick@example.com',
 			'replyEmail' => 'noreply@example.com',
 			'parentDomain' => 'http://www.example.com',
+			'triggerCount' => 2,
+			'timeBetweenTriggers' => 60 * 60 * 24, //seconds
+			'honeyPot' => array('admin' => false, 'plugin' => 'seo', 'controller' => 'seo_blacklists', 'action' => 'honeypot'),
 			'log' => true
 		)
 	);
@@ -55,14 +58,14 @@ create file `app/app_error.php` with the following:
 
 Include the `Seo.Seo` Helper to your `app_controller.php`:
 
-    var $helpers = array('Seo.Seo');
+	var $helpers = array('Seo.Seo');
 
 Alter your layout to include the Seo Meta Tags in the head of your layout
 
-		<head>
-			<!-- other head items -->
-			<?php echo $this->Seo->metaTags(); ?>
-    </head>
+	<head>
+		<!-- other head items -->
+		<?php echo $this->Seo->metaTags(); ?>
+	</head>
 
 ### Add Meta Tags
 
@@ -73,14 +76,14 @@ Alter your layout to include the Seo Meta Tags in the head of your layout
 
 Include the `Seo.Seo` Helper to your `app_controller.php`:
 
-    var $helpers = array('Seo.Seo');
+  var $helpers = array('Seo.Seo');
 
 Alter your layout to include the Seo Title in the head of your layout
 
-		<head>
-   		<!-- other head items -->
-   		<?php echo $this->Seo->title($title_for_layout); ?>
-   	</head>
+	<head>
+		<!-- other head items -->
+		<?php echo $this->Seo->title($title_for_layout); ?>
+	</head>
 
 ### Add Title Tags
 
@@ -90,16 +93,16 @@ Alter your layout to include the Seo Title in the head of your layout
 
 Include The `Seo.BlackList` Component in your `app_controller.php`:
 
-		var $components = array('Seo.BlackList');
+	var $components = array('Seo.BlackList');
 
 Start adding honeypot links in and around your application to bait malicious content grabbers
 
-		<?php echo $this->Seo->honeyPot(); ?>
+	<?php echo $this->Seo->honeyPot(); ?>
 
 Update your `robots.txt` to exclude `/seo/` from being spidered.  All legitimate spiders will ignore the honeyPot
 
-		User-agent: *
-		Disallow: /seo/
+	User-agent: *
+	Disallow: /seo/
 
 ### Add/Manage Banned IPs
 
