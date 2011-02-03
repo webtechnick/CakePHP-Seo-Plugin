@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `seo_blacklists` (
   `ip_range_start` bigint(20) unsigned NOT NULL,
   `ip_range_end` bigint(20) unsigned NOT NULL,
   `note` text,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
