@@ -27,6 +27,10 @@ class SeoUri extends SeoAppModel {
 			'unique' => array(
 				'rule' => array('isUnique'),
 				'message' => 'Must be a unique url'
+			),
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
+				'message' => 'Uri Must be present'
 			)
 		)
 	);
@@ -55,6 +59,18 @@ class SeoUri extends SeoAppModel {
 		if(isset($this->data[$this->alias]['is_approved']) && !$this->data[$this->alias]['is_approved']){
 			$this->sendNotification(); //Email IT about needing approval... currently me.
 		}  
+	}
+	
+	/**
+	* Named scope to find for view
+	* @param int id
+	* @return result of find.
+	*/
+	function findForViewById($id){
+		return $this->find('first', array(
+			'conditions' => array('SeoUri.id' => $id),
+			'contain' => array('SeoRedirect','SeoTitle','SeoMetaTag')
+		));
 	}
 	
 	/**

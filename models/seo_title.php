@@ -4,10 +4,6 @@ class SeoTitle extends SeoAppModel {
 	var $displayField = 'title';
 	var $validate = array(
 		'seo_uri_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				'message' => 'Must belong to a URI',
-			),
 			'unique' => array(
 				'rule' => array('isUnique'),
 				'message' => 'Only one title tag per URI allowed'
