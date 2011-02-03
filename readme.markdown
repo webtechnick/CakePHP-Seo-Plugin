@@ -95,7 +95,12 @@ Include The `Seo.BlackList` Component in your `app_controller.php`:
 Start adding honeypot links in and around your application to bait malicious content grabbers
 
 		<?php echo $this->Seo->honeyPot(); ?>
-		
+
+Update your `robots.txt` to exclude `/seo/` from being spidered.  All legitimate spiders will ignore the honeyPot
+
+		User-agent: *
+		Disallow: /seo/
+
 ### Add/Manage Banned IPs
 
 `http://www.example.com/admin/seo/seo_blacklists`
