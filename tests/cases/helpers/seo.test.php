@@ -16,6 +16,10 @@ class SeoHelperTestCase extends CakeTestCase {
 		$this->Seo->Html = new HtmlHelper();
 	}
 	
+	function testHoneyPot(){
+		$this->assertEqual('<a href="/seo/seo_blacklists/honeypot" style="display:none;" rel="nofollow">Click Here</a>', $this->Seo->honeyPot());
+	}
+	
 	function testmetaTagsTags(){
 		$_SERVER['REQUEST_URI'] = '/uri_for_meta';
 		$results = $this->Seo->metaTags();

@@ -50,6 +50,14 @@ class SeoUtil extends Object {
   }
   
   /**
+  	* Utility method to call Seo.SeoBlacklist::isBanned($ip);
+  	*/
+  static function isBanned($ip = null){
+  	App::import('Model','Seo.SeoBlacklist');
+  	return SeoBlacklist::isBanned($ip);
+  }
+  
+  /**
     * Testing getting a configuration option.
     * @param key to search for
     * @return mixed result of configuration key.

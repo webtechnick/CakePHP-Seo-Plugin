@@ -1,8 +1,17 @@
 # Search Engine Optimization CakePHP Plugin
 * Author: Nick Baker
-* Version: 3.2
+* Version: 4.0
 * License: MIT
 * Website: http://www.webtechnick.com
+
+## Features
+
+Complete tool for all your CakePHP Search Engine Optimization needs
+
+* Easy yet powerful 301 redirect tools only loaded when a 404 would otherwise occur
+* Highly configurable and customizable Meta Tags for any incoming URI
+* Title tag overwrites based on URI
+* Scrapper Banning administration, complete with honeyPot baiting for scrappers to ban themselves. 
 
 ## Install
 
@@ -28,7 +37,6 @@ Create the file `app/config/seo.php` with the following configurations like so:
 		)
 	);
 	?>
-
 
 ## SEO Redirect Quick Start
 create file `app/app_error.php` with the following:
@@ -77,6 +85,20 @@ Alter your layout to include the Seo Title in the head of your layout
 ### Add Title Tags
 
 `http://www.example.com/admin/seo/seo_titles`
+
+## SEO BlackList Quick Start
+
+Include The `Seo.BlackList` Component in your `app_controller.php`:
+
+		var $components = array('Seo.BlackList');
+
+Start adding honeypot links in and around your application to bait malicious content grabbers
+
+		<?php echo $this->Seo->honeyPot(); ?>
+		
+### Add/Manage Banned IPs
+
+`http://www.example.com/admin/seo/seo_blacklists`
 
 
 # Wiki Links
