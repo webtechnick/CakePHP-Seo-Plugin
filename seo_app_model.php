@@ -2,6 +2,7 @@
 App::import('Lib','Seo.SeoUtil');
 class SeoAppModel extends AppModel {
 	var $actsAs = array('Containable');
+	var $recursive = 0;
 	
 	/**
 	* Overwritable IP fields for database saving
@@ -39,6 +40,9 @@ class SeoAppModel extends AppModel {
 	* @return formatted results
 	*/
 	function afterFind($results){
+		if (!is_array($results)) {
+			return $results;
+		}
 		foreach($results as $key => $val){
 			foreach($this->fieldsToLong as $field){
 				if(isset($val[$this->alias][$field]) && is_numeric($val[$this->alias][$field])){

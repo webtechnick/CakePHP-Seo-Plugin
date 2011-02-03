@@ -56,7 +56,9 @@ class SeoAppError extends ErrorHandler {
 		$this->__loadSeoRedirect();
 		$request = env('REQUEST_URI');
 		$seo_redirects = $this->SeoRedirect->findRedirectListByPriority();
-		
+		if (empty($seo_redirects) || !is_array($seo_redirects)) {
+			return;
+		}
 		$run_redirect = false;
 		foreach($seo_redirects as $seo_redirect){
 			$uri = $seo_redirect['SeoUri']['uri'];
