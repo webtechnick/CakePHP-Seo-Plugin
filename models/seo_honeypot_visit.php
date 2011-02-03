@@ -38,10 +38,10 @@ class SeoHoneypotVisit extends SeoAppModel {
 	}
 	
 	/**
-		* Decide if the trap should be triggered
-		* @param string ip to check (default current IP)
-		* @return boolean
-		*/
+	* Decide if the trap should be triggered
+	* @param string ip to check (default current IP)
+	* @return boolean
+	*/
 	function isTriggered($ip = null){
 		if(!$ip){
 			$ip = $this->getIpFromServer();
@@ -62,9 +62,9 @@ class SeoHoneypotVisit extends SeoAppModel {
 	}
 	
 	/**
-		* Clear the list of old visits baesd on the current time.
-		* @return boolean success
-		*/
+	* Clear the list of old visits baesd on the current time.
+	* @return boolean success
+	*/
 	function clear(){
 		$cutoff =  time() - SeoUtil::getConfig('timeBetweenTriggers');
 		return $this->deleteAll(array(

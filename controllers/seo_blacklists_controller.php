@@ -12,15 +12,15 @@ class SeoBlacklistsController extends SeoAppController {
 	}
 	
 	/**
-		* Banned action
-		*/
+	* Banned action
+	*/
 	function banned(){
 		$this->layout = 'banned';
 	}
 
 	/**
-		* Admin actions
-		*/
+	* Admin actions
+	*/
 	function admin_index() {
 		$this->SeoBlacklist->recursive = 0;
 		$this->set('seoBlacklists', $this->paginate());

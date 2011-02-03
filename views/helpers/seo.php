@@ -2,7 +2,7 @@
 /**
 *	Seo Helper, handles title tags and meta tags
 * @author Nick Baker <nick@webtechnick.com>
-* @since 3.2
+* @since 4.0
 * @license MIT
 */
 App::import('Lib','Seo.SeoUtil');
@@ -35,12 +35,12 @@ class SeoHelper extends AppHelper {
 	}
 	
 	/**
-		* Show a honeypot link
-		* to bait scrappers to click on for autobanning
-		* @param string title for link
-		* @param array of options
-		* @return HtmlLink to honeypot action
-		*/
+	* Show a honeypot link
+	* to bait scrappers to click on for autobanning
+	* @param string title for link
+	* @param array of options
+	* @return HtmlLink to honeypot action
+	*/
 	function honeyPot($title = 'Click Here', $options = array()){
 		$options = array_merge(
 			array(
@@ -57,10 +57,10 @@ class SeoHelper extends AppHelper {
 	}
 	
 	/**
-		* Find the title tag related to this request and output the result.
-		* @param string default title tag
-		* @return string title for requested uri
-		*/
+	* Find the title tag related to this request and output the result.
+	* @param string default title tag
+	* @return string title for requested uri
+	*/
 	function title($default = ""){
 		$this->loadModel('SeoTitle');
 		$request = env('REQUEST_URI');
@@ -71,10 +71,10 @@ class SeoHelper extends AppHelper {
 	
 	
 	/**
-		* Load a plugin model 
-		* @param string modelname
-		* @return void
-		*/
+	* Load a plugin model 
+	* @param string modelname
+	* @return void
+	*/
 	function loadModel($model = null){
 		if($model && $this->$model == null){
 			App::import('Model',"Seo.$model");

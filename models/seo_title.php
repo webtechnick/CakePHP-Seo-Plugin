@@ -30,18 +30,18 @@ class SeoTitle extends SeoAppModel {
 	);
 	
 	/**
-		* Assign or create the url.
-		*/
+	* Assign or create the url.
+	*/
 	function beforeSave(){
 		$this->createOrSetUri();
 		return true;
 	}
 	
 	/**
-		* Find the first title tag that matches this URI
-		* @param string incoming reuqest uri
-		* @return the first title tag to match
-		*/
+	* Find the first title tag that matches this URI
+	* @param string incoming reuqest uri
+	* @return the first title tag to match
+	*/
 	function findTitleByUri($request = null){
 		return $this->find('first', array(
 			'conditions' => array(

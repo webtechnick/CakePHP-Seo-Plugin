@@ -18,19 +18,19 @@ class SeoBlacklist extends SeoAppModel {
 	);
 	
 	/**
-		* Fields to IP
-		*/
+	* Fields to IP
+	*/
 	var $fieldsToLong = array(
 		'ip_range_start',
 		'ip_range_end'
 	);
 	
 	/**
-		* Add the IP to the banned list.
-		* @param string ip to ban
-		* @param string note to add to this ban
-		* @return boolean success of save
-		*/
+	* Add the IP to the banned list.
+	* @param string ip to ban
+	* @param string note to add to this ban
+	* @return boolean success of save
+	*/
 	function addToBanned($ip = null, $note = "AutoBanned"){
 		if(!$ip){
 			$ip = $this->getIpFromServer();
@@ -46,10 +46,10 @@ class SeoBlacklist extends SeoAppModel {
 	}
 	
 	/**
-		* Return true depending on the incomming IP
-		* @param string $ip to check if banned
-		* @return boolean true or false
-		*/
+	* Return true depending on the incomming IP
+	* @param string $ip to check if banned
+	* @return boolean true or false
+	*/
 	function isBanned($ip = null){
 		if(!$ip){
 			$ip = $this->getIpFromServer();

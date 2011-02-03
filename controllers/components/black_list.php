@@ -3,33 +3,33 @@ App::import('Lib','Seo.SeoUtil');
 class BlackListComponent extends Object {
 	
 	/**
-		* CakePHP based URL to redirect the banned uesr
-		*/
+	* CakePHP based URL to redirect the banned uesr
+	*/
 	var $redirect = array('admin' => false, 'plugin' => 'seo', 'controller' => 'seo_blacklists', 'action' => 'banned');
 	
 	/**
-		* CakePHP based URL to the honeypot action setup in config
-		*/
+	* CakePHP based URL to the honeypot action setup in config
+	*/
 	var $honeyPot = null;
 	
 	/**
-    * Error log
-    */
-  var $errors = array();
-  
-  /**
-  	* Placeholder for the SeoBlacklist Model
-  	*/
-  var $SeoBlacklist = null;
-  
-  /**
-  	* Placeholder for the SeoHoneypotVisit Model
-  	*/
-  var $SeoHoneypotVisit = null;
+	* Error log
+	*/
+	var $errors = array();
 	
 	/**
-		* Initialize the component, set the settings
-		*/
+	* Placeholder for the SeoBlacklist Model
+	*/
+	var $SeoBlacklist = null;
+	
+	/**
+	* Placeholder for the SeoHoneypotVisit Model
+	*/
+	var $SeoHoneypotVisit = null;
+	
+	/**
+	* Initialize the component, set the settings
+	*/
 	function initialize(&$controller, $settings = array()){
 		$this->Controller = $controller;
 		$this->_set($settings);
@@ -41,9 +41,9 @@ class BlackListComponent extends Object {
 	}
 	
 	/**
-		* Handle the banned user, decide if banned,
-		* if so, redirect the user.
-		*/
+	* Handle the banned user, decide if banned,
+	* if so, redirect the user.
+	*/
 	function __isBanned(){
 		$this->loadModel('SeoBlacklist');
 		if($this->SeoBlacklist->isBanned()){
@@ -56,8 +56,8 @@ class BlackListComponent extends Object {
 	}
 	
 	/**
-		* Handle if honeypot action.
-		*/
+	* Handle if honeypot action.
+	*/
 	function __handleIfHoneyPot(){
 		if($this->Controller->here == Router::url($this->honeyPot)){
 			$this->loadModel('SeoHoneypotVisit');
@@ -73,10 +73,10 @@ class BlackListComponent extends Object {
 	}
 	
 	/**
-		* Load a plugin model 
-		* @param string modelname
-		* @return void
-		*/
+	* Load a plugin model 
+	* @param string modelname
+	* @return void
+	*/
 	private function loadModel($model = null){
 		if($model && $this->$model == null){
 			App::import('Model',"Seo.$model");

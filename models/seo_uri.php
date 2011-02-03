@@ -58,10 +58,10 @@ class SeoUri extends SeoAppModel {
 	}
 	
 	/**
-		* Find the URI id by uri
-		* @param string uri
-		* @return mixed id
-		*/
+	* Find the URI id by uri
+	* @param string uri
+	* @return mixed id
+	*/
 	function findIdByUri($uri = null){
 		return $this->field('id', array("{$this->alias}.uri" => $uri));
 	}

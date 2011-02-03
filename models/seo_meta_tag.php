@@ -38,11 +38,11 @@ class SeoMetaTag extends SeoAppModel {
 	}
 	
 	/**
-		* Find all the tags by a specific reuqest,
-		* This takes in a request URI and finds all matching meta_tags for this URI
-		* @param incoming request URI
-		* @return array of results
-		*/
+	* Find all the tags by a specific reuqest,
+	* This takes in a request URI and finds all matching meta_tags for this URI
+	* @param incoming request URI
+	* @return array of results
+	*/
 	function findAllTagsByUri($request = null){
 		$retval = $this->find('all', array(
 			'conditions' => array(
