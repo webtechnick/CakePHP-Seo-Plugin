@@ -6,6 +6,7 @@
 		<tr>
 				<th><?php echo $this->Paginator->sort('ip_range_start');?></th>
 				<th><?php echo $this->Paginator->sort('ip_range_end');?></th>
+				<th><?php echo $this->Paginator->sort('is_active');?></th>
 				<th><?php echo $this->Paginator->sort('created');?></th>
 				<th class="actions"><?php __('Actions');?></th>
 		</tr>
@@ -20,6 +21,7 @@
 		<tr<?php echo $class;?>>
 			<td><?php echo $seoBlacklist['SeoBlacklist']['ip_range_start']; ?>&nbsp;</td>
 			<td><?php echo $seoBlacklist['SeoBlacklist']['ip_range_end']; ?>&nbsp;</td>
+			<td><?php echo $seoBlacklist['SeoBlacklist']['is_active']; ?>&nbsp;</td>
 			<td><?php echo $this->Time->niceShort($seoBlacklist['SeoBlacklist']['created']); ?>&nbsp;</td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View', true), array('action' => 'view', $seoBlacklist['SeoBlacklist']['id'])); ?>
