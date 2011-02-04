@@ -83,8 +83,9 @@ class SeoAppError extends ErrorHandler {
 			elseif(strtolower($uri) == strtolower($request)){
 				$run_redirect = true;
 			}
+			
 			//Run callback if we have one
-			if(isset($callback) && $callback){
+			if($run_redirect && isset($callback) && $callback){
 				if(strpos($callback, '::') !== false){
 					list($model, $method) = explode('::',$callback);
 				}
@@ -100,6 +101,7 @@ class SeoAppError extends ErrorHandler {
 					$run_redirect = false;
 				}
 			}
+			
 			//Run the redirect if we have one, and its not the same as it was coming in.
 			if($run_redirect && ($redirect != $request)){
 				if(SeoUtil::getConfig('log')){
