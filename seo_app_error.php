@@ -103,11 +103,19 @@ class SeoAppError extends ErrorHandler {
 			}
 			
 			//Run the redirect if we have one, and its not the same as it was coming in.
-			if($run_redirect && ($redirect != $request)){
-				if(SeoUtil::getConfig('log')){
-					$this->log("Redirecting $request to $redirect", 'seo_redirects');
+			if($run_redirect){
+				if($redirect != $request){
+					if(SeoUtil::getConfig('log')){
+						$this->log("Redirecting $request to $redirect", 'seo_redirects');
+					}
+					$this->controller->redirect($redirect, 301);
 				}
-				$this->controller->redirect($redirect, 301);
+				else {
+					if(SeoUtil::getConfig('log')){
+						$this->log("Redirect loop detected! request:\n $request\n	uri: $uri\n	redirect: $redirect\n	callback: $callback\n",'seo_redirects'
+						);
+					}
+				}
 				return;
 			}
 		}
