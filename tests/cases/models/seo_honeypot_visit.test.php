@@ -32,6 +32,8 @@ class SeoHoneypotVisitTestCase extends CakeTestCase {
 		$this->assertTrue($this->SeoHoneypotVisit->add('127.255.253.120'));
 		$this->assertTrue($this->SeoHoneypotVisit->add('127.255.253.120'));
 		$this->assertTrue($this->SeoHoneypotVisit->add('127.255.253.120'));
+		$this->assertTrue($this->SeoHoneypotVisit->add('127.255.253.120'));
+		$this->assertTrue($this->SeoHoneypotVisit->add('127.255.253.120'));
 		$this->assertTrue($this->SeoHoneypotVisit->isTriggered('127.255.253.120'));
 	}
 
