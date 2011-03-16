@@ -38,6 +38,7 @@ class SeoRedirectTestCase extends CakeTestCase {
 	  $this->assertTrue($this->SeoRedirect->saveAll());
 	  $result = $this->SeoRedirect->find('last');
 	  $this->assertTrue($result['SeoUri']['is_approved']);
+	  $this->SeoRedirect->SeoUri->Email->expectNever('send');
 	}
 	
 	function testBeforeSaveShouldNotSetApprovedOnRegEx(){
@@ -54,6 +55,7 @@ class SeoRedirectTestCase extends CakeTestCase {
 	  $this->assertTrue($this->SeoRedirect->saveAll());
 	  $result = $this->SeoRedirect->find('last');
 	  $this->assertFalse($result['SeoUri']['is_approved']);
+	  $this->SeoRedirect->SeoUri->Email->expectOnce('send');
 	}
 	
 	function testFindRedirectListByPriority(){
