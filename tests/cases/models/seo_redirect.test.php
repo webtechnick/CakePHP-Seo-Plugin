@@ -14,6 +14,7 @@ class SeoRedirectTestCase extends CakeTestCase {
 
 	function startTest() {
 		$this->SeoRedirect = ClassRegistry::init('Seo.SeoRedirect');
+		$this->SeoRedirect->SeoUri->Email = new MockEmailComponent();
 	}
 	
 	function testIsRegEx(){

@@ -1,7 +1,9 @@
 <?php
 /* SeoMetaTag Test cases generated on: 2011-01-03 10:01:23 : 1294074563*/
 App::import('Model', 'Seo.SeoMetaTag');
-
+App::import('Component', 'Email');
+Mock::generate('EmailComponent');
+		
 class SeoMetaTagTestCase extends CakeTestCase {
 	var $fixtures = array(
 		'plugin.seo.seo_meta_tag',
@@ -12,6 +14,7 @@ class SeoMetaTagTestCase extends CakeTestCase {
 	
 	function startTest() {
 		$this->SeoMetaTag =& ClassRegistry::init('SeoMetaTag');
+		$this->SeoMetaTag->SeoUri->Email = new MockEmailComponent();
 	}
 	
 	function testFindAllTagsByUri(){
