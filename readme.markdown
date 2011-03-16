@@ -1,6 +1,6 @@
 # Search Engine Optimization CakePHP Plugin
 * Author: Nick Baker
-* Version: 4.2
+* Version: 4.2.1
 * License: MIT
 * Website: http://www.webtechnick.com
 
@@ -37,7 +37,8 @@ Create the file `app/config/seo.php` with the following configurations like so:
 			'timeBetweenTriggers' => 60 * 60 * 24, //seconds
 			'aggressive' => true, //if false, log affenders for later review instead of autobanning
 			'honeyPot' => array('admin' => false, 'plugin' => 'seo', 'controller' => 'seo_blacklists', 'action' => 'honeypot'),
-			'log' => true
+			'log' => true,
+			'cacheEngine' => false, // optionally cache things to save on DB requests - eg: 'default'
 		)
 	);
 	?>
