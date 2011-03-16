@@ -13,7 +13,8 @@ $config = array(
     'triggerCount' => 2,
     'timeBetweenTriggers' => 60 * 60 * 24, //seconds
     'honeyPot' => array('admin' => false, 'plugin' => 'seo', 'controller' => 'seo_blacklists', 'action' => 'honeypot'),
-    'log' => true
+    'log' => true,
+    //'cacheEngine' => 'default', // optionally cache things to save on DB requests
   )
 );
 ?>

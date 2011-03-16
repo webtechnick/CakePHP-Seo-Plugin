@@ -56,29 +56,7 @@ class SeoMetaTag extends SeoAppModel {
 			return $retval;
 		}
 		
-		$uri_ids = array();
-		$uris = $this->SeoUri->find('all', array(
-			'conditions' => array(
-				'OR' => array(
-					array("{$this->SeoUri->alias}.uri LIKE" => '#%'),
-					array("{$this->SeoUri->alias}.uri LIKE" => '%*'),
-				),
-				"{$this->SeoUri->alias}.is_approved" => true
-			),
-			'contain' => array(),
-			'fields' => array("{$this->SeoUri->alias}.id","{$this->SeoUri->alias}.uri")
-		));
-		
-		foreach($uris as $uri){
-			//Wildcard match
-			if(strpos($request, str_replace('*','', $uri[$this->SeoUri->alias]['uri'])) !== false){
-				$uri_ids[] = $uri[$this->SeoUri->alias]['id'];
-			}
-			//Regex match
-			elseif($this->isRegex($uri[$this->SeoUri->alias]['uri']) && preg_match($uri[$this->SeoUri->alias]['uri'], $request)){
-				$uri_ids[] = $uri[$this->SeoUri->alias]['id'];
-			}
-		}
+		$uri_ids = $this->SeoUri->findRegexUri($request);
 		
 		if(empty($uri_ids)){
 			return array();

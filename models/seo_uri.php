@@ -83,6 +83,63 @@ class SeoUri extends SeoAppModel {
 	}
 	
 	/**
+	* This is a simple function to return all possible RegEx URIs from the DB
+	* (it has to return all of them, since we can't know which it's going to match)
+	* So we've wrapped the DB request in a simple cache request, 
+	*   configured by setting the config key cacheEngine
+	* @return array $uris array(id => uri)
+	*/
+	function findAllRegexUris() {
+		$cacheEngine = SeoUtil::getConfig('cacheEngine');
+		if (!empty($cacheEngine)) {
+			$cacheKey = 'seo_findallregexuris';
+			$uris = Cache::read($cacheKey, $cacheEngine);
+		}
+		if (!isset($uris) || empty($uris)) {
+			$uris = $this->find('all', array(
+				'conditions' => array(
+					'OR' => array(
+						array("{$this->alias}.uri LIKE" => '#%'),
+						array("{$this->alias}.uri LIKE" => '%*'),
+						),
+					"{$this->alias}.is_approved" => true
+					),
+				'contain' => array(),
+				'fields' => array("{$this->alias}.id","{$this->alias}.uri")
+				));
+			if (!empty($uris) && !empty($cacheEngine)) {
+				$uris = Cache::write($cacheKey, $uris, $cacheEngine);
+			}
+		}
+		if (!is_array($uris)) {
+			return array();
+		}
+		return $uris;
+	}
+	
+	/**
+	* Checks an input $request against regex urls
+	* @param string $request
+	* @return array $uri_ids array(id)
+	*/
+	function findRegexUri($request = null) {
+		$uri_ids = array();
+		$uris = $this->findAllRegexUris();
+		foreach($uris as $uri){
+			//Wildcard match
+			if(strpos($request, str_replace('*','', $uri[$this->alias]['uri'])) !== false){
+				$uri_ids[] = $uri[$this->alias]['id'];
+			}
+			//Regex match
+			elseif($this->isRegex($uri[$this->alias]['uri']) && preg_match($uri[$this->alias]['uri'], $request)){
+				$uri_ids[] = $uri[$this->alias]['id'];
+			}
+		}
+		return $uri_ids;
+	}
+	
+	
+	/**
 	* Set as approved
 	* @param int id of seo redirect to approve
 	* @return boolean result of save
