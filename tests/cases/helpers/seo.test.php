@@ -14,6 +14,10 @@ class SeoHelperTestCase extends CakeTestCase {
 	function startTest() {
 		$this->Seo = new SeoHelper();
 		$this->Seo->Html = new HtmlHelper();
+		$cacheEngine = SeoUtil::getConfig('cacheEngine');
+		if (!empty($cacheEngine)) {
+			Cache::clear($cacheEngine);
+		}
 	}
 	
 	function testHoneyPot(){

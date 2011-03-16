@@ -108,7 +108,7 @@ class SeoUri extends SeoAppModel {
 				'fields' => array("{$this->alias}.id","{$this->alias}.uri")
 				));
 			if (!empty($uris) && !empty($cacheEngine)) {
-				$uris = Cache::write($cacheKey, $uris, $cacheEngine);
+				Cache::write($cacheKey, $uris, $cacheEngine);
 			}
 		}
 		if (!is_array($uris)) {
