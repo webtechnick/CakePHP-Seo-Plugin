@@ -39,7 +39,7 @@ class SeoUtil extends Object {
 	* @access public
 	*/
 	static function author(){
-		return "Nick Baker";
+		return "Nick Baker, Alan Blount";
 	}
 	
 	/**

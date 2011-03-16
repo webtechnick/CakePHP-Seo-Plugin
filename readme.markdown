@@ -1,8 +1,8 @@
 # Search Engine Optimization CakePHP Plugin
-* Author: Nick Baker
+* Author: Nick Baker, Alan Blount
 * Version: 4.2.1
 * License: MIT
-* Website: http://www.webtechnick.com
+* Website: <http://www.webtechnick.com>
 
 ## Features
 
