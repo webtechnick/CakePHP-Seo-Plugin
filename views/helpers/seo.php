@@ -36,6 +36,18 @@ class SeoHelper extends AppHelper {
 	}
 	
 	/**
+	* Return a canonical link tag for SEO purpolses
+	* Utility method
+	* @param router friendly URL
+	* @param boolean full url or relative (default true)
+	* @return HTMlElement of canonical tag
+	*/
+	function canonical($url = null, $full = true){
+		$path = Router::url($url, $full);
+		return $this->Html->tag('link', null, array('rel' => 'canonical', 'href' => $path));
+	}
+	
+	/**
 	* Show a honeypot link
 	* to bait scrappers to click on for autobanning
 	* @param string title for link

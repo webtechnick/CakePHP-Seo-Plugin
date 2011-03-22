@@ -20,6 +20,11 @@ class SeoHelperTestCase extends CakeTestCase {
 		}
 	}
 	
+	function testCanonical(){
+		$result = $this->Seo->canonical('/example-url');
+		$this->assertEqual('<link rel="canonical" href="/example-url">', $result);
+	}
+	
 	function testHoneyPot(){
 		$result = $this->Seo->honeyPot();
 		$this->assertTrue(!empty($result));
