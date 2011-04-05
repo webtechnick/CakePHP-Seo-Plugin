@@ -34,6 +34,12 @@ class SeoHelperTestCase extends CakeTestCase {
 		$_SERVER['REQUEST_URI'] = '/uri_for_meta';
 		$results = $this->Seo->metaTags();
 		$this->assertEqual('<meta name="keywords" content="content_1" /><meta name="description" content="content_2" />', $results);
+		
+		$results = $this->Seo->metaTags(array('keywords' => 'ignore me'));
+		$this->assertEqual('<meta name="keywords" content="content_1" /><meta name="description" content="content_2" />', $results);
+		
+		$results = $this->Seo->metaTags(array('no_ignore' => 'showme'));
+		$this->assertEqual('<meta name="keywords" content="content_1" /><meta name="description" content="content_2" /><meta name="no_ignore" content="showme" />', $results);
 	}
 	
 	function testmetaTagsTagsWithHttpEquiv(){

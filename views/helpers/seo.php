@@ -14,14 +14,19 @@ class SeoHelper extends AppHelper {
 	
 	/**
 	* Show the meta tags designated for this uri
+	* @param array of name => content meta tags to merge with giving priority to SEO meta tags
 	* @return string of meta tags to show.
 	*/
-	function metaTags(){
+	function metaTags($metaData = array()){
 		$this->loadModel('SeoMetaTag');
 		$request = env('REQUEST_URI');
 		$meta_tags = $this->SeoMetaTag->findAllTagsByUri($request);
 		$retval = "";
+		
 		foreach($meta_tags as $tag){
+			if(isset($metaData[$tag['SeoMetaTag']['name']])){
+				unset($metaData[$tag['SeoMetaTag']['name']]);
+			}
 			$data = array();
 			if($tag['SeoMetaTag']['is_http_equiv']){
 				$data['http-equiv'] = $tag['SeoMetaTag']['name'];
@@ -32,6 +37,13 @@ class SeoHelper extends AppHelper {
 			$data['content'] = $tag['SeoMetaTag']['content'];
 			$retval .= $this->Html->meta($data);
 		}
+		
+		if(!empty($metaData)){
+			foreach($metaData as $name => $content){
+				$retval .= $this->Html->meta(array('name' => $name, 'content' => $content));
+			}
+		}
+		
 		return $retval;
 	}
 	
