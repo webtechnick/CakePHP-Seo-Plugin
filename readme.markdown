@@ -11,7 +11,13 @@ Complete tool for all your CakePHP Search Engine Optimization needs
 * Easy yet powerful 301 redirect tools only loaded when a 404 would otherwise occur
 * Highly configurable and customizable Meta Tags for any incoming URI
 * Title tag overwrites based on URI
-* Scrapper Banning administration, complete with honeyPot baiting for scrappers to ban themselves. 
+* Scrapper Banning administration, complete with honeyPot baiting for scrappers to ban themselves.
+
+## Changelog
+* 4.3.0 SeoHelper::metaTags now takes in an associative array of default meta tags to use (seo tags have priority)
+* 4.2.x Bug fixes and updates, update config file
+* 4.0.0 Blacklist added
+* 1.0.0 Initial Release
 
 ## Install
 
