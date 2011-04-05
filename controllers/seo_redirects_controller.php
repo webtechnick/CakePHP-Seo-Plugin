@@ -10,6 +10,7 @@ class SeoRedirectsController extends SeoAppController {
 		}
 		$conditions = $this->SeoRedirect->generateFilterConditions($filter);
 		$this->set('seoRedirects',$this->paginate($conditions));
+		$this->set('filter', $filter);
 	}
 	
 	function admin_view($id = null) {

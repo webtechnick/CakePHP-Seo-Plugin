@@ -9,6 +9,7 @@ class SeoTitlesController extends SeoAppController {
 		}
 		$conditions = $this->SeoTitle->generateFilterConditions($filter);
 		$this->set('seoTitles',$this->paginate($conditions));
+		$this->set('filter', $filter);
 	}
 
 	function admin_view($id = null) {

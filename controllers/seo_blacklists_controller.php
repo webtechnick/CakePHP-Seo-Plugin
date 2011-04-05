@@ -27,6 +27,7 @@ class SeoBlacklistsController extends SeoAppController {
 		}
 		$conditions = $this->SeoBlacklist->generateFilterConditions($filter);
 		$this->set('seoBlacklists',$this->paginate($conditions));
+		$this->set('filter', $filter);
 	}
 
 	function admin_view($id = null) {

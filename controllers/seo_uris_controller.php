@@ -24,6 +24,7 @@ class SeoUrisController extends SeoAppController {
 		}
 		$conditions = $this->SeoUri->generateFilterConditions($filter);
 		$this->set('seoUris',$this->paginate($conditions));
+		$this->set('filter', $filter);
 	}
 
 	function admin_view($id = null) {
