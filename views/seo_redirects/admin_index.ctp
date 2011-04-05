@@ -1,3 +1,4 @@
+<?php echo $this->element('seo_admin_filter', array('plugin' => 'seo', 'model' => 'SeoRedirect')); ?>
 <div class="seo_plugin">
 	<?php echo $this->element('seo_view_head', array('plugin' => 'seo')); ?>
 	<div class="seoRedirects index">

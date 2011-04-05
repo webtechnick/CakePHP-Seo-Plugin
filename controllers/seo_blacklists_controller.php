@@ -21,9 +21,12 @@ class SeoBlacklistsController extends SeoAppController {
 	/**
 	* Admin actions
 	*/
-	function admin_index() {
-		$this->SeoBlacklist->recursive = 0;
-		$this->set('seoBlacklists', $this->paginate());
+	function admin_index($filter = null) {
+		if(!empty($this->data)){
+			$filter = $this->data['Location']['filter'];
+		}
+		$conditions = $this->SeoBlacklist->generateFilterConditions($filter);
+		$this->set('seoBlacklists',$this->paginate($conditions));
 	}
 
 	function admin_view($id = null) {

@@ -25,7 +25,7 @@ class SeoRedirect extends SeoAppModel {
 	* Filter fields
 	*/
 	var $searchFields = array(
-		'SeoRedirect.redirect',
+		'SeoRedirect.redirect','SeoRedirect.callback','SeoRedirect.id','SeoUri.uri'
 	);
 	
 	/**

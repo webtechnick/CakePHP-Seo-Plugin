@@ -32,6 +32,13 @@ class SeoMetaTag extends SeoAppModel {
 		'Seo.SeoUri'
 	);
 	
+	/**
+	* Filter fields
+	*/
+	var $searchFields = array(
+		'SeoMetaTag.name','SeoMetaTag.content','SeoMetaTag.id','SeoUri.uri'
+	);
+	
 	function beforeSave(){
 		$this->createOrSetUri();
 		return true;

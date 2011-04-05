@@ -36,6 +36,13 @@ class SeoUri extends SeoAppModel {
 	);
 	
 	/**
+	* Filter fields
+	*/
+	var $searchFields = array(
+		'SeoUri.id','SeoUri.uri'
+	);
+	
+	/**
 	* If saving a regular expression, make sure to mark not approved unless
 	* is_approved is specifically being sent in.
 	* @return true

@@ -10,6 +10,11 @@ class SeoAppModel extends AppModel {
 	var $fieldsToLong = array();
 	
 	/**
+	* Filter fields
+	*/
+	var $searchFields = array();
+	
+	/**
 	* Custom validation.
 	* Using CakePHP IP validation would be nice, but
 	* since we're storing ips as longs in our database
@@ -103,6 +108,21 @@ class SeoAppModel extends AppModel {
 	*/
 	function isRegEx($uri){
 		return preg_match('/^#(.*)#(.*)/', $uri);
+	}
+	
+	/**
+	* return conditions based on searchable fields and filter
+	* @param string filter
+	* @return conditions array
+	*/
+	function generateFilterConditions($filter = null){
+		$retval = array();
+		if($filter){
+			foreach($this->searchFields as $field){
+				$retval['OR']["$field LIKE"] =  '%' . $filter . '%'; 
+			}
+		}
+		return $retval;
 	}
 	
 	/**

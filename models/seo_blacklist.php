@@ -25,6 +25,8 @@ class SeoBlacklist extends SeoAppModel {
 		'ip_range_end'
 	);
 	
+	var $searchFields = array('SeoBlacklist.note');
+	
 	/**
 	* Add the IP to the banned list.
 	* @param string ip to ban

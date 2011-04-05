@@ -26,6 +26,13 @@ class SeoTitle extends SeoAppModel {
 	);
 	
 	/**
+	* Filter fields
+	*/
+	var $searchFields = array(
+		'SeoTitle.id','SeoTitle.title','SeoTitle.id','SeoUri.uri'
+	);
+	
+	/**
 	* Assign or create the url.
 	*/
 	function beforeSave(){

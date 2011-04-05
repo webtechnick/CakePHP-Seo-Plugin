@@ -18,9 +18,12 @@ class SeoUrisController extends SeoAppController {
 		}
 	}
 	
-	function admin_index() {
-		$this->SeoUri->recursive = 0;
-		$this->set('seoUris', $this->paginate());
+	function admin_index($filter = null) {
+		if(!empty($this->data)){
+			$filter = $this->data['SeoUri']['filter'];
+		}
+		$conditions = $this->SeoUri->generateFilterConditions($filter);
+		$this->set('seoUris',$this->paginate($conditions));
 	}
 
 	function admin_view($id = null) {

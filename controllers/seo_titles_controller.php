@@ -2,10 +2,13 @@
 class SeoTitlesController extends SeoAppController {
 
 	var $name = 'SeoTitles';
-
-	function admin_index() {
-		$this->SeoTitle->recursive = 0;
-		$this->set('seoTitles', $this->paginate());
+	
+	function admin_index($filter = null) {
+		if(!empty($this->data)){
+			$filter = $this->data['SeoTitle']['filter'];
+		}
+		$conditions = $this->SeoTitle->generateFilterConditions($filter);
+		$this->set('seoTitles',$this->paginate($conditions));
 	}
 
 	function admin_view($id = null) {

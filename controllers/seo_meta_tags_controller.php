@@ -4,11 +4,14 @@ class SeoMetaTagsController extends SeoAppController {
 	var $name = 'SeoMetaTags';
 	var $helpers = array('Time');
 	
-	function admin_index() {
-		$this->SeoMetaTag->recursive = 0;
-		$this->set('seoMetaTags', $this->paginate());
+	function admin_index($filter = null) {
+		if(!empty($this->data)){
+			$filter = $this->data['SeoMetaTag']['filter'];
+		}
+		$conditions = $this->SeoMetaTag->generateFilterConditions($filter);
+		$this->set('seoMetaTags',$this->paginate($conditions));
 	}
-
+	
 	function admin_view($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid seo meta tag', true));

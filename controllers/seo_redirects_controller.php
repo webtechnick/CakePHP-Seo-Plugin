@@ -4,11 +4,14 @@ class SeoRedirectsController extends SeoAppController {
 	var $name = 'SeoRedirects';
 	var $helpers = array('Time');
 	
-	function admin_index() {
-		$this->SeoRedirect->recursive = 0;
-		$this->set('seoRedirects', $this->paginate());
+	function admin_index($filter = null) {
+		if(!empty($this->data)){
+			$filter = $this->data['SeoRedirect']['filter'];
+		}
+		$conditions = $this->SeoRedirect->generateFilterConditions($filter);
+		$this->set('seoRedirects',$this->paginate($conditions));
 	}
-
+	
 	function admin_view($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid seo redirect', true));
