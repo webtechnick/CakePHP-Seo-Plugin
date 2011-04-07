@@ -9,7 +9,7 @@
 				<th><?php echo $this->Paginator->sort('name');?></th>
 				<th><?php echo $this->Paginator->sort('content');?></th>
 				<th><?php echo $this->Paginator->sort('is_http_equiv');?></th>
-				<th><?php echo $this->Paginator->sort('created');?></th>
+				<th><?php echo $this->Paginator->sort('modified');?></th>
 				<th class="actions"><?php __('Actions');?></th>
 		</tr>
 		<?php
@@ -27,7 +27,7 @@
 			<td><?php echo $seoMetaTag['SeoMetaTag']['name']; ?>&nbsp;</td>
 			<td><?php echo $seoMetaTag['SeoMetaTag']['content']; ?>&nbsp;</td>
 			<td><?php echo $seoMetaTag['SeoMetaTag']['is_http_equiv']; ?>&nbsp;</td>
-			<td><?php echo $this->Time->niceShort($seoMetaTag['SeoMetaTag']['created']); ?>&nbsp;</td>
+			<td><?php echo $this->Time->niceShort($seoMetaTag['SeoMetaTag']['modified']); ?>&nbsp;</td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View', true), array('action' => 'view', $seoMetaTag['SeoMetaTag']['id'])); ?>
 				<?php echo $this->Html->link(__('Edit', true), array('action' => 'edit', $seoMetaTag['SeoMetaTag']['id'])); ?>

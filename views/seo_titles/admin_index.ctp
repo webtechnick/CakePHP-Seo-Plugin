@@ -7,7 +7,7 @@
 		<tr>
 				<th><?php echo $this->Paginator->sort('seo_uri_id');?></th>
 				<th><?php echo $this->Paginator->sort('title');?></th>
-				<th><?php echo $this->Paginator->sort('created');?></th>
+				<th><?php echo $this->Paginator->sort('modified');?></th>
 				<th class="actions"><?php __('Actions');?></th>
 		</tr>
 		<?php
@@ -23,7 +23,7 @@
 				<?php echo $this->Html->link($seoTitle['SeoUri']['uri'], array('controller' => 'seo_uris', 'action' => 'view', $seoTitle['SeoUri']['id'])); ?>
 			</td>
 			<td><?php echo $seoTitle['SeoTitle']['title']; ?>&nbsp;</td>
-			<td><?php echo $seoTitle['SeoTitle']['created']; ?>&nbsp;</td>
+			<td><?php echo $this->Time->niceShort($seoTitle['SeoTitle']['modified']); ?>&nbsp;</td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View', true), array('action' => 'view', $seoTitle['SeoTitle']['id'])); ?>
 				<?php echo $this->Html->link(__('Edit', true), array('action' => 'edit', $seoTitle['SeoTitle']['id'])); ?>

@@ -10,7 +10,7 @@
 				<th><?php echo $this->Paginator->sort('Queue','priority');?></th>
 				<th><?php echo $this->Paginator->sort('Active','is_active');?></th>
 				<th><?php echo $this->Paginator->sort('callback');?></th>
-				<th><?php echo $this->Paginator->sort('created');?></th>
+				<th><?php echo $this->Paginator->sort('modified');?></th>
 				<th class="actions"><?php __('Actions');?></th>
 		</tr>
 		<?php
@@ -29,7 +29,7 @@
 			<td><?php echo $seoRedirect['SeoRedirect']['priority']; ?>&nbsp;</td>
 			<td><?php echo $seoRedirect['SeoRedirect']['is_active']; ?>&nbsp;</td>
 			<td><?php echo $seoRedirect['SeoRedirect']['callback']; ?>&nbsp;</td>
-			<td><?php echo $this->Time->niceShort($seoRedirect['SeoRedirect']['created']); ?>&nbsp;</td>
+			<td><?php echo $this->Time->niceShort($seoRedirect['SeoRedirect']['modified']); ?>&nbsp;</td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View', true), array('action' => 'view', $seoRedirect['SeoRedirect']['id'])); ?>
 				<?php echo $this->Html->link(__('Edit', true), array('action' => 'edit', $seoRedirect['SeoRedirect']['id'])); ?>

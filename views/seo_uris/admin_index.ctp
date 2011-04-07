@@ -7,7 +7,7 @@
 		<tr>
 				<th><?php echo $this->Paginator->sort('uri');?></th>
 				<th><?php echo $this->Paginator->sort('is_approved');?></th>
-				<th><?php echo $this->Paginator->sort('created');?></th>
+				<th><?php echo $this->Paginator->sort('modified');?></th>
 				<th class="actions"><?php __('Actions');?></th>
 		</tr>
 		<?php
@@ -21,7 +21,7 @@
 		<tr<?php echo $class;?>>
 			<td><?php echo $seoUri['SeoUri']['uri']; ?>&nbsp;</td>
 			<td><?php echo $seoUri['SeoUri']['is_approved']; ?>&nbsp;</td>
-			<td><?php echo $this->Time->niceShort($seoUri['SeoUri']['created']); ?>&nbsp;</td>
+			<td><?php echo $this->Time->niceShort($seoUri['SeoUri']['modified']); ?>&nbsp;</td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View', true), array('action' => 'view', $seoUri['SeoUri']['id'])); ?>
 				<?php echo $this->Html->link(__('Edit', true), array('action' => 'edit', $seoUri['SeoUri']['id'])); ?>
