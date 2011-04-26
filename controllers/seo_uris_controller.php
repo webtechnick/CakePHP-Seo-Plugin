@@ -26,6 +26,16 @@ class SeoUrisController extends SeoAppController {
 		$this->set('seoUris',$this->paginate($conditions));
 		$this->set('filter', $filter);
 	}
+	
+	function admin_urlencode($id = null){
+		if($this->SeoUri->urlEncode($id)){
+			$this->Session->setFlash("uri Successfully Url Encoded.");
+		}
+		else {
+			$this->Session->setFlash("Erorr URL Encoding uri");
+		}
+		$this->redirect(array('action' => 'view', $id));
+	}
 
 	function admin_view($id = null) {
 		if (!$id) {

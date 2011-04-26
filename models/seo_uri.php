@@ -48,6 +48,7 @@ class SeoUri extends SeoAppModel {
 	* @return true
 	*/
 	function beforeSave(){
+		//url encode the uri, but only once.
 		if(!empty($this->data[$this->alias]['uri']) && $this->isRegEx($this->data[$this->alias]['uri'])){
 			if(empty($this->data[$this->alias]['is_approved'])){
 				$this->data[$this->alias]['is_approved'] = false;
@@ -62,10 +63,28 @@ class SeoUri extends SeoAppModel {
 	/**
 	* Send need approval email if we need it.
 	*/
-	function afterSave(){
+	function afterSave($created){
+		if($created){
+			//Maybe URI
+		}
 		if(isset($this->data[$this->alias]['is_approved']) && !$this->data[$this->alias]['is_approved']){
 			$this->sendNotification(); //Email IT about needing approval... currently me.
 		}  
+	}
+	
+	/**
+	* Url encode the uri
+	* @param int id
+	* @return boolean success
+	*/
+	function urlEncode($id = null){
+		if($id){
+			$this->id = $id;
+		}
+		$uri = $this->field('uri');
+		$uri = rawurlencode($uri);
+		$uri = str_replace('%2F','/', $uri);
+		return $this->saveField('uri', $uri);
 	}
 	
 	/**

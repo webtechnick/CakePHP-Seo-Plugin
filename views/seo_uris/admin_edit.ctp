@@ -45,6 +45,7 @@
 	<div class="actions">
 		<h3><?php __('Actions'); ?></h3>
 		<ul>
+			<li><?php echo $this->Html->link(__('URL Encode', true), array('action' => 'urlencode', $this->Form->value('SeoUri.id')), null, sprintf(__('Are you sure you want to url encode # %s?', true), $this->Form->value('SeoUri.id'))); ?></li>
 			<li><?php echo $this->Html->link(__('Delete', true), array('action' => 'delete', $this->Form->value('SeoUri.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $this->Form->value('SeoUri.id'))); ?></li>
 		</ul>
 	</div>

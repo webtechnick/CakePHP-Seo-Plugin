@@ -17,6 +17,20 @@ class SeoUriTestCase extends CakeTestCase {
 		$this->SeoUri->Email = new MockEmailComponent();
 	}
 	
+	function testUrlEncode(){
+		$uri = $this->SeoUri->findById(1);
+		$this->assertEqual('/blah', $uri['SeoUri']['uri']);
+		$this->assertTrue($this->SeoUri->urlEncode(1));
+		$result = $this->SeoUri->findById(1);
+		$this->assertEqual('/blah', $result['SeoUri']['uri']);
+		
+		$uri = $this->SeoUri->findById(14);
+		$this->assertEqual('/uri with spaces', $uri['SeoUri']['uri']);
+		$this->assertTrue($this->SeoUri->urlEncode(14));
+		$result = $this->SeoUri->findById(14);
+		$this->assertEqual('/uri%20with%20spaces', $result['SeoUri']['uri']);
+	}
+	
 	function testSetApproved(){
 	  $this->SeoUri->id = 6;
 	  $this->assertFalse($this->SeoUri->field('is_approved'));
