@@ -17,7 +17,10 @@ div.seo_plugin div.actions h3 {
 	padding-top:0;
 	color:#777;
 }
-
+div.seo_plugin #admin_filter form input[type="image"]{
+	position: relative;
+	top: 10px;
+}
 
 /** Tables **/
 div.seo_plugin table {
@@ -168,6 +171,10 @@ div.seo_plugin input, div.seo_plugin textarea {
 	font-family: "frutiger linotype", "lucida grande", "verdana", sans-serif;
 	padding: 1%;
 	width:98%;
+}
+div.seo_plugin #admin_filter input {
+	clear: none;
+	width: auto;
 }
 div.seo_plugin select {
 	clear: both;

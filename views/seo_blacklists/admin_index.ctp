@@ -1,5 +1,5 @@
-<?php echo $this->element('seo_admin_filter', array('plugin' => 'seo', 'model' => 'SeoBlacklist')); ?>
 <div class="seo_plugin">
+	<?php echo $this->element('seo_admin_filter', array('plugin' => 'seo', 'model' => 'SeoBlacklist')); ?>
 	<?php echo $this->element('seo_view_head', array('plugin' => 'seo')); ?>
 	<div class="seoBlacklists index">
 		<h2><?php __('Seo Blacklists');?></h2>

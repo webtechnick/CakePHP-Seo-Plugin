@@ -1,5 +1,5 @@
-<?php echo $this->element('seo_admin_filter', array('plugin' => 'seo', 'model' => 'SeoMetaTag')); ?>
 <div class="seo_plugin">
+	<?php echo $this->element('seo_admin_filter', array('plugin' => 'seo', 'model' => 'SeoMetaTag')); ?>
 	<?php echo $this->element('seo_view_head', array('plugin' => 'seo')); ?>
 	<div class="seoMetaTags index">
 		<h2><?php __('Seo Meta Tags');?></h2>

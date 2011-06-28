@@ -1,3 +1,4 @@
+<?php echo $this->Html->script('/seo/js/clear_default'); ?>
 <div id="admin_filter">
 <?php
 $model = isset($model) ? $model : false;

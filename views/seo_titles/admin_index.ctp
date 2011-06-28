@@ -1,5 +1,5 @@
-<?php echo $this->element('seo_admin_filter', array('plugin' => 'seo', 'model' => 'SeoTitle')); ?>
 <div class="seo_plugin">
+	<?php echo $this->element('seo_admin_filter', array('plugin' => 'seo', 'model' => 'SeoTitle')); ?>
 	<?php echo $this->element('seo_view_head', array('plugin' => 'seo')); ?>
 	<div class="seoTitles index">
 		<h2><?php __('Seo Titles');?></h2>
