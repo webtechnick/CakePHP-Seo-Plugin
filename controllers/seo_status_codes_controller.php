@@ -32,6 +32,7 @@ class SeoStatusCodesController extends SeoAppController {
 				$this->Session->setFlash(__('The seo status code could not be saved. Please, try again.', true));
 			}
 		}
+		$this->set('status_codes', $this->SeoStatusCode->findCodeList());
 	}
 
 	function admin_edit($id = null) {
