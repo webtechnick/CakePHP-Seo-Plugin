@@ -9,6 +9,7 @@ App::import('Lib','Seo.SeoUtil');
 class SeoAppError extends ErrorHandler {
 	
 	var $SeoRedirect = null;
+	var $SeoStatusCode = null;
 	
 	/**
 	* Overload constructor so we can test it properly
@@ -20,22 +21,22 @@ class SeoAppError extends ErrorHandler {
 	}
 	
 	function error404($params){
-		$this->__uriToRedirect();
+		$this->catch404();
 		parent::error404($params);
 	}
 	
 	function missingController($params){
-		$this->__uriToRedirect();
+		$this->catch404();
 		parent::missingController($params);
 	}
 	
 	function missingAction($params){
-		$this->__uriToRedirect();
+		$this->catch404();
 		parent::missingAction($params);
 	}
 	
 	function missingView($params){
-		$this->__uriToRedirect();
+		$this->catch404();
 		parent::missingView($params);
 	}
 	
@@ -44,7 +45,66 @@ class SeoAppError extends ErrorHandler {
 	* $this->cakeError('catch404');
 	*/
 	function catch404(){
+		$this->__uriToStatusCode();
 		$this->__uriToRedirect();
+	}
+	
+	/**
+	* Returns if the incomming request matches the seo_uri defined.
+	* @param incomming request
+	* @param uri
+	* @return boolean
+	*/
+	function requestMatch($request, $uri){
+		$this->__loadModel('SeoStatusCode');
+		//Many To Many -- Using regular expression
+		if($this->SeoStatusCode->isRegEx($uri)){
+			if(preg_match($uri, $request)){
+				return true;
+			}
+		}
+		//Many to One -- Check for * wildcard in uri, if present only match up to the * in the request.
+		elseif(strpos($uri, '*') !== false){
+			$uri = str_replace('*','',$uri);
+			if(strpos($request, $uri) !== false){
+				return true;
+			}
+		}
+		//One to One
+		elseif(strtolower($uri) == strtolower($request)){
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	* Go through the uri to StatusCode database and see if we've hit a match that we've setup
+	* @param if testing, return the status code instead of setting it.
+	* @return mixed void normally, status code in testing mode
+	*/
+	function __uriToStatusCode($test = false){
+		$this->__loadModel('SeoStatusCode');
+		$request = env('REQUEST_URI');
+		$seo_status_codes = $this->SeoStatusCode->findStatusCodeListByPriority();
+		if (empty($seo_status_codes) || !is_array($seo_status_codes)) {
+			return;
+		}
+		foreach($seo_status_codes as $status_code){
+			$code = $status_code['SeoStatusCode']['status_code'];
+			$uri = $status_code['SeoUri']['uri'];
+			$update_header = $this->requestMatch($request, $uri);
+
+			//Update the status code and exit
+			if($update_header){
+				if($test){
+					return $code;
+				}
+				Configure::write('debug', 0);
+				header("Status: $code " . $this->SeoStatusCode->codes[$code], true, $code);
+				die();
+			}
+		}
 	}
 	
 	/**
@@ -53,7 +113,7 @@ class SeoAppError extends ErrorHandler {
 	* @return void
 	*/
 	function __uriToRedirect(){
-		$this->__loadSeoRedirect();
+		$this->__loadModel('SeoRedirect');
 		$request = env('REQUEST_URI');
 		$seo_redirects = $this->SeoRedirect->findRedirectListByPriority();
 		if (empty($seo_redirects) || !is_array($seo_redirects)) {
@@ -65,23 +125,11 @@ class SeoAppError extends ErrorHandler {
 			$redirect = $seo_redirect['SeoRedirect']['redirect'];
 			$callback = $seo_redirect['SeoRedirect']['callback'];
 			
-			//Many To Many -- Using regular expression
-			if($this->SeoRedirect->isRegEx($uri)){
-				if(preg_match($uri, $request)){
-					$redirect = preg_replace($uri, $redirect, $request);
-					$run_redirect = true;
-				}
-			}
-			//Many to One -- Check for * wildcard in uri, if present only match up to the * in the request.
-			elseif(strpos($uri, '*') !== false){
-				$uri = str_replace('*','',$uri);
-				if(strpos($request, $uri) !== false){
-					$run_redirect = true;
-				}
-			}
-			//One to One
-			elseif(strtolower($uri) == strtolower($request)){
+			if($this->requestMatch($request, $uri)){
 				$run_redirect = true;
+				if($this->SeoRedirect->isRegEx($uri)){
+					$redirect = preg_replace($uri, $redirect, $request);
+				}
 			}
 			
 			//Run callback if we have one
@@ -125,9 +173,9 @@ class SeoAppError extends ErrorHandler {
 	* Load the SeoRedirect Model if it's not already loaded.
 	* @return void
 	*/
-	function __loadSeoRedirect(){
-		if(!$this->SeoRedirect){
-			$this->SeoRedirect = ClassRegistry::init('Seo.SeoRedirect');
+	function __loadModel($model){
+		if(!$this->$model){
+			$this->$model = ClassRegistry::init("Seo.$model");
 		}
 	}
 }

@@ -1,6 +1,10 @@
 <?php 
 App::import('Core',array('ErrorHandler','Controller'));
 App::import('Model','Seo.SeoRedirect');
+App::import('Model','Seo.SeoStatusCode');
+App::import('Model','Seo.SeoTitle');
+App::import('Model','Seo.SeoUri');
+App::import('Model','Seo.SeoMetaTag');
 include_once(APP.'plugins'.DS.'seo'.DS.'seo_app_error.php');
 
 class AppErrorTestCase extends CakeTestCase {
@@ -10,12 +14,25 @@ class AppErrorTestCase extends CakeTestCase {
     'plugin.seo.seo_uri',
     'plugin.seo.seo_meta_tag',
     'plugin.seo.seo_title',
+    'plugin.seo.seo_status_code',
   );
   
   function startTest() {
 		$this->AppError = new SeoAppError('ignore', 'ignore', /* test */ true);
 		Mock::generate('Controller');
 		$this->AppError->controller = new MockController();
+	}
+	
+	function testUriToStatusCodeGone(){
+		$_SERVER['REQUEST_URI'] = '/status_gone';
+		$result = $this->AppError->__uriToStatusCode(true);
+		$this->assertEqual('410', $result);
+	}
+	
+	function testUriToStatusCodeOk(){
+		$_SERVER['REQUEST_URI'] = '/ok_request';
+		$result = $this->AppError->__uriToStatusCode(true);
+		$this->assertEqual('', $result);
 	}
 	
 	function testUriToRedirectWithCallbackFull(){

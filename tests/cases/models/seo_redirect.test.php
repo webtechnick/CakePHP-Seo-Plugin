@@ -10,6 +10,7 @@ class SeoRedirectTestCase extends CakeTestCase {
 		'plugin.seo.seo_uri',
 		'plugin.seo.seo_meta_tag',
 		'plugin.seo.seo_title',
+		'plugin.seo.seo_status_code',
 	);
 
 	function startTest() {

@@ -104,6 +104,13 @@ class SeoUriFixture extends CakeTestFixture {
 			'created' => '2011-01-03 10:04:34',
 			'modified' => '2011-01-03 10:04:34'
 		),
+		array(
+			'id' => 15,
+			'uri' => '/status_gone',
+			'is_approved' => 1,
+			'created' => '2011-01-03 10:04:34',
+			'modified' => '2011-01-03 10:04:34'
+		),
 	);
 }
 ?>

@@ -20,6 +20,11 @@ class SeoUri extends SeoAppModel {
 			'foreignKey' => 'seo_uri_id',
 			'dependant' => true
 		),
+		'SeoStatusCode' => array(
+			'className' => 'Seo.SeoStatusCode',
+			'foreignKey' => 'seo_uri_id',
+			'dependant' => true
+		)
 	);
 	
 	var $validate = array(
