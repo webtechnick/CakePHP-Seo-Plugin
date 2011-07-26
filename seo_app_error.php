@@ -1,7 +1,7 @@
 <?php
 /**
 * This class will take in uri to redirects and
-* @since 3.1
+* @since 4.4.0
 * @license MIT
 * @author Nick Baker (nick@webtechnick.com)
 */
