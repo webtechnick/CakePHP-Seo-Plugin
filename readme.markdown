@@ -1,6 +1,6 @@
 # Search Engine Optimization CakePHP Plugin
 * Author: Nick Baker, Alan Blount
-* Version: 4.3.0
+* Version: 4.4.0
 * License: MIT
 * Website: <http://www.webtechnick.com>
 
@@ -14,6 +14,7 @@ Complete tool for all your CakePHP Search Engine Optimization needs
 * Scrapper Banning administration, complete with honeyPot baiting for scrappers to ban themselves.
 
 ## Changelog
+* 4.4.0 New Seo Status Codes gives an SEO the ability to 410, or any other error code based on URI
 * 4.3.0 SeoHelper::metaTags now takes in an associative array of default meta tags to use (seo tags have priority)
 * 4.2.x Bug fixes and updates, update config file
 * 4.0.0 Blacklist added
@@ -49,7 +50,7 @@ Create the file `app/config/seo.php` with the following configurations like so:
 	);
 	?>
 
-## SEO Redirect Quick Start
+## SEO Redirect/Status Code Quick Start
 create file `app/app_error.php` with the following:
 
 	<?php
@@ -61,6 +62,10 @@ create file `app/app_error.php` with the following:
 	
 ### Add Redirects	
 `http://www.example.com/admin/seo/seo_redirects/`
+
+### Add Redirects	
+`http://www.example.com/admin/seo/seo_status_codes/`
+
 
 ## SEO Meta Tags Quick Start
 
