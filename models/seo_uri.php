@@ -100,7 +100,7 @@ class SeoUri extends SeoAppModel {
 	function findForViewById($id){
 		return $this->find('first', array(
 			'conditions' => array('SeoUri.id' => $id),
-			'contain' => array('SeoRedirect','SeoTitle','SeoMetaTag')
+			'contain' => array('SeoRedirect','SeoTitle','SeoMetaTag','SeoStatusCode')
 		));
 	}
 	

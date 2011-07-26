@@ -18,7 +18,7 @@ class SeoStatusCodesController extends SeoAppController {
 			$this->Session->setFlash(__('Invalid seo status code', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('seoStatusCodes', $this->SeoStatusCode->read(null, $id));
+		$this->set('seoStatusCode', $this->SeoStatusCode->read(null, $id));
 		$this->set('id', $id);
 	}
 

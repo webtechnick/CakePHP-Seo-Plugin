@@ -9,11 +9,13 @@
 				echo $this->Form->input('SeoUri.uri');
 				echo $this->Form->input('SeoUri.is_approved');
 			?>
+			<div class="clear"></div>
 			<h2>Title Tag</h2>
 			<?php
 				echo $this->Form->input('SeoTitle.id');
 				echo $this->Form->input('SeoTitle.title');
 			?>
+			<div class="clear"></div>
 			<h2>Meta Tags</h2>
 			<fieldset>
 			<?php

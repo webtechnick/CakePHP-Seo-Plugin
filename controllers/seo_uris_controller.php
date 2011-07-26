@@ -76,6 +76,7 @@ class SeoUrisController extends SeoAppController {
 		if (empty($this->data)) {
 			$this->data = $this->SeoUri->findForViewById($id);
 		}
+		$this->set('status_codes', $this->SeoUri->SeoStatusCode->findCodeList());
 		$this->set('id', $id);
 	}
 
