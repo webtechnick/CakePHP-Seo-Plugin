@@ -2,7 +2,16 @@
 /* SeoUri Fixture generated on: 2011-01-03 10:01:34 : 1294074274 */
 class SeoUriFixture extends CakeTestFixture {
 	var $name = 'SeoUri';
-	var $import = array('model' => 'SeoUri');
+	
+	var $fields = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'uri' => array('type' => 'string', 'null' => true, 'default' => NULL, 'key' => 'unique', 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'is_approved' => array('type' => 'boolean', 'null' => false, 'default' => '1'),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1), 'uri' => array('column' => 'uri', 'unique' => 1)),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'MyISAM')
+	);
 
 
 	var $records = array(
@@ -107,6 +116,13 @@ class SeoUriFixture extends CakeTestFixture {
 		array(
 			'id' => 15,
 			'uri' => '/status_gone',
+			'is_approved' => 1,
+			'created' => '2011-01-03 10:04:34',
+			'modified' => '2011-01-03 10:04:34'
+		),
+		array(
+			'id' => 16,
+			'uri' => '/canonical',
 			'is_approved' => 1,
 			'created' => '2011-01-03 10:04:34',
 			'modified' => '2011-01-03 10:04:34'

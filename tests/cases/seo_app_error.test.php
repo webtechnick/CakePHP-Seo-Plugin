@@ -4,6 +4,7 @@ App::import('Model','Seo.SeoRedirect');
 App::import('Model','Seo.SeoStatusCode');
 App::import('Model','Seo.SeoTitle');
 App::import('Model','Seo.SeoUri');
+App::import('Model','Seo.SeoCanonical');
 App::import('Model','Seo.SeoMetaTag');
 include_once(APP.'plugins'.DS.'seo'.DS.'seo_app_error.php');
 

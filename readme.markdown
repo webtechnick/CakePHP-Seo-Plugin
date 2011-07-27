@@ -1,6 +1,6 @@
 # Search Engine Optimization CakePHP Plugin
 * Author: Nick Baker, Alan Blount
-* Version: 4.4.0
+* Version: 4.5.0
 * License: MIT
 * Website: <http://www.webtechnick.com>
 
@@ -14,6 +14,7 @@ Complete tool for all your CakePHP Search Engine Optimization needs
 * Scrapper Banning administration, complete with honeyPot baiting for scrappers to ban themselves.
 
 ## Changelog
+* 4.5.0 New Seo Canonical gives an SEO the ability to Canonical link any url much like the Seo Title tool
 * 4.4.0 New Seo Status Codes gives an SEO the ability to 410, or any other error code based on URI
 * 4.3.0 SeoHelper::metaTags now takes in an associative array of default meta tags to use (seo tags have priority)
 * 4.2.x Bug fixes and updates, update config file
@@ -101,6 +102,24 @@ Alter your layout to include the Seo Title in the head of your layout
 ### Add Title Tags
 
 `http://www.example.com/admin/seo/seo_titles`
+
+
+## SEO Canonical Quick Start
+
+Include the `Seo.Seo` Helper to your `app_controller.php`:
+
+  var $helpers = array('Seo.Seo');
+
+Alter your layout to include the Seo Canonical in the head of your layout
+
+	<head>
+		<!-- other head items -->
+		<?php echo $this->Seo->canonical(); ?>
+	</head>
+
+### Add Canonical Links
+
+`http://www.example.com/admin/seo/seo_canonicals`
 
 ## SEO BlackList Quick Start
 

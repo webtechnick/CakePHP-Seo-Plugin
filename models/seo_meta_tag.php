@@ -3,7 +3,7 @@ class SeoMetaTag extends SeoAppModel {
 	var $name = 'SeoMetaTag';
 	var $displayField = 'name';
 	var $validate = array(
-		'uri_id' => array(
+		'seo_uri_id' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
 				'message' => 'must be numeric',
@@ -29,7 +29,10 @@ class SeoMetaTag extends SeoAppModel {
 		),
 	);
 	var $belongsTo = array(
-		'Seo.SeoUri'
+		'SeoUri' => array(
+			'className' => 'Seo.SeoUri',
+			'foreignKey' => 'seo_uri_id',
+		)
 	);
 	
 	/**

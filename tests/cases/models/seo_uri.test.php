@@ -11,6 +11,7 @@ class SeoUriTestCase extends CakeTestCase {
 		'plugin.seo.seo_redirect',
 		'plugin.seo.seo_title',
 		'plugin.seo.seo_status_code',
+		'plugin.seo.seo_canonical',
 	);
 	
 	function startTest() {

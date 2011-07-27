@@ -1,28 +1,24 @@
 <?php
-/* SeoStatusCode Test cases generated on: 2011-07-25 17:06:33 : 1311635193*/
-App::import('Model', 'seo.SeoStatusCode');
+/* SeoCanonical Test cases generated on: 2011-07-27 11:26:15 : 1311787575*/
+App::import('Model', 'seo.SeoCanonical');
 App::import('Component', 'Email');
 Mock::generate('EmailComponent');
-
-class SeoStatusCodeTestCase extends CakeTestCase {
-	var $fixtures = array(
+class SeoCanonicalTestCase extends CakeTestCase {
+	/*var $fixtures = array(
+		'plugin.seo.seo_meta_tag',
 		'plugin.seo.seo_redirect',
 		'plugin.seo.seo_uri',
-		'plugin.seo.seo_meta_tag',
 		'plugin.seo.seo_title',
 		'plugin.seo.seo_status_code',
 		'plugin.seo.seo_canonical',
-	);
-
+	);*/
 	function startTest() {
-		$this->SeoStatusCode =& ClassRegistry::init('SeoStatusCode');
+		$this->SeoCanonical =& ClassRegistry::init('SeoCanonical');
 		$this->SeoRedirect->SeoUri->Email = new MockEmailComponent();
 	}
-	
-	
 
 	function endTest() {
-		unset($this->SeoStatusCode);
+		unset($this->SeoCanonical);
 		ClassRegistry::flush();
 	}
 

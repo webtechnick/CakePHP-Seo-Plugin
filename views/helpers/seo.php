@@ -2,7 +2,7 @@
 /**
 *	Seo Helper, handles title tags and meta tags
 * @author Nick Baker <nick@webtechnick.com>
-* @since 4.2
+* @since 4.5
 * @license MIT
 */
 App::import('Lib','Seo.SeoUtil');
@@ -10,6 +10,7 @@ class SeoHelper extends AppHelper {
 	var $helpers = array('Html');
 	var $SeoMetaTag = null;
 	var $SeoTitle = null;
+	var $SeoCanonical = null;
 	var $honeyPotId = 1;
 	
 	/**
@@ -52,11 +53,20 @@ class SeoHelper extends AppHelper {
 	* Utility method
 	* @param router friendly URL
 	* @param boolean full url or relative (default true)
-	* @return HTMlElement of canonical tag
+	* @return HTMlElement of canonical link or empty string if none found/used
 	*/
 	function canonical($url = null, $full = true){
-		$path = Router::url($url, $full);
-		return $this->Html->tag('link', null, array('rel' => 'canonical', 'href' => $path));
+		if($url === null){
+			$this->loadModel('SeoCanonical');
+			$request = env('REQUEST_URI');
+			$url = $this->SeoCanonical->findByUri($request);
+		}
+		
+		if($url){
+			$path = Router::url($url, $full);
+			return $this->Html->tag('link', null, array('rel' => 'canonical', 'href' => $path));
+		}
+		return "";
 	}
 	
 	/**

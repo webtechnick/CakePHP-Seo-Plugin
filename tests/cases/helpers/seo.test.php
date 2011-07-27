@@ -1,6 +1,7 @@
 <?php
 App::import('Helper', 'Seo.Seo');
 App::import('Model', 'Seo.SeoMetaTag');
+App::import('Model', 'Seo.SeoCanonical');
 App::import('Helper', 'Html');
 
 class SeoHelperTestCase extends CakeTestCase {
@@ -9,6 +10,7 @@ class SeoHelperTestCase extends CakeTestCase {
 		'plugin.seo.seo_redirect',
 		'plugin.seo.seo_uri',
 		'plugin.seo.seo_title',
+		'plugin.seo.seo_canonical',
 	);
 	
 	function startTest() {
@@ -23,6 +25,13 @@ class SeoHelperTestCase extends CakeTestCase {
 	function testCanonical(){
 		$result = $this->Seo->canonical('/example-url');
 		$this->assertEqual('<link rel="canonical" href="/example-url">', $result);
+		
+		$result = $this->Seo->canonical();
+		$this->assertEqual('', $result);
+		
+		$_SERVER['REQUEST_URI'] = '/canonical';
+		$result = $this->Seo->canonical();
+		$this->assertEqual('<link rel="canonical" href="/new_canonical_link">', $result);
 	}
 	
 	function testHoneyPot(){

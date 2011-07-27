@@ -9,6 +9,7 @@ class SeoTitleTestCase extends CakeTestCase {
 		'plugin.seo.seo_uri',
 		'plugin.seo.seo_meta_tag',
 		'plugin.seo.seo_status_code',
+		'plugin.seo.seo_canonical',
 	);
 
 	function startTest() {
