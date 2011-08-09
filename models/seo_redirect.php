@@ -50,7 +50,7 @@ class SeoRedirect extends SeoAppModel {
 	*/
 	function findRedirectListByPriority(){
 		return $this->find('all', array(
-			'fields' => array("{$this->SeoUri->alias}.uri","{$this->alias}.redirect","{$this->alias}.callback"),
+			'fields' => array("{$this->SeoUri->alias}.uri","{$this->alias}.redirect","{$this->alias}.id","{$this->alias}.callback"),
 			'order' => "{$this->alias}.priority ASC",
 			'conditions' => array(
 				"{$this->alias}.is_active" => true,

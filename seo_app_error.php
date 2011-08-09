@@ -154,7 +154,7 @@ class SeoAppError extends ErrorHandler {
 			if($run_redirect){
 				if($redirect != $request){
 					if(SeoUtil::getConfig('log')){
-						$this->log("Redirecting $request to $redirect", 'seo_redirects');
+						$this->log("SeoRedirect ID {$seo_redirect['SeoRedirect']['id']} : $request matched $uri redirecting to $redirect", 'seo_redirects');
 					}
 					$this->controller->redirect($redirect, 301);
 				}
