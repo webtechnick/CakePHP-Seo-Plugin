@@ -1,7 +1,7 @@
 <?php
 /**
 * This class will take in uri to redirects and
-* @since 4.4.0
+* @since 4.5.1
 * @license MIT
 * @author Nick Baker (nick@webtechnick.com)
 */
@@ -66,7 +66,7 @@ class SeoAppError extends ErrorHandler {
 		//Many to One -- Check for * wildcard in uri, if present only match up to the * in the request.
 		elseif(strpos($uri, '*') !== false){
 			$uri = str_replace('*','',$uri);
-			if(strpos($request, $uri) !== false){
+			if(strpos($request, $uri) === 0){
 				return true;
 			}
 		}

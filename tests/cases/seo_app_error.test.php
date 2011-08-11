@@ -24,6 +24,18 @@ class AppErrorTestCase extends CakeTestCase {
 		$this->AppError->controller = new MockController();
 	}
 	
+	function testUriToRedirectWildCard(){
+	  $_SERVER['REQUEST_URI'] = '/blahblahtest'; // /blahblah* will catch this one
+	  $this->AppError->controller->expectOnce('redirect', array('/new', 301));
+	  $this->AppError->__uriToRedirect();
+	}
+	
+	function testUriToRedirectWildCardNotMatch(){
+		$_SERVER['REQUEST_URI'] = '/admin/blahblahtest'; // /blahblah* should NOT catch this one
+	  $this->AppError->controller->expectNever('redirect');
+	  $this->AppError->__uriToRedirect();
+	}
+	
 	function testUriToStatusCodeGone(){
 		$_SERVER['REQUEST_URI'] = '/status_gone';
 		$result = $this->AppError->__uriToStatusCode(true);
@@ -63,12 +75,6 @@ class AppErrorTestCase extends CakeTestCase {
 	function testUriToRedirect(){
 	  $_SERVER['REQUEST_URI'] = '/blah';
 	  $this->AppError->controller->expectOnce('redirect', array('/', 301));
-	  $this->AppError->__uriToRedirect();
-	}
-	
-	function testUriToRedirectWildCard(){
-	  $_SERVER['REQUEST_URI'] = '/blahblahtest'; // /blahblah* will catch this one
-	  $this->AppError->controller->expectOnce('redirect', array('/new', 301));
 	  $this->AppError->__uriToRedirect();
 	}
 	

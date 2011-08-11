@@ -1,6 +1,6 @@
 # Search Engine Optimization CakePHP Plugin
 * Author: Nick Baker, Alan Blount
-* Version: 4.5.0
+* Version: 4.5.1
 * License: MIT
 * Website: <http://www.webtechnick.com>
 
@@ -14,6 +14,8 @@ Complete tool for all your CakePHP Search Engine Optimization needs
 * Scrapper Banning administration, complete with honeyPot baiting for scrappers to ban themselves.
 
 ## Changelog
+* 4.5.1 Fixed a bug where wildcard uri's would match anywhere in the url instead of from the base. 
+        /user* would match /users/login as well as /admin/users/login.  That is not the desired result.
 * 4.5.0 New Seo Canonical gives an SEO the ability to Canonical link any url much like the Seo Title tool
 * 4.4.0 New Seo Status Codes gives an SEO the ability to 410, or any other error code based on URI
 * 4.3.0 SeoHelper::metaTags now takes in an associative array of default meta tags to use (seo tags have priority)
