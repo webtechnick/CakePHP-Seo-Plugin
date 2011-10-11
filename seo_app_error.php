@@ -1,7 +1,7 @@
 <?php
 /**
 * This class will take in uri to redirects and
-* @since 4.5.1
+* @since 5.0
 * @license MIT
 * @author Nick Baker (nick@webtechnick.com)
 */
@@ -10,6 +10,7 @@ class SeoAppError extends ErrorHandler {
 	
 	var $SeoRedirect = null;
 	var $SeoStatusCode = null;
+	var $SeoUrl = null;
 	
 	/**
 	* Overload constructor so we can test it properly
@@ -47,6 +48,7 @@ class SeoAppError extends ErrorHandler {
 	function catch404(){
 		$this->__uriToStatusCode();
 		$this->__uriToRedirect();
+		$this->__uriToLevenshtein();
 	}
 	
 	/**
@@ -167,6 +169,28 @@ class SeoAppError extends ErrorHandler {
 				return;
 			}
 		}
+	}
+	
+	/**
+	* Go through the uri to levenshtein url database and find the closest redirect based in sitemap 
+	* @return void
+	*/
+	function __uriToLevenshtein(){
+		$levconfig = SeoUtil::getConfig('levenshtein');
+		if(!$levconfig['active']){
+			return;
+		}
+		
+		$this->__loadModel('SeoUrl');
+		$request = env('REQUEST_URI');
+		$redirect = $this->SeoUrl->findRedirectByRequest($request);
+		if($redirect['redirect'] != $request){
+			if(SeoUtil::getConfig('log')){
+				$this->log("Levenshtein Redirect $request to {$redirect['redirect']} score {$redirect['shortest']}", 'seo_levenshtein');
+			}
+			$this->controller->redirect($redirect['redirect'], 301);
+		}
+		return;
 	}
 	
 	/**

@@ -15,6 +15,14 @@ $config = array(
     'honeyPot' => array('admin' => false, 'plugin' => 'seo', 'controller' => 'seo_blacklists', 'action' => 'honeypot'),
     'log' => true,
     'cacheEngine' => false, // optionally cache things to save on DB requests - eg: 'default'
+    'levenshtein' => array(
+    	'active' => false,
+    	'threshold' => 5, //-1 to ALWAYS find the closest match
+    	'cost_add' => 1, //cost to add a character, higher the amount the less you can add to find a match
+    	'cost_change' => 1, //cost to change a character, higher the amount the less you can change to find a match
+    	'cost_delete' => 1, //cost to delete a character, higher the ammount the less you can delete to find a match 
+    	'source' => '/sitemap.xml' //URL to list of urls in a sitemap
+    )
   )
 );
 ?>

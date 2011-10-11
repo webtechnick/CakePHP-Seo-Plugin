@@ -4,6 +4,7 @@ App::import('Model','Seo.SeoRedirect');
 App::import('Model','Seo.SeoStatusCode');
 App::import('Model','Seo.SeoTitle');
 App::import('Model','Seo.SeoUri');
+App::import('Model','Seo.SeoUrl');
 App::import('Model','Seo.SeoCanonical');
 App::import('Model','Seo.SeoMetaTag');
 include_once(APP.'plugins'.DS.'seo'.DS.'seo_app_error.php');
@@ -16,12 +17,19 @@ class AppErrorTestCase extends CakeTestCase {
     'plugin.seo.seo_meta_tag',
     'plugin.seo.seo_title',
     'plugin.seo.seo_status_code',
+    'plugin.seo.seo_url',
   );
   
   function startTest() {
 		$this->AppError = new SeoAppError('ignore', 'ignore', /* test */ true);
 		Mock::generate('Controller');
 		$this->AppError->controller = new MockController();
+	}
+	
+	function test_uriToLevenshtein(){
+		$_SERVER['REQUEST_URI'] = '/some_url'; // /some is the closest
+	  $this->AppError->controller->expectOnce('redirect', array('/some', 301));
+	  $this->AppError->__uriToLevenshtein();
 	}
 	
 	function testUriToRedirectWildCard(){

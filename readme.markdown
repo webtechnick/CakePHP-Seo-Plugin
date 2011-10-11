@@ -1,6 +1,6 @@
 # Search Engine Optimization CakePHP Plugin
 * Author: Nick Baker, Alan Blount
-* Version: 4.5.1
+* Version: 5.0.0
 * License: MIT
 * Website: <http://www.webtechnick.com>
 
@@ -14,6 +14,8 @@ Complete tool for all your CakePHP Search Engine Optimization needs
 * Scrapper Banning administration, complete with honeyPot baiting for scrappers to ban themselves.
 
 ## Changelog
+* 5.0.0 New Levenshtein Distance formula to best guess the appropriate 301 based off the 404 request.
+				This only happens if it's active in the config (default false), and no 301 redirect rules would catch it
 * 4.5.1 Fixed a bug where wildcard uri's would match anywhere in the url instead of from the base. 
         /user* would match /users/login as well as /admin/users/login.  That is not the desired result.
 * 4.5.0 New Seo Canonical gives an SEO the ability to Canonical link any url much like the Seo Title tool
@@ -49,6 +51,14 @@ Create the file `app/config/seo.php` with the following configurations like so:
 			'honeyPot' => array('admin' => false, 'plugin' => 'seo', 'controller' => 'seo_blacklists', 'action' => 'honeypot'),
 			'log' => true,
 			'cacheEngine' => false, // optionally cache things to save on DB requests - eg: 'default'
+			'levenshtein' => array(
+				'active' => false,
+				'threshold' => 5, //-1 to always find the closest match
+				'cost_add' => 1, //cost to add a character, higher the amount the less you can add to find a match
+				'cost_change' => 1, //cost to change a character, higher the amount the less you can change to find a match
+				'cost_delete' => 1, //cost to delete a character, higher the ammount the less you can delete to find a match 
+				'source' => '/sitemap.xml' //URL to list of urls, a sitemap
+			)
 		)
 	);
 	?>
