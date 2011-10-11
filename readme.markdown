@@ -1,6 +1,6 @@
 # Search Engine Optimization CakePHP Plugin
 * Author: Nick Baker, Alan Blount
-* Version: 5.0.0
+* Version: 5.1.0
 * License: MIT
 * Website: <http://www.webtechnick.com>
 
@@ -14,6 +14,7 @@ Complete tool for all your CakePHP Search Engine Optimization needs
 * Scrapper Banning administration, complete with honeyPot baiting for scrappers to ban themselves.
 
 ## Changelog
+* 5.1.0 New SeoUrls Shell to run sitemap levenshtein import on-demand.
 * 5.0.0 New Levenshtein Distance formula to best guess the appropriate 301 based off the 404 request.
 				This only happens if it's active in the config (default false), and no 301 redirect rules would catch it
 * 4.5.1 Fixed a bug where wildcard uri's would match anywhere in the url instead of from the base. 
