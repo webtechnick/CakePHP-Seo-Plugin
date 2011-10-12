@@ -42,5 +42,19 @@ class SeoUrlFixture extends CakeTestFixture {
 			'created' => '2011-10-10 16:42:47',
 			'modified' => '2011-10-10 16:42:47'
 		),
+		array(
+			'id' => 5,
+			'url' => '/content/Hearing-loss/Treatments',
+			'priority' => 1,
+			'created' => '2011-10-10 16:42:47',
+			'modified' => '2011-10-10 16:42:47'
+		),
+		array(
+			'id' => 6,
+			'url' => '/content/articles/Hearing-loss/Protection/30207-Attention-couch-potatoes-time',
+			'priority' => 1,
+			'created' => '2011-10-10 16:42:47',
+			'modified' => '2011-10-10 16:42:47'
+		),
 	);
 }
