@@ -23,21 +23,25 @@ class SeoAppError extends ErrorHandler {
 	
 	function error404($params){
 		$this->catch404();
+		$this->runLevenshtein();
 		parent::error404($params);
 	}
 	
 	function missingController($params){
 		$this->catch404();
+		$this->runLevenshtein();
 		parent::missingController($params);
 	}
 	
 	function missingAction($params){
 		$this->catch404();
+		$this->runLevenshtein();
 		parent::missingAction($params);
 	}
 	
 	function missingView($params){
 		$this->catch404();
+		$this->runLevenshtein();
 		parent::missingView($params);
 	}
 	
@@ -48,6 +52,12 @@ class SeoAppError extends ErrorHandler {
 	function catch404(){
 		$this->__uriToStatusCode();
 		$this->__uriToRedirect();
+	}
+	
+	/**
+	* Update to levenshtien
+	*/
+	function runLevenshtein(){
 		$this->__uriToLevenshtein();
 	}
 	
