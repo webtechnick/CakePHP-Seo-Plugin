@@ -9,6 +9,7 @@
 Complete tool for all your CakePHP Search Engine Optimization needs
 
 * Easy yet powerful 301 redirect tools only loaded when a 404 would otherwise occur
+* Highly configurable and intelligent 404 deep url guessing utilizing levenshtein's distance and your sitemap.xml
 * Highly configurable and customizable Meta Tags for any incoming URI
 * Title tag overwrites based on URI
 * Scrapper Banning administration, complete with honeyPot baiting for scrappers to ban themselves.
