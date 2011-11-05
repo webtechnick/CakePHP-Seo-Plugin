@@ -16,6 +16,8 @@ class SeoUrl extends SeoAppModel {
 		),
 	);
 	
+	var $searchFields = array('SeoUrl.id','SeoUrl.url');
+	
 	/**
 	* Configuration settings
 	*/ 
