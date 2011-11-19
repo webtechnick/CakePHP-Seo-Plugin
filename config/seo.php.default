@@ -15,6 +15,9 @@ $config = array(
     'honeyPot' => array('admin' => false, 'plugin' => 'seo', 'controller' => 'seo_blacklists', 'action' => 'honeypot'),
     'log' => true,
     'cacheEngine' => false, // optionally cache things to save on DB requests - eg: 'default'
+    'searchTerms' => array(
+    	'page' => 2 //only grap search terms that are on the second page of google results
+    ),
     'levenshtein' => array(
     	'active' => false,
     	'threshold' => 5, //-1 to ALWAYS find the closest match
