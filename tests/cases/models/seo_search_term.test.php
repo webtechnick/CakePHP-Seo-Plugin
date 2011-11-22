@@ -37,6 +37,15 @@ class SeoSearchTermTestCase extends CakeTestCase {
 		$this->assertEqual($count, $this->SeoSearchTerm->find('count'));
 		$this->assertEqual(1, $result['SeoSearchTerm']['count']);
 	}
+	
+	function testParseRequestDelete(){
+		$_SERVER['HTTP_REFERER'] = 'https://www.google.com/#q=Lorem+ipsum&hl=en&safe=off&prmd=imvns&ei=mUrHTuWSJo73sQLl5ZQ8&sa=N&bav=on.2,or.r_gc.r_pw.r_cp.,cf.osb&fp=5e5b3f07d49aeae4&biw=1397&bih=907';
+		$count = $this->SeoSearchTerm->find('count');
+		$this->SeoSearchTerm->parseRequest("/some_url");
+		$result = $this->SeoSearchTerm->findById(1);
+		$this->assertTrue(empty($result));
+		$this->assertEqual($count - 1, $this->SeoSearchTerm->find('count'));
+	}
 
 	function endTest() {
 		unset($this->SeoSearchTerm);

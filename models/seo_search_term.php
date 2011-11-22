@@ -38,16 +38,18 @@ class SeoSearchTerm extends SeoAppModel {
 			$referrer = env('HTTP_REFERER');
 			// Check if from google and page 2
 			if(strpos($referrer,"google.com")) {
-				$settings = SeoUtil::getConfig('searchTerms');
-				if($settings['page'] == 0 || strpos($referrer,"start=". $settings['page'] * 10)){
-					//parse the term out.
+				if(!SeoUtil::getConfig('searchTerms')){
+					return;
+				}
+				//parse the term out.
+				if(strpos($referrer, "q=")){
 					list($ignore, $term) = explode("q=", $referrer);
 					if(strpos($term, "&")){
 						list($term, $ignore) = explode("&", $term);
 					}
 					$term = trim(urldecode($term));
-					//Only proceed if we have a valid term
-					if($term){
+					if($term && strpos($referrer,"start=")){
+						//Only proceed if we have a valid term
 						if($id = $this->field('id', array('SeoSearchTerm.term' => $term))){
 							$this->itterateCount($id);
 						}
@@ -60,6 +62,12 @@ class SeoSearchTerm extends SeoAppModel {
 								)
 							);
 							$this->save($data);
+						}
+					}
+					elseif($term) {
+						//Delete the term if this was found on the first page.
+						if($id = $this->field('id', array('SeoSearchTerm.term' => $term))){
+							$this->delete($id);
 						}
 					}
 				}
