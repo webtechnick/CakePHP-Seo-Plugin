@@ -24,7 +24,6 @@ class SeoUrlsController extends SeoAppController {
 	function admin_add() {
 		if (!empty($this->data)) {
 			$this->SeoUrl->create();
-			$this->clearAssociatesIfEmpty();
 			if ($this->SeoUrl->saveAll($this->data)) {
 				$this->Session->setFlash(__('The seo url has been saved', true));
 				$this->redirect(array('action' => 'index'));
@@ -40,7 +39,6 @@ class SeoUrlsController extends SeoAppController {
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
-			$this->clearAssociatesIfEmpty();
 			if ($this->SeoUrl->save($this->data)) {
 				$this->Session->setFlash(__('The seo url has been saved', true));
 				$this->redirect(array('action' => 'index'));
