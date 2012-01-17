@@ -22,30 +22,6 @@ class SeoAppError {
 		$this->controller = new Controller(null, new CakeResponse);
 	}
 	
-	function error404($params){
-		$this->catch404();
-		$this->runLevenshtein();
-		parent::error404($params);
-	}
-	
-	function missingController($params){
-		$this->catch404();
-		$this->runLevenshtein();
-		parent::missingController($params);
-	}
-	
-	function missingAction($params){
-		$this->catch404();
-		$this->runLevenshtein();
-		parent::missingAction($params);
-	}
-	
-	function missingView($params){
-		$this->catch404();
-		$this->runLevenshtein();
-		parent::missingView($params);
-	}
-	
 	/**
 	* Helper method for use in the application to catch 404 errors if needed
 	* $this->cakeError('catch404');
@@ -220,11 +196,12 @@ class SeoAppError {
 * @author Nick Baker
 */
 class SeoExceptionHandler extends HttpException {
-	public static function handle($error){
+	public static function handle($error, $message = null){
 		$SeoAppError = new SeoAppError();
 		$SeoAppError->catch404();
 		$SeoAppError->runLevenshtein();
-		return parent::__construct($error->message, 404);
+		$text = $message ? $message : $error->message;
+		return parent::__construct($text, 404);
 	}
 }
 ?>
