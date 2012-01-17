@@ -21,7 +21,7 @@ class SeoUtil extends Object {
 	* @access public
 	*/
 	static function version(){
-		return "4.2.1";
+		return "6.0.0";
 	}
 	
 	/**

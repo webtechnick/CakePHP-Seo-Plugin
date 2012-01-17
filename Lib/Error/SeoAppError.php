@@ -1,12 +1,15 @@
 <?php
 /**
 * This class will take in uri to redirects and
-* @since 5.0
+* @since 6.0
 * @license MIT
 * @author Nick Baker (nick@webtechnick.com)
 */
-App::import('Lib','Seo.SeoUtil');
-class SeoAppError extends ErrorHandler {
+App::uses('SeoUtil', 'Seo.Lib');
+App::uses('CakeLog', 'Log');
+App::uses('Controller', 'Controller');
+App::uses('CakeResponse', 'Network');
+class SeoAppError {
 	
 	var $SeoRedirect = null;
 	var $SeoStatusCode = null;
@@ -15,10 +18,8 @@ class SeoAppError extends ErrorHandler {
 	/**
 	* Overload constructor so we can test it properly
 	*/
-	function __construct($method, $messages, $test = false){
-		if(!$test){
-			parent::__construct($method, $messages);
-		}
+	function __construct($test = false){
+		$this->controller = new Controller(null, new CakeResponse);
 	}
 	
 	function error404($params){
@@ -166,14 +167,13 @@ class SeoAppError extends ErrorHandler {
 			if($run_redirect){
 				if($redirect != $request){
 					if(SeoUtil::getConfig('log')){
-						$this->log("SeoRedirect ID {$seo_redirect['SeoRedirect']['id']} : $request matched $uri redirecting to $redirect", 'seo_redirects');
+						CakeLog::write('seo_redirects', "SeoRedirect ID {$seo_redirect['SeoRedirect']['id']} : $request matched $uri redirecting to $redirect");
 					}
 					$this->controller->redirect($redirect, 301);
 				}
 				else {
 					if(SeoUtil::getConfig('log')){
-						$this->log("Redirect loop detected! request:\n $request\n	uri: $uri\n	redirect: $redirect\n	callback: $callback\n",'seo_redirects'
-						);
+						CakeLog::write('seo_redirects', "Redirect loop detected! request:\n $request\n	uri: $uri\n	redirect: $redirect\n	callback: $callback\n");
 					}
 				}
 				return;
@@ -196,7 +196,7 @@ class SeoAppError extends ErrorHandler {
 		$redirect = $this->SeoUrl->findRedirectByRequest($request);
 		if($redirect['redirect'] != $request){
 			if(SeoUtil::getConfig('log')){
-				$this->log("Levenshtein Redirect $request to {$redirect['redirect']} score {$redirect['shortest']}", 'seo_levenshtein');
+				CakeLog::write('seo_levenshtein', "Levenshtein Redirect $request to {$redirect['redirect']} score {$redirect['shortest']}");
 			}
 			$this->controller->redirect($redirect['redirect'], 301);
 		}
@@ -211,6 +211,20 @@ class SeoAppError extends ErrorHandler {
 		if(!$this->$model){
 			$this->$model = ClassRegistry::init("Seo.$model");
 		}
+	}
+}
+
+/**
+* SeoExceptionHandler
+* @version 6.0
+* @author Nick Baker
+*/
+class SeoExceptionHandler extends HttpException {
+	public static function handle($error){
+		$SeoAppError = new SeoAppError();
+		$SeoAppError->catch404();
+		$SeoAppError->runLevenshtein();
+		return parent::__construct($error->message, 404);
 	}
 }
 ?>

@@ -1,6 +1,6 @@
 # Search Engine Optimization CakePHP Plugin
 * Author: Nick Baker, Alan Blount
-* Version: 5.1.0
+* Version: 6.0.0
 * License: MIT
 * Website: <http://www.webtechnick.com>
 
@@ -15,6 +15,7 @@ Complete tool for all your CakePHP Search Engine Optimization needs
 * Scrapper Banning administration, complete with honeyPot baiting for scrappers to ban themselves.
 
 ## Changelog
+* 6.0.0 Updated for CakePHP 2.0
 * 5.1.0 New SeoUrls Shell to run sitemap levenshtein import on-demand.
 * 5.0.0 New Levenshtein Distance formula to best guess the appropriate 301 based off the 404 request.
 				This only happens if it's active in the config (default false), and no 301 redirect rules would catch it
@@ -66,14 +67,21 @@ Create the file `app/config/seo.php` with the following configurations like so:
 	?>
 
 ## SEO Redirect/Status Code Quick Start
-create file `app/app_error.php` with the following:
+update file `app/Config/core.php` with the following:
 
 	<?php
-		App::import('Lib','Seo.SeoUtil');
-		SeoUtil::loadSeoError();
-		class AppError extends SeoAppError {
-		}
+		Configure::write('Exception', array(
+				'handler' => 'SeoExceptionHandler::handle',
+				'renderer' => 'ExceptionRenderer',
+				'log' => true
+		));
 	?>
+	
+update file `app/Config/bootstrap.php` with the following:
+
+	require_once(APP . 'Plugin' . DS . 'Seo' . DS . 'Lib' . DS . 'Error' . DS . 'SeoAppError.php');
+	
+	
 	
 ### Add Redirects	
 `http://www.example.com/admin/seo/seo_redirects/`
