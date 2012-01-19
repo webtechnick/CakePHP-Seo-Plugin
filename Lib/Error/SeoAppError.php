@@ -199,9 +199,13 @@ class SeoExceptionHandler extends HttpException {
 	public static function handle($error, $message = null){
 		$SeoAppError = new SeoAppError();
 		$SeoAppError->catch404();
-		$SeoAppError->runLevenshtein();
+		if($error->code == 404){
+			$SeoAppError->runLevenshtein();
+		}
+		
 		$text = $message ? $message : $error->message;
-		new HttpException($text, 404);
+		CakeLog::write('error' . $error->code, $text . '\n\r' . $error->getTraceAsString());
+		ErrorHandler::handleException($error);
 	}
 }
 ?>
