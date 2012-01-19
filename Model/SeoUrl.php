@@ -1,5 +1,5 @@
 <?php
-App::import('Lib','Seo.SeoUtil');
+App::uses('SeoUtil', 'Seo.Lib');
 class SeoUrl extends SeoAppModel {
 	var $name = 'SeoUrl';
 	var $displayField = 'url';
