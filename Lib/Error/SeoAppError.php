@@ -201,7 +201,7 @@ class SeoExceptionHandler extends HttpException {
 		$SeoAppError->catch404();
 		$SeoAppError->runLevenshtein();
 		$text = $message ? $message : $error->message;
-		return parent::__construct($text, 404);
+		new HttpException($text, 404);
 	}
 }
 ?>
