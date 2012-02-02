@@ -1,18 +1,18 @@
 <?php
-App::import('Lib','Seo.SeoUtil');
+App::uses('SeoUtil', 'Seo.Lib');
 class SeoAppModel extends AppModel {
-	var $actsAs = array('Containable');
-	var $recursive = 0;
+	public $actsAs = array('Containable');
+	public $recursive = 0;
 	
 	/**
 	* Overwritable IP fields for database saving
 	*/
-	var $fieldsToLong = array();
+	public $fieldsToLong = array();
 	
 	/**
 	* Filter fields
 	*/
-	var $searchFields = array();
+	public $searchFields = array();
 	
 	/**
 	* Custom validation.
@@ -143,4 +143,4 @@ class SeoAppModel extends AppModel {
 		}
 	}
 }
-?>
+

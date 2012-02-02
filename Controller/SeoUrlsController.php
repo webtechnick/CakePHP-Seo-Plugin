@@ -1,11 +1,11 @@
 <?php
 class SeoUrlsController extends SeoAppController {
 
-	var $name = 'SeoUrls';
+
 	
 	function admin_index($filter = null) {
-		if(!empty($this->data)){
-			$filter = $this->data['SeoUrl']['filter'];
+		if(!empty($this->request->data)){
+			$filter = $this->request->data['SeoUrl']['filter'];
 		}
 		$conditions = $this->SeoUrl->generateFilterConditions($filter);
 		$this->set('seoUrls',$this->paginate($conditions));
@@ -22,9 +22,9 @@ class SeoUrlsController extends SeoAppController {
 	}
 
 	function admin_add() {
-		if (!empty($this->data)) {
+		if (!empty($this->request->data)) {
 			$this->SeoUrl->create();
-			if ($this->SeoUrl->saveAll($this->data)) {
+			if ($this->SeoUrl->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('The seo url has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -34,20 +34,20 @@ class SeoUrlsController extends SeoAppController {
 	}
 
 	function admin_edit($id = null) {
-		if (!$id && empty($this->data)) {
+		if (!$id && empty($this->request->data)) {
 			$this->Session->setFlash(__('Invalid seo url'));
 			$this->redirect(array('action' => 'index'));
 		}
-		if (!empty($this->data)) {
-			if ($this->SeoUrl->save($this->data)) {
+		if (!empty($this->request->data)) {
+			if ($this->SeoUrl->save($this->request->data)) {
 				$this->Session->setFlash(__('The seo url has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The seo url could not be saved. Please, try again.'));
 			}
 		}
-		if (empty($this->data)) {
-			$this->data = $this->SeoUrl->findForViewById($id);
+		if (empty($this->request->data)) {
+			$this->request->data = $this->SeoUrl->findForViewById($id);
 		}
 		$this->set('status_codes', $this->SeoUrl->SeoStatusCode->findCodeList());
 		$this->set('id', $id);

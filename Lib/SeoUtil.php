@@ -46,7 +46,9 @@ class SeoUtil extends Object {
 	* Load the SeoAppError class
 	*/
 	static function loadSeoError(){
-		return require_once(dirname(__FILE__) . DS . '..' . DS . 'seo_app_error.php');
+		App::uses('SeoAppError', 'Seo.Error');
+		//return require_once(dirname(__FILE__) . DS . '..' . DS . 'seo_app_error.php');
+		return true;
 	}
 	
 	/**
@@ -82,4 +84,4 @@ class SeoUtil extends Object {
 	}
 
 }
-?>
+

@@ -7,8 +7,8 @@
 		<tr>
 				<th><?php echo $this->Paginator->sort('seo_uri_id');?></th>
 				<th><?php echo $this->Paginator->sort('redirect');?></th>
-				<th><?php echo $this->Paginator->sort('Queue','priority');?></th>
-				<th><?php echo $this->Paginator->sort('Active','is_active');?></th>
+				<th><?php echo $this->Paginator->sort('priority', 'Queue');?></th>
+				<th><?php echo $this->Paginator->sort('is_active', 'Active');?></th>
 				<th><?php echo $this->Paginator->sort('callback');?></th>
 				<th><?php echo $this->Paginator->sort('modified');?></th>
 				<th class="actions"><?php echo __('Actions');?></th>

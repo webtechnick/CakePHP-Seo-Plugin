@@ -1,11 +1,11 @@
 <?php
 class SeoTitlesController extends SeoAppController {
 
-	var $name = 'SeoTitles';
+
 	
 	function admin_index($filter = null) {
-		if(!empty($this->data)){
-			$filter = $this->data['SeoTitle']['filter'];
+		if(!empty($this->request->data)){
+			$filter = $this->request->data['SeoTitle']['filter'];
 		}
 		$conditions = $this->SeoTitle->generateFilterConditions($filter);
 		$this->set('seoTitles',$this->paginate($conditions));
@@ -21,9 +21,9 @@ class SeoTitlesController extends SeoAppController {
 	}
 
 	function admin_add() {
-		if (!empty($this->data)) {
+		if (!empty($this->request->data)) {
 			$this->SeoTitle->create();
-			if ($this->SeoTitle->save($this->data)) {
+			if ($this->SeoTitle->save($this->request->data)) {
 				$this->Session->setFlash(__('The seo title has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -35,20 +35,20 @@ class SeoTitlesController extends SeoAppController {
 	}
 
 	function admin_edit($id = null) {
-		if (!$id && empty($this->data)) {
+		if (!$id && empty($this->request->data)) {
 			$this->Session->setFlash(__('Invalid seo title'));
 			$this->redirect(array('action' => 'index'));
 		}
-		if (!empty($this->data)) {
-			if ($this->SeoTitle->save($this->data)) {
+		if (!empty($this->request->data)) {
+			if ($this->SeoTitle->save($this->request->data)) {
 				$this->Session->setFlash(__('The seo title has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The seo title could not be saved. Please, try again.'));
 			}
 		}
-		if (empty($this->data)) {
-			$this->data = $this->SeoTitle->read(null, $id);
+		if (empty($this->request->data)) {
+			$this->request->data = $this->SeoTitle->read(null, $id);
 		}
 		$seoUris = $this->SeoTitle->SeoUri->find('list');
 		$this->set(compact('seoUris'));
@@ -67,4 +67,4 @@ class SeoTitlesController extends SeoAppController {
 		$this->redirect(array('action' => 'index'));
 	}
 }
-?>
+

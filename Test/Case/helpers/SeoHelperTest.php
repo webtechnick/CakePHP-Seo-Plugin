@@ -5,7 +5,7 @@ App::import('Model', 'Seo.SeoCanonical');
 App::import('Helper', 'Html');
 
 class SeoHelperTest extends CakeTestCase {
-	var $fixtures = array(
+	public $fixtures = array(
 		'plugin.seo.seo_meta_tag',
 		'plugin.seo.seo_redirect',
 		'plugin.seo.seo_uri',
@@ -99,4 +99,4 @@ class SeoHelperTest extends CakeTestCase {
 	}
 
 }
-?>
+

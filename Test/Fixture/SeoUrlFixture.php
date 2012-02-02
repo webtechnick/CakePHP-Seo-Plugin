@@ -1,9 +1,9 @@
 <?php
 /* SeoUrl Fixture generated on: 2011-10-10 17:54:18 : 1318290858 */
 class SeoUrlFixture extends CakeTestFixture {
-	var $name = 'SeoUrl';
 
-	var $fields = array(
+
+	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
 		'url' => array('type' => 'string', 'null' => false, 'default' => NULL, 'key' => 'unique', 'collate' => 'utf8_bin', 'charset' => 'utf8'),
 		'priority' => array('type' => 'float', 'null' => false, 'default' => NULL, 'key' => 'index'),
@@ -13,7 +13,7 @@ class SeoUrlFixture extends CakeTestFixture {
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_bin', 'engine' => 'MyISAM')
 	);
 
-	var $records = array(
+	public $records = array(
 		array(
 			'id' => 1,
 			'url' => '/some_other_url',

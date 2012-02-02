@@ -1,9 +1,9 @@
 <?php
 /* SeoBlacklist Fixture generated on: 2011-02-02 11:19:31 : 1296670771 */
 class SeoBlacklistFixture extends CakeTestFixture {
-	var $name = 'SeoBlacklist';
 
-	var $fields = array(
+
+	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
 		'ip_range_start' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 20, 'key' => 'index'),
 		'ip_range_end' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 20, 'key' => 'index'),
@@ -15,7 +15,7 @@ class SeoBlacklistFixture extends CakeTestFixture {
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'MyISAM')
 	);
 
-	var $records = array(
+	public $records = array(
 		array(
 			'id' => 1,
 			'ip_range_start' => 2147483000,
@@ -36,4 +36,4 @@ class SeoBlacklistFixture extends CakeTestFixture {
 		),
 	);
 }
-?>
+

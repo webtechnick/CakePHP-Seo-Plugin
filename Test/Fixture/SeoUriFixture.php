@@ -1,9 +1,9 @@
 <?php
 /* SeoUri Fixture generated on: 2011-01-03 10:01:34 : 1294074274 */
 class SeoUriFixture extends CakeTestFixture {
-	var $name = 'SeoUri';
+
 	
-	var $fields = array(
+	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
 		'uri' => array('type' => 'string', 'null' => true, 'default' => NULL, 'key' => 'unique', 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'is_approved' => array('type' => 'boolean', 'null' => false, 'default' => '1'),
@@ -14,7 +14,7 @@ class SeoUriFixture extends CakeTestFixture {
 	);
 
 
-	var $records = array(
+	public $records = array(
 		array(
 			'id' => 1,
 			'uri' => '/blah',
@@ -129,4 +129,4 @@ class SeoUriFixture extends CakeTestFixture {
 		),
 	);
 }
-?>
+

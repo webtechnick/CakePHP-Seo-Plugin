@@ -1,9 +1,9 @@
 <?php
 /* SeoRedirect Fixture generated on: 2010-10-05 18:10:19 : 1286323699 */
 class SeoRedirectFixture extends CakeTestFixture {
-	var $name = 'SeoRedirect';
 
-	var $fields = array(
+
+	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
 		'seo_uri_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'index'),
 		'redirect' => array('type' => 'string', 'null' => true, 'default' => NULL, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
@@ -16,7 +16,7 @@ class SeoRedirectFixture extends CakeTestFixture {
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'MyISAM')
 	);
 
-	var $records = array(
+	public $records = array(
 		array(
 			'id' => 1,
 			'seo_uri_id' => 1,
@@ -91,4 +91,4 @@ class SeoRedirectFixture extends CakeTestFixture {
 		),
 	);
 }
-?>
+

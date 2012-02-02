@@ -1,8 +1,8 @@
 <?php
 class SeoTitle extends SeoAppModel {
-	var $name = 'SeoTitle';
-	var $displayField = 'title';
-	var $validate = array(
+
+	public $displayField = 'title';
+	public $validate = array(
 		'seo_uri_id' => array(
 			'unique' => array(
 				'rule' => array('isUnique'),
@@ -18,7 +18,7 @@ class SeoTitle extends SeoAppModel {
 	);
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
-	var $belongsTo = array(
+	public $belongsTo = array(
 		'SeoUri' => array(
 			'className' => 'Seo.SeoUri',
 			'foreignKey' => 'seo_uri_id',
@@ -28,7 +28,7 @@ class SeoTitle extends SeoAppModel {
 	/**
 	* Filter fields
 	*/
-	var $searchFields = array(
+	public $searchFields = array(
 		'SeoTitle.id','SeoTitle.title','SeoTitle.id','SeoUri.uri'
 	);
 	
@@ -56,4 +56,4 @@ class SeoTitle extends SeoAppModel {
 		));
 	}
 }
-?>
+

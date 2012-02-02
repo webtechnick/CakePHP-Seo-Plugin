@@ -1,8 +1,8 @@
 <?php
 class SeoRedirect extends SeoAppModel {
-	var $name = 'SeoRedirect';
-	var $displayField = 'uri';
-	var $validate = array(
+
+	public $displayField = 'uri';
+	public $validate = array(
 		'redirect' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
@@ -17,14 +17,14 @@ class SeoRedirect extends SeoAppModel {
 		),
 	);
 	
-	var $belongsTo = array(
+	public $belongsTo = array(
 		'Seo.SeoUri'
 	);
 	
 	/**
 	* Filter fields
 	*/
-	var $searchFields = array(
+	public $searchFields = array(
 		'SeoRedirect.redirect','SeoRedirect.callback','SeoRedirect.id','SeoUri.uri'
 	);
 	
@@ -59,4 +59,4 @@ class SeoRedirect extends SeoAppModel {
 		));
 	}
 }
-?>
+

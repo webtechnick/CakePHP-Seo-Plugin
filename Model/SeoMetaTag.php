@@ -1,8 +1,8 @@
 <?php
 class SeoMetaTag extends SeoAppModel {
-	var $name = 'SeoMetaTag';
-	var $displayField = 'name';
-	var $validate = array(
+
+	public $displayField = 'name';
+	public $validate = array(
 		'seo_uri_id' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
@@ -28,7 +28,7 @@ class SeoMetaTag extends SeoAppModel {
 			),
 		),
 	);
-	var $belongsTo = array(
+	public $belongsTo = array(
 		'SeoUri' => array(
 			'className' => 'Seo.SeoUri',
 			'foreignKey' => 'seo_uri_id',
@@ -38,7 +38,7 @@ class SeoMetaTag extends SeoAppModel {
 	/**
 	* Filter fields
 	*/
-	var $searchFields = array(
+	public $searchFields = array(
 		'SeoMetaTag.name','SeoMetaTag.content','SeoMetaTag.id','SeoUri.uri'
 	);
 	
@@ -82,4 +82,4 @@ class SeoMetaTag extends SeoAppModel {
 		return $retval;
 	}
 }
-?>
+

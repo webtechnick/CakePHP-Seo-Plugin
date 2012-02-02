@@ -1,12 +1,12 @@
 <?php
 class SeoStatusCodesController extends SeoAppController {
 
-	var $name = 'SeoStatusCodes';
-	var $helpers = array('Time');
+
+	public $helpers = array('Time');
 	
 	function admin_index($filter = null) {
-		if(!empty($this->data)){
-			$filter = $this->data['SeoStatusCode']['filter'];
+		if(!empty($this->request->data)){
+			$filter = $this->request->data['SeoStatusCode']['filter'];
 		}
 		$conditions = $this->SeoStatusCode->generateFilterConditions($filter);
 		$this->set('seoStatusCodes',$this->paginate($conditions));
@@ -23,9 +23,9 @@ class SeoStatusCodesController extends SeoAppController {
 	}
 
 	function admin_add() {
-		if (!empty($this->data)) {
+		if (!empty($this->request->data)) {
 			$this->SeoStatusCode->create();
-			if ($this->SeoStatusCode->save($this->data)) {
+			if ($this->SeoStatusCode->save($this->request->data)) {
 				$this->Session->setFlash(__('The seo status code has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -36,20 +36,20 @@ class SeoStatusCodesController extends SeoAppController {
 	}
 
 	function admin_edit($id = null) {
-		if (!$id && empty($this->data)) {
+		if (!$id && empty($this->request->data)) {
 			$this->Session->setFlash(__('Invalid seo status code'));
 			$this->redirect(array('action' => 'index'));
 		}
-		if (!empty($this->data)) {
-			if ($this->SeoStatusCode->save($this->data)) {
+		if (!empty($this->request->data)) {
+			if ($this->SeoStatusCode->save($this->request->data)) {
 				$this->Session->setFlash(__('The seo status code has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The seo status code could not be saved. Please, try again.'));
 			}
 		}
-		if (empty($this->data)) {
-			$this->data = $this->SeoStatusCode->read(null, $id);
+		if (empty($this->request->data)) {
+			$this->request->data = $this->SeoStatusCode->read(null, $id);
 		}
 		$this->set('status_codes', $this->SeoStatusCode->findCodeList());
 		$this->set('id', $id);
@@ -68,4 +68,4 @@ class SeoStatusCodesController extends SeoAppController {
 		$this->redirect(array('action' => 'index'));
 	}
 }
-?>
+

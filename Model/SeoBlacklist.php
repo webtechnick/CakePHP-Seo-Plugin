@@ -1,8 +1,8 @@
 <?php
 class SeoBlacklist extends SeoAppModel {
-	var $name = 'SeoBlacklist';
-	var $displayField = 'note';
-	var $validate = array(
+
+	public $displayField = 'note';
+	public $validate = array(
 		'ip_range_start' => array(
 			'numeric' => array(
 				'rule' => array('isIp'),
@@ -20,12 +20,12 @@ class SeoBlacklist extends SeoAppModel {
 	/**
 	* Fields to IP
 	*/
-	var $fieldsToLong = array(
+	public $fieldsToLong = array(
 		'ip_range_start',
 		'ip_range_end'
 	);
 	
-	var $searchFields = array('SeoBlacklist.note');
+	public $searchFields = array('SeoBlacklist.note');
 	
 	/**
 	* Add the IP to the banned list.
@@ -72,4 +72,4 @@ class SeoBlacklist extends SeoAppModel {
 	}
 	
 }
-?>
+

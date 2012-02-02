@@ -1,8 +1,8 @@
 <?php
 class SeoHoneypotVisit extends SeoAppModel {
-	var $name = 'SeoHoneypotVisit';
-	var $displayField = 'ip';
-	var $validate = array(
+
+	public $displayField = 'ip';
+	public $validate = array(
 		'ip' => array(
 			'numeric' => array(
 				'rule' => array('isIp'),
@@ -15,7 +15,7 @@ class SeoHoneypotVisit extends SeoAppModel {
 	/**
 	* Fields to IP
 	*/
-	var $fieldsToLong = array(
+	public $fieldsToLong = array(
 		'ip'
 	);
 	
@@ -73,4 +73,4 @@ class SeoHoneypotVisit extends SeoAppModel {
 	}
 
 }
-?>
+

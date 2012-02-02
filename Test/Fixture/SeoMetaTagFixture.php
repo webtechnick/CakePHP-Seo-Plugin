@@ -1,9 +1,9 @@
 <?php
 /* SeoMetaTag Fixture generated on: 2011-01-03 10:01:07 : 1294074247 */
 class SeoMetaTagFixture extends CakeTestFixture {
-	var $name = 'SeoMetaTag';
+
 	
-	var $fields = array(
+	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
 		'seo_uri_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'index'),
 		'name' => array('type' => 'string', 'null' => true, 'default' => NULL, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
@@ -15,7 +15,7 @@ class SeoMetaTagFixture extends CakeTestFixture {
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'MyISAM')
 	);
 
-	var $records = array(
+	public $records = array(
 		array(
 			'id' => 1,
 			'seo_uri_id' => 9,
@@ -81,4 +81,4 @@ class SeoMetaTagFixture extends CakeTestFixture {
 		),
 	);
 }
-?>
+

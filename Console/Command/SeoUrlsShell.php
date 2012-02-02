@@ -1,6 +1,6 @@
 <?php
-class SeoUrlsShell extends Shell {
-	var $uses = array('Seo.SeoUrl');
+class SeoUrlsShell extends AppShell {
+	public $uses = array('Seo.SeoUrl');
 	
 	function main(){
 		$this->out("SeoUrl Shell");
@@ -47,4 +47,4 @@ class SeoUrlsShell extends Shell {
 		}
 	}
 }
-?>
+

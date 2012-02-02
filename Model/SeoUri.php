@@ -1,15 +1,15 @@
 <?php
 class SeoUri extends SeoAppModel {
-	var $name = 'SeoUri';
-	var $displayField = 'uri';
-	var $hasMany = array(
+
+	public $displayField = 'uri';
+	public $hasMany = array(
 		'SeoMetaTag' => array(
 			'className' => 'Seo.SeoMetaTag',
 			'foreignKey' => 'seo_uri_id',
 			'dependent' => true,
 		),
 	);
-	var $hasOne = array(
+	public $hasOne = array(
 		'SeoRedirect' => array(
 			'className' => 'Seo.SeoRedirect',
 			'foreignKey' => 'seo_uri_id',
@@ -32,7 +32,7 @@ class SeoUri extends SeoAppModel {
 		)
 	);
 	
-	var $validate = array(
+	public $validate = array(
 		'uri' => array(
 			'unique' => array(
 				'rule' => array('isUnique'),
@@ -48,7 +48,7 @@ class SeoUri extends SeoAppModel {
 	/**
 	* Filter fields
 	*/
-	var $searchFields = array(
+	public $searchFields = array(
 		'SeoUri.id','SeoUri.uri'
 	);
 	
@@ -216,4 +216,4 @@ class SeoUri extends SeoAppModel {
 	}
 	
 }
-?>
+

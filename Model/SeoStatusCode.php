@@ -1,8 +1,8 @@
 <?php
 class SeoStatusCode extends SeoAppModel {
-	var $name = 'SeoStatusCode';
-	var $displayField = 'seo_uri_id';
-	var $validate = array(
+
+	public $displayField = 'seo_uri_id';
+	public $validate = array(
 		'seo_uri_id' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
@@ -23,7 +23,7 @@ class SeoStatusCode extends SeoAppModel {
 		),
 	);
 
-	var $belongsTo = array(
+	public $belongsTo = array(
 		'SeoUri' => array(
 			'className' => 'Seo.SeoUri',
 			'foreignKey' => 'seo_uri_id',
@@ -33,7 +33,7 @@ class SeoStatusCode extends SeoAppModel {
 	/**
 	* Status codes
 	*/
-	var $codes = array(
+	public $codes = array(
 		'204' => 'No Content',
 		'205' => 'Reset Content',
 		'400' => 'Bad Request',
@@ -59,7 +59,7 @@ class SeoStatusCode extends SeoAppModel {
 	/**
 	* Filter fields
 	*/
-	var $searchFields = array(
+	public $searchFields = array(
 		'SeoStatusCode.status_code','SeoStatusCode.id','SeoUri.uri'
 	);
 	

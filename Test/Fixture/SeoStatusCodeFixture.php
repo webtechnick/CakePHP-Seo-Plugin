@@ -1,9 +1,9 @@
 <?php
 /* SeoStatusCode Fixture generated on: 2011-07-25 17:06:20 : 1311635180 */
 class SeoStatusCodeFixture extends CakeTestFixture {
-	var $name = 'SeoStatusCode';
 
-	var $fields = array(
+
+	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
 		'seo_uri_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'index'),
 		'status_code' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 3),
@@ -15,7 +15,7 @@ class SeoStatusCodeFixture extends CakeTestFixture {
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'MyISAM')
 	);
 
-	var $records = array(
+	public $records = array(
 		array(
 			'id' => 1,
 			'seo_uri_id' => 15,

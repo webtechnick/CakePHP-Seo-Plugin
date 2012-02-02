@@ -5,13 +5,13 @@
 * @since 4.5
 * @license MIT
 */
-App::import('Lib','Seo.SeoUtil');
+App::uses('SeoUtil', 'Seo.Lib');
 class SeoHelper extends AppHelper {
-	var $helpers = array('Html');
-	var $SeoMetaTag = null;
-	var $SeoTitle = null;
-	var $SeoCanonical = null;
-	var $honeyPotId = 1;
+	public $helpers = array('Html');
+	public $SeoMetaTag = null;
+	public $SeoTitle = null;
+	public $SeoCanonical = null;
+	public $honeyPotId = 1;
 	
 	/**
 	* Show the meta tags designated for this uri
@@ -133,4 +133,4 @@ class SeoHelper extends AppHelper {
 	}
 	
 }
-?>
+

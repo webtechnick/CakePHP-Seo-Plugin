@@ -1,14 +1,14 @@
 <?php
-App::import('Core', 'Controller');
+App::uses('Controller', 'Controller');
 App::import('Component', 'Seo.BlackList');
 App::import('Model', 'Seo.SeoHoneypotVisit');
 
 
 class TestBlacklist extends CakeTestModel {
-  var $name = 'Blacklist';
-  var $data = null;
-  var $useDbConfig = 'test_suite';
-  var $useTable = false;
+  public $name = 'Blacklist';
+  public $data = null;
+  public $useDbConfig = 'test_suite';
+  public $useTable = false;
   
   function isBanned(){
   	return true;
@@ -16,10 +16,10 @@ class TestBlacklist extends CakeTestModel {
 }
 
 class TestHoneyPotVisit extends CakeTestModel {
-  var $name = 'HoneypotVisit';
-  var $data = null;
-  var $useDbConfig = 'test_suite';
-  var $useTable = false;
+  public $name = 'HoneypotVisit';
+  public $data = null;
+  public $useDbConfig = 'test_suite';
+  public $useTable = false;
   
   function isTriggered(){
   	return true;
@@ -27,7 +27,7 @@ class TestHoneyPotVisit extends CakeTestModel {
 }
 
 class BlackListTest extends CakeTestCase {
-	var $BlackList = null;
+	public $BlackList = null;
 	
 	function startTest(){
 		Mock::generate('Controller');
@@ -60,4 +60,4 @@ class BlackListTest extends CakeTestCase {
 		unset($this->BlackList);
 	}
 }
-?>
+

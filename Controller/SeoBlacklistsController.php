@@ -1,8 +1,8 @@
 <?php
 class SeoBlacklistsController extends SeoAppController {
 
-	var $name = 'SeoBlacklists';
-	var $helpers = array('Time');
+
+	public $helpers = array('Time');
 	
 	function beforeFilter(){
 		parent::beforeFilter();
@@ -22,8 +22,8 @@ class SeoBlacklistsController extends SeoAppController {
 	* Admin actions
 	*/
 	function admin_index($filter = null) {
-		if(!empty($this->data)){
-			$filter = $this->data['Location']['filter'];
+		if(!empty($this->request->data)){
+			$filter = $this->request->data['Location']['filter'];
 		}
 		$conditions = $this->SeoBlacklist->generateFilterConditions($filter);
 		$this->set('seoBlacklists',$this->paginate($conditions));
@@ -39,9 +39,9 @@ class SeoBlacklistsController extends SeoAppController {
 	}
 
 	function admin_add() {
-		if (!empty($this->data)) {
+		if (!empty($this->request->data)) {
 			$this->SeoBlacklist->create();
-			if ($this->SeoBlacklist->save($this->data)) {
+			if ($this->SeoBlacklist->save($this->request->data)) {
 				$this->Session->setFlash(__('The seo blacklist has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -51,20 +51,20 @@ class SeoBlacklistsController extends SeoAppController {
 	}
 
 	function admin_edit($id = null) {
-		if (!$id && empty($this->data)) {
+		if (!$id && empty($this->request->data)) {
 			$this->Session->setFlash(__('Invalid seo blacklist'));
 			$this->redirect(array('action' => 'index'));
 		}
-		if (!empty($this->data)) {
-			if ($this->SeoBlacklist->save($this->data)) {
+		if (!empty($this->request->data)) {
+			if ($this->SeoBlacklist->save($this->request->data)) {
 				$this->Session->setFlash(__('The seo blacklist has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The seo blacklist could not be saved. Please, try again.'));
 			}
 		}
-		if (empty($this->data)) {
-			$this->data = $this->SeoBlacklist->read(null, $id);
+		if (empty($this->request->data)) {
+			$this->request->data = $this->SeoBlacklist->read(null, $id);
 		}
 	}
 
@@ -81,4 +81,4 @@ class SeoBlacklistsController extends SeoAppController {
 		$this->redirect(array('action' => 'index'));
 	}
 }
-?>
+

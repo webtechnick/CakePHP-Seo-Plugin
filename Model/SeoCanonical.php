@@ -1,8 +1,8 @@
 <?php
 class SeoCanonical extends SeoAppModel {
-	var $name = 'SeoCanonical';
-	var $displayField = 'canonical';
-	var $validate = array(
+
+	public $displayField = 'canonical';
+	public $validate = array(
 		'seo_uri_id' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
@@ -24,7 +24,7 @@ class SeoCanonical extends SeoAppModel {
 	);
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
-	var $belongsTo = array(
+	public $belongsTo = array(
 		'SeoUri' => array(
 			'className' => 'Seo.SeoUri',
 			'foreignKey' => 'seo_uri_id',
@@ -34,7 +34,7 @@ class SeoCanonical extends SeoAppModel {
 	/**
 	* Filter fields
 	*/
-	var $searchFields = array(
+	public $searchFields = array(
 		'SeoCanonical.id','SeoCanonical.canonical','SeoUri.uri'
 	);
 	

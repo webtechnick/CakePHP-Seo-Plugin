@@ -1,9 +1,9 @@
 <?php
 App::uses('SeoUtil', 'Seo.Lib');
 class SeoUrl extends SeoAppModel {
-	var $name = 'SeoUrl';
-	var $displayField = 'url';
-	var $validate = array(
+
+	public $displayField = 'url';
+	public $validate = array(
 		'url' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
@@ -16,12 +16,12 @@ class SeoUrl extends SeoAppModel {
 		),
 	);
 	
-	var $searchFields = array('SeoUrl.id','SeoUrl.url');
+	public $searchFields = array('SeoUrl.id','SeoUrl.url');
 	
 	/**
 	* Configuration settings
 	*/ 
-	var $settings = array();
+	public $settings = array();
 	
 	/**
 	* Load the settings

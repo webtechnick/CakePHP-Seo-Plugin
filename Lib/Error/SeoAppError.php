@@ -11,9 +11,9 @@ App::uses('Controller', 'Controller');
 App::uses('CakeResponse', 'Network');
 class SeoAppError {
 	
-	var $SeoRedirect = null;
-	var $SeoStatusCode = null;
-	var $SeoUrl = null;
+	public $SeoRedirect = null;
+	public $SeoStatusCode = null;
+	public $SeoUrl = null;
 	
 	/**
 	* Overload constructor so we can test it properly
@@ -208,4 +208,4 @@ class SeoExceptionHandler extends HttpException {
 		ErrorHandler::handleException($error);
 	}
 }
-?>
+
