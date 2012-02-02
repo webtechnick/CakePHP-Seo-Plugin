@@ -15,11 +15,11 @@ class SeoUrlTest extends CakeTestCase {
 		$this->SeoUrl->settings['cost_change'] = 1;
 		$this->SeoUrl->settings['cost_delete'] = 1;
 		$result = $this->SeoUrl->findRedirectByRequest("/some_url");
-		$this->assertEqual($result, array('redirect' => '/some', 'shortest' => 4));
+		$this->assertEquals($result, array('redirect' => '/some', 'shortest' => 4));
 		$result = $this->SeoUrl->findRedirectByRequest("/some_other_blah");
-		$this->assertEqual($result, array('redirect' => '/some_other_url', 'shortest' => 4));
+		$this->assertEquals($result, array('redirect' => '/some_other_url', 'shortest' => 4));
 		$result = $this->SeoUrl->findRedirectByRequest("/some_other");
-		$this->assertEqual($result, array('redirect' => '/some_other', 'shortest' => 0));
+		$this->assertEquals($result, array('redirect' => '/some_other', 'shortest' => 0));
 	}
 	
 	function test_levenshtien(){
@@ -28,15 +28,15 @@ class SeoUrlTest extends CakeTestCase {
 		$change = 2;
 		$delete = 3;
 		$lev = levenshtein($request,"/content/Hearing-loss/Treatments", $add, $change, $delete);
-		$this->assertEqual(1, $lev);
+		$this->assertEquals(1, $lev);
 		
 		$lev = levenshtein($request,"/content/articles/Hearing-loss/Protection/30207-Attention-couch-potatoes-time", $add, $change, $delete);
-		$this->assertEqual(52, $lev);
+		$this->assertEquals(52, $lev);
 	}
 	
 	function test_import(){
 		$result = $this->SeoUrl->import("/custom-sitemap.xml");
-		$this->assertEqual('269', $result);
+		$this->assertEquals('269', $result);
 	}
 
 	function endTest() {

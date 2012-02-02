@@ -21,16 +21,16 @@ class SeoUriTest extends CakeTestCase {
 	
 	function testUrlEncode(){
 		$uri = $this->SeoUri->findById(1);
-		$this->assertEqual('/blah', $uri['SeoUri']['uri']);
+		$this->assertEquals('/blah', $uri['SeoUri']['uri']);
 		$this->assertTrue($this->SeoUri->urlEncode(1));
 		$result = $this->SeoUri->findById(1);
-		$this->assertEqual('/blah', $result['SeoUri']['uri']);
+		$this->assertEquals('/blah', $result['SeoUri']['uri']);
 		
 		$uri = $this->SeoUri->findById(14);
-		$this->assertEqual('/uri with spaces', $uri['SeoUri']['uri']);
+		$this->assertEquals('/uri with spaces', $uri['SeoUri']['uri']);
 		$this->assertTrue($this->SeoUri->urlEncode(14));
 		$result = $this->SeoUri->findById(14);
-		$this->assertEqual('/uri%20with%20spaces', $result['SeoUri']['uri']);
+		$this->assertEquals('/uri%20with%20spaces', $result['SeoUri']['uri']);
 	}
 	
 	function testSetApproved(){
@@ -44,8 +44,8 @@ class SeoUriTest extends CakeTestCase {
 	  $this->SeoUri->id = 6;
 	  $this->SeoUri->Email->expectOnce('send');
 	  $this->SeoUri->sendNotification();
-	  $this->assertEqual('301 Redirect: #(.*)#i to / needs approval', $this->SeoUri->Email->subject);
-	  $this->assertEqual('html', $this->SeoUri->Email->sendAs);
+	  $this->assertEquals('301 Redirect: #(.*)#i to / needs approval', $this->SeoUri->Email->subject);
+	  $this->assertEquals('html', $this->SeoUri->Email->sendAs);
 	}
 	
 	function testDeleteUriDeletsMeta(){

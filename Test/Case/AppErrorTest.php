@@ -47,13 +47,13 @@ class AppErrorTest extends CakeTestCase {
 	function testUriToStatusCodeGone(){
 		$_SERVER['REQUEST_URI'] = '/status_gone';
 		$result = $this->AppError->__uriToStatusCode(true);
-		$this->assertEqual('410', $result);
+		$this->assertEquals('410', $result);
 	}
 	
 	function testUriToStatusCodeOk(){
 		$_SERVER['REQUEST_URI'] = '/ok_request';
 		$result = $this->AppError->__uriToStatusCode(true);
-		$this->assertEqual('', $result);
+		$this->assertEquals('', $result);
 	}
 	
 	function testUriToRedirectWithCallbackFull(){

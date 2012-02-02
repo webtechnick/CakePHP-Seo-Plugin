@@ -21,17 +21,17 @@ class SeoMetaTagTest extends CakeTestCase {
 	
 	function testFindAllTagsByUri(){
 		$results = $this->SeoMetaTag->findAllTagsByUri('/uri_for_meta');
-		$this->assertEqual(2, count($results));
+		$this->assertEquals(2, count($results));
 	}
 	
 	function testFindAllTagsByUriRegEx(){
 		$results = $this->SeoMetaTag->findAllTagsByUri('/uri_for_meta_reg_ex/regex');
-		$this->assertEqual(2, count($results));
+		$this->assertEquals(2, count($results));
 	}
 	
 	function testFindAllTagsByUriWildCard(){
 		$results = $this->SeoMetaTag->findAllTagsByUri('/uri_for_meta_wild_card/wild');
-		$this->assertEqual(1, count($results));
+		$this->assertEquals(1, count($results));
 	}
 	
 	function testBeforeSaveShouldLinkToExistinUri(){
@@ -47,11 +47,11 @@ class SeoMetaTagTest extends CakeTestCase {
 		
 		$count = $this->SeoMetaTag->SeoUri->find('count');
 		$this->assertTrue($this->SeoMetaTag->save());
-		$this->assertEqual($count, $this->SeoMetaTag->SeoUri->find('count'));
+		$this->assertEquals($count, $this->SeoMetaTag->SeoUri->find('count'));
 		$results = $this->SeoMetaTag->find('last');
-		$this->assertEqual('New', $results['SeoMetaTag']['name']);
-		$this->assertEqual('Content', $results['SeoMetaTag']['content']);
-		$this->assertEqual(9, $results['SeoMetaTag']['seo_uri_id']);
+		$this->assertEquals('New', $results['SeoMetaTag']['name']);
+		$this->assertEquals('Content', $results['SeoMetaTag']['content']);
+		$this->assertEquals(9, $results['SeoMetaTag']['seo_uri_id']);
 	}
 	
 	function testBeforeSaveShouldLinkToCreatUri(){
@@ -67,10 +67,10 @@ class SeoMetaTagTest extends CakeTestCase {
 		
 		$count = $this->SeoMetaTag->SeoUri->find('count');
 		$this->assertTrue($this->SeoMetaTag->save());
-		$this->assertEqual($count + 1, $this->SeoMetaTag->SeoUri->find('count'));
+		$this->assertEquals($count + 1, $this->SeoMetaTag->SeoUri->find('count'));
 		$results = $this->SeoMetaTag->find('last');
-		$this->assertEqual('New', $results['SeoMetaTag']['name']);
-		$this->assertEqual('Content', $results['SeoMetaTag']['content']);
+		$this->assertEquals('New', $results['SeoMetaTag']['name']);
+		$this->assertEquals('Content', $results['SeoMetaTag']['content']);
 	}
 
 	function endTest() {

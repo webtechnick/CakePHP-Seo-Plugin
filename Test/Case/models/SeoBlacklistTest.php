@@ -25,9 +25,9 @@ class SeoBlacklistTest extends CakeTestCase {
 		$count = $this->SeoBlacklist->find('count');
 		$this->assertTrue($this->SeoBlacklist->save());
 		$result = $this->SeoBlacklist->find('last');
-		$this->assertEqual($count + 1, $this->SeoBlacklist->find('count'));
-		$this->assertEqual('127.255.253.220', $result['SeoBlacklist']['ip_range_start']);
-		$this->assertEqual('127.255.253.222', $result['SeoBlacklist']['ip_range_end']);
+		$this->assertEquals($count + 1, $this->SeoBlacklist->find('count'));
+		$this->assertEquals('127.255.253.220', $result['SeoBlacklist']['ip_range_start']);
+		$this->assertEquals('127.255.253.222', $result['SeoBlacklist']['ip_range_end']);
 	}
 	
 	function testIsBannedByIp(){
@@ -62,11 +62,11 @@ class SeoBlacklistTest extends CakeTestCase {
 		$_SERVER['HTTP_X_FORWARDED_FOR'] = 'forwarded';
 		$_SERVER['REMOTE_ADDR'] = 'remote';
 		
-		$this->assertEqual('client', $this->SeoBlacklist->getIpFromServer());
+		$this->assertEquals('client', $this->SeoBlacklist->getIpFromServer());
 		unset($_SERVER['HTTP_CLIENT_IP']);
-		$this->assertEqual('forwarded', $this->SeoBlacklist->getIpFromServer());
+		$this->assertEquals('forwarded', $this->SeoBlacklist->getIpFromServer());
 		unset($_SERVER['HTTP_X_FORWARDED_FOR']);
-		$this->assertEqual('remote', $this->SeoBlacklist->getIpFromServer());
+		$this->assertEquals('remote', $this->SeoBlacklist->getIpFromServer());
 	}
 
 	function endTest() {

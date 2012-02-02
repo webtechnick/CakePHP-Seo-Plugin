@@ -13,17 +13,17 @@ class SeoHoneypotVisitTest extends CakeTestCase {
 	}
 	
 	function testClear(){
-		$this->assertEqual(1, $this->SeoHoneypotVisit->find('count'));
+		$this->assertEquals(1, $this->SeoHoneypotVisit->find('count'));
 		$this->assertTrue($this->SeoHoneypotVisit->clear());
-		$this->assertEqual(0, $this->SeoHoneypotVisit->find('count'));
+		$this->assertEquals(0, $this->SeoHoneypotVisit->find('count'));
 	}
 	
 	function testClearAfterAdding(){
-		$this->assertEqual(1, $this->SeoHoneypotVisit->find('count'));
+		$this->assertEquals(1, $this->SeoHoneypotVisit->find('count'));
 		$this->assertTrue($this->SeoHoneypotVisit->add('127.255.253.120'));
 		$this->assertTrue($this->SeoHoneypotVisit->add('127.255.253.120'));
 		$this->assertTrue($this->SeoHoneypotVisit->clear());
-		$this->assertEqual(2, $this->SeoHoneypotVisit->find('count'));
+		$this->assertEquals(2, $this->SeoHoneypotVisit->find('count'));
 	}
 	
 	function testIsTriggered(){

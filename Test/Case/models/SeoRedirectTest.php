@@ -62,7 +62,7 @@ class SeoRedirectTest extends CakeTestCase {
 	
 	function testFindRedirectListByPriority(){
 	  $results = $this->SeoRedirect->findRedirectListByPriority();
-	  $this->assertEqual(6, count($results));
+	  $this->assertEquals(6, count($results));
 	}
 
 	function endTest() {
