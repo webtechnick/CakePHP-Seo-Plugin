@@ -10,7 +10,7 @@ class SeoUtil extends Object {
 	
 	/**
 	 * Seo configurations stored in
-	 * app/config/seo.php
+	 * APP/config/seo.php
 	 * @var array
 	 */
 	public static $configs = array();

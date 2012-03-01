@@ -30,9 +30,9 @@ Complete tool for all your CakePHP Search Engine Optimization needs
 
 ## Install
 
-Clone the repository into your `app/plugins/seo` directory:
+Clone the repository into your `APP/Plugin/Seo` directory:
 
-	$ git clone git://github.com/webtechnick/CakePHP-Seo-Plugin.git app/plugins/seo
+	$ git clone git://github.com/webtechnick/CakePHP-Seo-Plugin.git APP/Plugin/Seo
 
 Run the schema into your database:
 
@@ -40,7 +40,7 @@ Run the schema into your database:
 	
 ## Setup
 
-Create the file `app/config/seo.php` with the following configurations like so:
+Create the file `APP/Config/seo.php` with the following configurations like so:
 
 	<?php
 	$config = array(
@@ -67,7 +67,7 @@ Create the file `app/config/seo.php` with the following configurations like so:
 	?>
 
 ## SEO Redirect/Status Code Quick Start
-update file `app/Config/core.php` with the following:
+update file `APP/Config/core.php` with the following:
 
 	<?php
 		Configure::write('Exception', array(
@@ -77,7 +77,7 @@ update file `app/Config/core.php` with the following:
 		));
 	?>
 	
-update file `app/Config/bootstrap.php` with the following:
+update file `APP/Config/bootstrap.php` with the following:
 
 	require_once(APP . 'Plugin' . DS . 'Seo' . DS . 'Lib' . DS . 'Error' . DS . 'SeoAppError.php');
 	
@@ -92,9 +92,9 @@ update file `app/Config/bootstrap.php` with the following:
 
 ## SEO Meta Tags Quick Start
 
-Include the `Seo.Seo` Helper to your `app_controller.php`:
+Include the `Seo.Seo` Helper to your `AppController.php`:
 
-	var $helpers = array('Seo.Seo');
+	public $helpers = array('Seo.Seo');
 
 Alter your layout to include the Seo Meta Tags in the head of your layout
 
@@ -110,9 +110,9 @@ Alter your layout to include the Seo Meta Tags in the head of your layout
 
 ## SEO Titles Quick Start
 
-Include the `Seo.Seo` Helper to your `app_controller.php`:
+Include the `Seo.Seo` Helper to your `AppController.php`:
 
-  var $helpers = array('Seo.Seo');
+  public $helpers = array('Seo.Seo');
 
 Alter your layout to include the Seo Title in the head of your layout
 
@@ -128,9 +128,9 @@ Alter your layout to include the Seo Title in the head of your layout
 
 ## SEO Canonical Quick Start
 
-Include the `Seo.Seo` Helper to your `app_controller.php`:
+Include the `Seo.Seo` Helper to your `AppController.php`:
 
-  var $helpers = array('Seo.Seo');
+  public $helpers = array('Seo.Seo');
 
 Alter your layout to include the Seo Canonical in the head of your layout
 
@@ -145,9 +145,9 @@ Alter your layout to include the Seo Canonical in the head of your layout
 
 ## SEO BlackList Quick Start
 
-Include The `Seo.BlackList` Component in your `app_controller.php`:
+Include The `Seo.BlackList` Component in your `AppController.php`:
 
-	var $components = array('Seo.BlackList');
+	public $components = array('Seo.BlackList');
 
 Start adding honeypot links in and around your application to bait malicious content grabbers
 

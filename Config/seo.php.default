@@ -2,7 +2,7 @@
 /**
   * Seo Configuration file
   *
-  * save the file to app/config/seo.php
+  * save the file to APP/config/seo.php
   */
 $config = array(
   'Seo' => array(
