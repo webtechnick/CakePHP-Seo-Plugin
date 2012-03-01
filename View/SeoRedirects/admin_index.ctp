@@ -33,7 +33,7 @@
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('action' => 'view', $seoRedirect['SeoRedirect']['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $seoRedirect['SeoRedirect']['id'])); ?>
-				<?php echo $this->Html->link(__('Delete'), array('action' => 'delete', $seoRedirect['SeoRedirect']['id']), null, sprintf(__('Are you sure you want to delete # %s?'), $seoRedirect['SeoRedirect']['id'])); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $seoRedirect['SeoRedirect']['id']), null, __('Are you sure you want to delete # %s?', $seoRedirect['SeoRedirect']['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>

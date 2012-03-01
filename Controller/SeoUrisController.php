@@ -2,9 +2,9 @@
 class SeoUrisController extends SeoAppController {
 
 
-	public $helpers = array('Time');
 	
-	private function clearAssociatesIfEmpty(){
+	
+	protected function clearAssociatesIfEmpty(){
 		foreach($this->request->data['SeoMetaTag'] as $key => $metatag){
 			if(isset($metatag['name']) && empty($metatag['name'])){
 				unset($this->request->data['SeoMetaTag'][$key]);
@@ -18,7 +18,7 @@ class SeoUrisController extends SeoAppController {
 		}
 	}
 	
-	function admin_index($filter = null) {
+	public function admin_index($filter = null) {
 		if(!empty($this->request->data)){
 			$filter = $this->request->data['SeoUri']['filter'];
 		}
@@ -27,7 +27,7 @@ class SeoUrisController extends SeoAppController {
 		$this->set('filter', $filter);
 	}
 	
-	function admin_urlencode($id = null){
+	public function admin_urlencode($id = null){
 		if($this->SeoUri->urlEncode($id)){
 			$this->Session->setFlash("uri Successfully Url Encoded.");
 		}
@@ -37,7 +37,7 @@ class SeoUrisController extends SeoAppController {
 		$this->redirect(array('action' => 'view', $id));
 	}
 
-	function admin_view($id = null) {
+	public function admin_view($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid seo uri'));
 			$this->redirect(array('action' => 'index'));
@@ -46,8 +46,8 @@ class SeoUrisController extends SeoAppController {
 		$this->set('id', $id);
 	}
 
-	function admin_add() {
-		if (!empty($this->request->data)) {
+	public function admin_add() {
+		if(!empty($this->request->data)) {
 			$this->SeoUri->create();
 			$this->clearAssociatesIfEmpty();
 			if ($this->SeoUri->saveAll($this->request->data)) {
@@ -59,12 +59,12 @@ class SeoUrisController extends SeoAppController {
 		}
 	}
 
-	function admin_edit($id = null) {
+	public function admin_edit($id = null) {
 		if (!$id && empty($this->request->data)) {
 			$this->Session->setFlash(__('Invalid seo uri'));
 			$this->redirect(array('action' => 'index'));
 		}
-		if (!empty($this->request->data)) {
+		if(!empty($this->request->data)) {
 			$this->clearAssociatesIfEmpty();
 			if ($this->SeoUri->save($this->request->data)) {
 				$this->Session->setFlash(__('The seo uri has been saved'));
@@ -80,7 +80,7 @@ class SeoUrisController extends SeoAppController {
 		$this->set('id', $id);
 	}
 
-	function admin_delete($id = null) {
+	public function admin_delete($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for seo uri'));
 			$this->redirect(array('action'=>'index'));
@@ -93,7 +93,7 @@ class SeoUrisController extends SeoAppController {
 		$this->redirect(array('action' => 'index'));
 	}
 	
-	function admin_approve($id = null){
+	public function admin_approve($id = null){
 	  if(!$id) {
 			$this->Session->setFlash(__('Invalid id for seo uri'));
 		}
@@ -103,4 +103,3 @@ class SeoUrisController extends SeoAppController {
 		$this->redirect(array('admin' => true, 'action' => 'index'));
 	}
 }
-

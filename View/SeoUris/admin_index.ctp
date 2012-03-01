@@ -25,7 +25,7 @@
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('action' => 'view', $seoUri['SeoUri']['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $seoUri['SeoUri']['id'])); ?>
-				<?php echo $this->Html->link(__('Delete'), array('action' => 'delete', $seoUri['SeoUri']['id']), null, sprintf(__('Are you sure you want to delete # %s?'), $seoUri['SeoUri']['id'])); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $seoUri['SeoUri']['id']), null, __('Are you sure you want to delete # %s?', $seoUri['SeoUri']['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>

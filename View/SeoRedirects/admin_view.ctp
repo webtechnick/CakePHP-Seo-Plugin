@@ -49,7 +49,7 @@
 		<h3><?php echo __('Actions'); ?></h3>
 		<ul>
 			<li><?php echo $this->Html->link(__('Edit Seo Redirect'), array('action' => 'edit', $seoRedirect['SeoRedirect']['id'])); ?> </li>
-			<li><?php echo $this->Html->link(__('Delete Seo Redirect'), array('action' => 'delete', $seoRedirect['SeoRedirect']['id']), null, sprintf(__('Are you sure you want to delete # %s?'), $seoRedirect['SeoRedirect']['id'])); ?> </li>
+			<li><?php echo $this->Form->postLink(__('Delete Seo Redirect'), array('action' => 'delete', $seoRedirect['SeoRedirect']['id']), null, __('Are you sure you want to delete # %s?', $seoRedirect['SeoRedirect']['id'])); ?> </li>
 		</ul>
 	</div>
 </div>

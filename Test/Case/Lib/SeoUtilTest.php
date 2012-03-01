@@ -2,7 +2,7 @@
 App::uses('SeoUtil', 'Seo.Lib');
 
 class SeoUtilTest extends CakeTestCase {
-	function testLoad(){
+	public function testLoad(){
 		$this->assertTrue(SeoUtil::loadSeoError());
 	}
 }

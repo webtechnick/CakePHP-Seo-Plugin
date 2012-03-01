@@ -24,7 +24,7 @@ class SeoHoneypotVisit extends SeoAppModel {
 	* @param string ip
 	* @return boolean success
 	*/
-	function add($ip = null){
+	public function add($ip = null){
 		if(!$ip){
 			$ip = $this->getIpFromServer();
 		}
@@ -42,7 +42,7 @@ class SeoHoneypotVisit extends SeoAppModel {
 	* @param string ip to check (default current IP)
 	* @return boolean
 	*/
-	function isTriggered($ip = null){
+	public function isTriggered($ip = null){
 		if(!$ip){
 			$ip = $this->getIpFromServer();
 		}
@@ -65,7 +65,7 @@ class SeoHoneypotVisit extends SeoAppModel {
 	* Clear the list of old visits baesd on the current time.
 	* @return boolean success
 	*/
-	function clear(){
+	public function clear(){
 		$cutoff =  time() - SeoUtil::getConfig('timeBetweenTriggers');
 		return $this->deleteAll(array(
 			"{$this->alias}.created <=" => date('Y-m-d g:i:s', $cutoff) 

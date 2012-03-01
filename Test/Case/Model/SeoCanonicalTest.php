@@ -1,6 +1,6 @@
 <?php
 /* SeoCanonical Test cases generated on: 2011-07-27 11:26:15 : 1311787575*/
-App::import('Model', 'seo.SeoCanonical');
+App::import('Model', 'Seo.SeoCanonical');
 App::import('Component', 'Email');
 Mock::generate('EmailComponent');
 class SeoCanonicalTest extends CakeTestCase {
@@ -12,12 +12,12 @@ class SeoCanonicalTest extends CakeTestCase {
 		'plugin.seo.seo_status_code',
 		'plugin.seo.seo_canonical',
 	);*/
-	function startTest() {
-		$this->SeoCanonical =& ClassRegistry::init('SeoCanonical');
+	public function startTest() {
+		$this->SeoCanonical = ClassRegistry::init('SeoCanonical');
 		$this->SeoRedirect->SeoUri->Email = new MockEmailComponent();
 	}
 
-	function endTest() {
+	public function endTest() {
 		unset($this->SeoCanonical);
 		ClassRegistry::flush();
 	}

@@ -14,27 +14,27 @@ class SeoMetaTagTest extends CakeTestCase {
 		'plugin.seo.seo_canonical',
 	);
 	
-	function startTest() {
-		$this->SeoMetaTag =& ClassRegistry::init('SeoMetaTag');
+	public function startTest() {
+		$this->SeoMetaTag = ClassRegistry::init('SeoMetaTag');
 		$this->SeoMetaTag->SeoUri->Email = new MockEmailComponent();
 	}
 	
-	function testFindAllTagsByUri(){
+	public function testFindAllTagsByUri(){
 		$results = $this->SeoMetaTag->findAllTagsByUri('/uri_for_meta');
 		$this->assertEquals(2, count($results));
 	}
 	
-	function testFindAllTagsByUriRegEx(){
+	public function testFindAllTagsByUriRegEx(){
 		$results = $this->SeoMetaTag->findAllTagsByUri('/uri_for_meta_reg_ex/regex');
 		$this->assertEquals(2, count($results));
 	}
 	
-	function testFindAllTagsByUriWildCard(){
+	public function testFindAllTagsByUriWildCard(){
 		$results = $this->SeoMetaTag->findAllTagsByUri('/uri_for_meta_wild_card/wild');
 		$this->assertEquals(1, count($results));
 	}
 	
-	function testBeforeSaveShouldLinkToExistinUri(){
+	public function testBeforeSaveShouldLinkToExistinUri(){
 		$this->SeoMetaTag->data = array(
 			'SeoMetaTag' => array(
 				'name' => 'New',
@@ -54,7 +54,7 @@ class SeoMetaTagTest extends CakeTestCase {
 		$this->assertEquals(9, $results['SeoMetaTag']['seo_uri_id']);
 	}
 	
-	function testBeforeSaveShouldLinkToCreatUri(){
+	public function testBeforeSaveShouldLinkToCreatUri(){
 		$this->SeoMetaTag->data = array(
 			'SeoMetaTag' => array(
 				'name' => 'New',
@@ -73,7 +73,7 @@ class SeoMetaTagTest extends CakeTestCase {
 		$this->assertEquals('Content', $results['SeoMetaTag']['content']);
 	}
 
-	function endTest() {
+	public function endTest() {
 		unset($this->SeoMetaTag);
 		ClassRegistry::flush();
 	}

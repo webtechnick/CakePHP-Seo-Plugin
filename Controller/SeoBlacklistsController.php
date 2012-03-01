@@ -1,10 +1,7 @@
 <?php
 class SeoBlacklistsController extends SeoAppController {
-
-
-	public $helpers = array('Time');
 	
-	function beforeFilter(){
+	public function beforeFilter(){
 		parent::beforeFilter();
 		if(isset($this->Auth)){
 			$this->Auth->allow('banned');
@@ -14,14 +11,14 @@ class SeoBlacklistsController extends SeoAppController {
 	/**
 	* Banned action
 	*/
-	function banned(){
+	public function banned(){
 		$this->layout = 'banned';
 	}
 
 	/**
 	* Admin actions
 	*/
-	function admin_index($filter = null) {
+	public function admin_index($filter = null) {
 		if(!empty($this->request->data)){
 			$filter = $this->request->data['Location']['filter'];
 		}
@@ -30,7 +27,7 @@ class SeoBlacklistsController extends SeoAppController {
 		$this->set('filter', $filter);
 	}
 
-	function admin_view($id = null) {
+	public function admin_view($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid seo blacklist'));
 			$this->redirect(array('action' => 'index'));
@@ -38,8 +35,8 @@ class SeoBlacklistsController extends SeoAppController {
 		$this->set('seoBlacklist', $this->SeoBlacklist->read(null, $id));
 	}
 
-	function admin_add() {
-		if (!empty($this->request->data)) {
+	public function admin_add() {
+		if(!empty($this->request->data)) {
 			$this->SeoBlacklist->create();
 			if ($this->SeoBlacklist->save($this->request->data)) {
 				$this->Session->setFlash(__('The seo blacklist has been saved'));
@@ -50,12 +47,12 @@ class SeoBlacklistsController extends SeoAppController {
 		}
 	}
 
-	function admin_edit($id = null) {
+	public function admin_edit($id = null) {
 		if (!$id && empty($this->request->data)) {
 			$this->Session->setFlash(__('Invalid seo blacklist'));
 			$this->redirect(array('action' => 'index'));
 		}
-		if (!empty($this->request->data)) {
+		if(!empty($this->request->data)) {
 			if ($this->SeoBlacklist->save($this->request->data)) {
 				$this->Session->setFlash(__('The seo blacklist has been saved'));
 				$this->redirect(array('action' => 'index'));
@@ -64,11 +61,11 @@ class SeoBlacklistsController extends SeoAppController {
 			}
 		}
 		if (empty($this->request->data)) {
-			$this->request->data = $this->SeoBlacklist->read(null, $id);
+			$this->request->data = $this->SeoBlacklist->get($id);
 		}
 	}
 
-	function admin_delete($id = null) {
+	public function admin_delete($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for seo blacklist'));
 			$this->redirect(array('action'=>'index'));
@@ -81,4 +78,3 @@ class SeoBlacklistsController extends SeoAppController {
 		$this->redirect(array('action' => 'index'));
 	}
 }
-

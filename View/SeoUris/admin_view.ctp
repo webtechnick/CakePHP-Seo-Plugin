@@ -34,7 +34,7 @@
 		<h3><?php echo __('Actions'); ?></h3>
 		<ul>
 			<li><?php echo $this->Html->link(__('Edit Seo Uri'), array('action' => 'edit', $seoUri['SeoUri']['id'])); ?> </li>
-			<li><?php echo $this->Html->link(__('Delete Seo Uri'), array('action' => 'delete', $seoUri['SeoUri']['id']), null, sprintf(__('Are you sure you want to delete # %s?'), $seoUri['SeoUri']['id'])); ?> </li>
+			<li><?php echo $this->Form->postLink(__('Delete Seo Uri'), array('action' => 'delete', $seoUri['SeoUri']['id']), null, __('Are you sure you want to delete # %s?', $seoUri['SeoUri']['id'])); ?> </li>
 		</ul>
 	</div>
 		<div class="related">
@@ -118,7 +118,7 @@
 				<td class="actions">
 					<?php echo $this->Html->link(__('View'), array('controller' => 'seo_meta_tags', 'action' => 'view', $seoMetaTag['id'])); ?>
 					<?php echo $this->Html->link(__('Edit'), array('controller' => 'seo_meta_tags', 'action' => 'edit', $seoMetaTag['id'])); ?>
-					<?php echo $this->Html->link(__('Delete'), array('controller' => 'seo_meta_tags', 'action' => 'delete', $seoMetaTag['id']), null, sprintf(__('Are you sure you want to delete # %s?'), $seoMetaTag['id'])); ?>
+					<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'seo_meta_tags', 'action' => 'delete', $seoMetaTag['id']), null, __('Are you sure you want to delete # %s?', $seoMetaTag['id'])); ?>
 				</td>
 			</tr>
 		<?php endforeach; ?>

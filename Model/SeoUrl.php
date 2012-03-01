@@ -26,7 +26,7 @@ class SeoUrl extends SeoAppModel {
 	/**
 	* Load the settings
 	*/
-	function __construct($id = false, $table = null, $ds = null){
+	public function __construct($id = false, $table = null, $ds = null){
 		parent::__construct($id, $table, $ds);
 		$this->settings = SeoUtil::getConfig('levenshtein');
 	}
@@ -39,7 +39,7 @@ class SeoUrl extends SeoAppModel {
 	* @param boolean verbose
 	* @param int count of imported urls
 	*/
-	function import($sitemap = null, $clear_all = true, $verbose = false){
+	public function import($sitemap = null, $clear_all = true, $verbose = false){
 		$count = 0;
 		if($this->settings['active']){
 			if($sitemap){
@@ -79,7 +79,7 @@ class SeoUrl extends SeoAppModel {
 	* - redirect the actually redirect to point to
 	* - shortest how close this came
 	*/
-	function findRedirectByRequest($request){
+	public function findRedirectByRequest($request){
 		if($this->settings['active']){
 			$retval = array(
 				'redirect' => '/',
@@ -125,7 +125,7 @@ class SeoUrl extends SeoAppModel {
 	*
 	* @return string file path to source.
 	*/
-	private function getPathToSiteMap(){
+	protected function getPathToSiteMap(){
 		if(strpos($this->settings['source'], '/') === 0){
 			return WWW_ROOT . substr($this->settings['source'], 1, strlen($this->settings['source'])); 
 		}

@@ -30,7 +30,7 @@ class BlackListComponent extends Component {
 	/**
 	* Initialize the component, set the settings
 	*/
-	function initialize(&$controller, $settings = array()){
+	public function initialize(Controller $controller, $settings = array()){
 		$this->Controller = $controller;
 		$this->_set($settings);
 		$this->honeyPot = SeoUtil::getConfig('honeyPot');
@@ -44,7 +44,7 @@ class BlackListComponent extends Component {
 	* Handle the banned user, decide if banned,
 	* if so, redirect the user.
 	*/
-	function __isBanned(){
+	public function __isBanned(){
 		$this->loadModel('SeoBlacklist');
 		if($this->SeoBlacklist->isBanned()){
 			if($this->Controller->here != Router::url($this->redirect)){
@@ -58,7 +58,7 @@ class BlackListComponent extends Component {
 	/**
 	* Handle if honeypot action.
 	*/
-	function __handleIfHoneyPot(){
+	public function __handleIfHoneyPot(){
 		if($this->Controller->here == Router::url($this->honeyPot)){
 			$this->loadModel('SeoHoneypotVisit');
 			$this->SeoHoneypotVisit->add();
@@ -77,7 +77,7 @@ class BlackListComponent extends Component {
 	* @param string modelname
 	* @return void
 	*/
-	private function loadModel($model = null){
+	protected function loadModel(Model $model = null){
 		if($model && $this->$model == null){
 			App::import('Model',"Seo.$model");
 			$this->$model = ClassRegistry::init("Seo.$model");

@@ -14,19 +14,19 @@ class SeoRedirectTest extends CakeTestCase {
 		'plugin.seo.seo_canonical',
 	);
 
-	function startTest() {
+	public function startTest() {
 		$this->SeoRedirect = ClassRegistry::init('Seo.SeoRedirect');
 		$this->SeoRedirect->SeoUri->Email = new MockEmailComponent();
 	}
 	
-	function testIsRegEx(){
+	public function testIsRegEx(){
 	  $this->assertTrue($this->SeoRedirect->isRegEx('#(.*)\?from\=sb\-tracked\:(.*)#i'));
 	  $this->assertTrue($this->SeoRedirect->isRegEx('#(.*)#'));
 	  $this->assertFalse($this->SeoRedirect->isRegEx('/blah'));
 	  $this->assertFalse($this->SeoRedirect->isRegEx('/blah#anchor'));
 	}
 	
-	function testBeforeSaveShouldSetApproved(){
+	public function testBeforeSaveShouldSetApproved(){
 	  $this->SeoRedirect->data = array(
 	    'SeoRedirect' => array(
 	      'redirect' => '/',
@@ -43,7 +43,7 @@ class SeoRedirectTest extends CakeTestCase {
 	  $this->SeoRedirect->SeoUri->Email->expectNever('send');
 	}
 	
-	function testBeforeSaveShouldNotSetApprovedOnRegEx(){
+	public function testBeforeSaveShouldNotSetApprovedOnRegEx(){
 	  $this->SeoRedirect->data = array(
 	    'SeoRedirect' => array(
 	      'redirect' => '/',
@@ -60,12 +60,12 @@ class SeoRedirectTest extends CakeTestCase {
 	  $this->SeoRedirect->SeoUri->Email->expectOnce('send');
 	}
 	
-	function testFindRedirectListByPriority(){
+	public function testFindRedirectListByPriority(){
 	  $results = $this->SeoRedirect->findRedirectListByPriority();
 	  $this->assertEquals(6, count($results));
 	}
 
-	function endTest() {
+	public function endTest() {
 		unset($this->SeoRedirect);
 		ClassRegistry::flush();
 	}

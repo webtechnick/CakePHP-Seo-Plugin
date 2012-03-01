@@ -31,7 +31,7 @@
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('action' => 'view', $seoMetaTag['SeoMetaTag']['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $seoMetaTag['SeoMetaTag']['id'])); ?>
-				<?php echo $this->Html->link(__('Delete'), array('action' => 'delete', $seoMetaTag['SeoMetaTag']['id']), null, sprintf(__('Are you sure you want to delete # %s?'), $seoMetaTag['SeoMetaTag']['id'])); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $seoMetaTag['SeoMetaTag']['id']), null, __('Are you sure you want to delete # %s?', $seoMetaTag['SeoMetaTag']['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>

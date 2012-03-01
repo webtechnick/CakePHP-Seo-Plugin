@@ -18,7 +18,7 @@ class SeoAppError {
 	/**
 	* Overload constructor so we can test it properly
 	*/
-	function __construct($test = false){
+	public function __construct($test = false){
 		$this->controller = new Controller(null, new CakeResponse);
 	}
 	
@@ -26,7 +26,7 @@ class SeoAppError {
 	* Helper method for use in the application to catch 404 errors if needed
 	* $this->cakeError('catch404');
 	*/
-	function catch404(){
+	public function catch404(){
 		$this->__uriToStatusCode();
 		$this->__uriToRedirect();
 	}
@@ -34,7 +34,7 @@ class SeoAppError {
 	/**
 	* Update to levenshtien
 	*/
-	function runLevenshtein(){
+	public function runLevenshtein(){
 		$this->__uriToLevenshtein();
 	}
 	
@@ -44,7 +44,7 @@ class SeoAppError {
 	* @param uri
 	* @return boolean
 	*/
-	function requestMatch($request, $uri){
+	public function requestMatch($request, $uri){
 		$this->__loadModel('SeoStatusCode');
 		//Many To Many -- Using regular expression
 		if($this->SeoStatusCode->isRegEx($uri)){
@@ -72,7 +72,7 @@ class SeoAppError {
 	* @param if testing, return the status code instead of setting it.
 	* @return mixed void normally, status code in testing mode
 	*/
-	function __uriToStatusCode($test = false){
+	public function __uriToStatusCode($test = false){
 		$this->__loadModel('SeoStatusCode');
 		$request = env('REQUEST_URI');
 		$seo_status_codes = $this->SeoStatusCode->findStatusCodeListByPriority();
@@ -101,7 +101,7 @@ class SeoAppError {
 	* 301 that we've setup.
 	* @return void
 	*/
-	function __uriToRedirect(){
+	public function __uriToRedirect(){
 		$this->__loadModel('SeoRedirect');
 		$request = env('REQUEST_URI');
 		$seo_redirects = $this->SeoRedirect->findRedirectListByPriority();
@@ -161,7 +161,7 @@ class SeoAppError {
 	* Go through the uri to levenshtein url database and find the closest redirect based in sitemap 
 	* @return void
 	*/
-	function __uriToLevenshtein(){
+	public function __uriToLevenshtein(){
 		$levconfig = SeoUtil::getConfig('levenshtein');
 		if(!$levconfig['active']){
 			return;
@@ -183,7 +183,7 @@ class SeoAppError {
 	* Load the SeoRedirect Model if it's not already loaded.
 	* @return void
 	*/
-	function __loadModel($model){
+	public function __loadModel(Model $model){
 		if(!$this->$model){
 			$this->$model = ClassRegistry::init("Seo.$model");
 		}

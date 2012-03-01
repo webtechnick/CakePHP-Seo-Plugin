@@ -57,7 +57,7 @@ class SeoUri extends SeoAppModel {
 	* is_approved is specifically being sent in.
 	* @return true
 	*/
-	function beforeSave(){
+	public function beforeSave(){
 		//url encode the uri, but only once.
 		if(!empty($this->data[$this->alias]['uri']) && $this->isRegEx($this->data[$this->alias]['uri'])){
 			if(empty($this->data[$this->alias]['is_approved'])){
@@ -73,7 +73,7 @@ class SeoUri extends SeoAppModel {
 	/**
 	* Send need approval email if we need it.
 	*/
-	function afterSave($created){
+	public function afterSave($created){
 		if($created){
 			//Maybe URI
 		}
@@ -87,7 +87,7 @@ class SeoUri extends SeoAppModel {
 	* @param int id
 	* @return boolean success
 	*/
-	function urlEncode($id = null){
+	public function urlEncode($id = null){
 		if($id){
 			$this->id = $id;
 		}
@@ -102,7 +102,7 @@ class SeoUri extends SeoAppModel {
 	* @param int id
 	* @return result of find.
 	*/
-	function findForViewById($id){
+	public function findForViewById($id){
 		return $this->find('first', array(
 			'conditions' => array('SeoUri.id' => $id),
 			'contain' => array('SeoRedirect','SeoTitle','SeoMetaTag','SeoStatusCode')
@@ -114,7 +114,7 @@ class SeoUri extends SeoAppModel {
 	* @param string uri
 	* @return mixed id
 	*/
-	function findIdByUri($uri = null){
+	public function findIdByUri($uri = null){
 		return $this->field('id', array("{$this->alias}.uri" => $uri));
 	}
 	
@@ -125,7 +125,7 @@ class SeoUri extends SeoAppModel {
 	*   configured by setting the config key cacheEngine
 	* @return array $uris array(id => uri)
 	*/
-	function findAllRegexUris() {
+	public function findAllRegexUris() {
 		$cacheEngine = SeoUtil::getConfig('cacheEngine');
 		if (!empty($cacheEngine)) {
 			$cacheKey = 'seo_findallregexuris';
@@ -158,7 +158,7 @@ class SeoUri extends SeoAppModel {
 	* @param string $request
 	* @return array $uri_ids array(id)
 	*/
-	function findRegexUri($request = null) {
+	public function findRegexUri($request = null) {
 		$uri_ids = array();
 		$uris = $this->findAllRegexUris();
 		foreach($uris as $uri){
@@ -180,7 +180,7 @@ class SeoUri extends SeoAppModel {
 	* @param int id of seo redirect to approve
 	* @return boolean result of save
 	*/
-	function setApproved($id = null){
+	public function setApproved($id = null){
 		if($id) $this->id = $id;
 		return $this->saveField('is_approved', true);
 	}
@@ -190,7 +190,7 @@ class SeoUri extends SeoAppModel {
 	* @param int id
 	* @return void
 	*/
-	function sendNotification($id = null){
+	public function sendNotification($id = null){
 		if($id) $this->id = $id;
 		$this->read();
 		

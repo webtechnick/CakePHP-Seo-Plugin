@@ -39,7 +39,7 @@
 		<h3><?php echo __('Actions'); ?></h3>
 		<ul>
 			<li><?php echo $this->Html->link(__('Edit Seo Canonical'), array('action' => 'edit', $seoCanonical['SeoCanonical']['id'])); ?> </li>
-			<li><?php echo $this->Html->link(__('Delete Seo Canonical'), array('action' => 'delete', $seoCanonical['SeoCanonical']['id']), null, sprintf(__('Are you sure you want to delete # %s?'), $seoCanonical['SeoCanonical']['id'])); ?> </li>
+			<li><?php echo $this->Form->postLink(__('Delete Seo Canonical'), array('action' => 'delete', $seoCanonical['SeoCanonical']['id']), null, __('Are you sure you want to delete # %s?', $seoCanonical['SeoCanonical']['id'])); ?> </li>
 		</ul>
 	</div>
 </div>

@@ -1,6 +1,8 @@
 <?php
 App::uses('SeoUtil', 'Seo.Lib');
+
 class SeoAppModel extends AppModel {
+	
 	public $actsAs = array('Containable');
 	public $recursive = 0;
 	
@@ -22,7 +24,7 @@ class SeoAppModel extends AppModel {
 	* @param field to check
 	* @return boolean
 	*/
-	function isIp($check = null){
+	public function isIp($check = null){
 		$ip_to_check = array_shift($check);
 		return (ip2long($ip_to_check));
 	}
@@ -31,7 +33,7 @@ class SeoAppModel extends AppModel {
 	* Save string IPs as longs
 	* @return true
 	*/
-	function beforeSave(){
+	public function beforeSave(){
 		foreach($this->fieldsToLong as $field){
 			if(isset($this->data[$this->alias][$field]) && !is_numeric($this->data[$this->alias][$field])){
 				$this->data[$this->alias][$field] = ip2long($this->data[$this->alias][$field]);
@@ -44,7 +46,7 @@ class SeoAppModel extends AppModel {
 	* Show the IPs back out.
 	* @return formatted results
 	*/
-	function afterFind($results){
+	public function afterFind($results){
 		if (!is_array($results)) {
 			return $results;
 		}
@@ -64,7 +66,7 @@ class SeoAppModel extends AppModel {
 	* - last : find last record by created date
 	* @param array of options
 	*/
-	function find($type, $options = array()){
+	public function find($type, $options = array()){
 		switch($type){
 		case 'last':
 			$options = array_merge(
@@ -80,7 +82,7 @@ class SeoAppModel extends AppModel {
 	/**
 	* Set or create the model, this is useful to find the URI
 	*/
-	function createOrSetUri($model = 'SeoUri', $field = 'uri'){
+	public function createOrSetUri($model = 'SeoUri', $field = 'uri'){
 		$ModelName = Inflector::camelize($model);
 		$model_underscore = Inflector::underscore($model);
 		
@@ -106,7 +108,7 @@ class SeoAppModel extends AppModel {
 	* @param string
 	* @return boolean if is regular expression (as two # marks)
 	*/
-	function isRegEx($uri){
+	public function isRegEx($uri){
 		return preg_match('/^#(.*)#(.*)/', $uri);
 	}
 	
@@ -115,7 +117,7 @@ class SeoAppModel extends AppModel {
 	* @param string filter
 	* @return conditions array
 	*/
-	function generateFilterConditions($filter = null){
+	public function generateFilterConditions($filter = null){
 		$retval = array();
 		if($filter){
 			foreach($this->searchFields as $field){
@@ -129,7 +131,7 @@ class SeoAppModel extends AppModel {
 	* Returns the server IP
 	* @return string of incoming IP
 	*/
-	function getIpFromServer(){
+	public function getIpFromServer(){
 		$check_order = array(
 			'HTTP_CLIENT_IP', //shared client
 			'HTTP_X_FORWARDED_FOR', //proxy address

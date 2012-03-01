@@ -18,7 +18,7 @@ class SeoHelper extends AppHelper {
 	* @param array of name => content meta tags to merge with giving priority to SEO meta tags
 	* @return string of meta tags to show.
 	*/
-	function metaTags($metaData = array()){
+	public function metaTags($metaData = array()){
 		$this->loadModel('SeoMetaTag');
 		$request = env('REQUEST_URI');
 		$meta_tags = $this->SeoMetaTag->findAllTagsByUri($request);
@@ -55,7 +55,7 @@ class SeoHelper extends AppHelper {
 	* @param boolean full url or relative (default true)
 	* @return HTMlElement of canonical link or empty string if none found/used
 	*/
-	function canonical($url = null, $full = true){
+	public function canonical($url = null, $full = true){
 		if($url === null){
 			$this->loadModel('SeoCanonical');
 			$request = env('REQUEST_URI');
@@ -76,7 +76,7 @@ class SeoHelper extends AppHelper {
 	* @param array of options
 	* @return HtmlLink to honeypot action
 	*/
-	function honeyPot($title = 'Click Here', $options = array()){
+	public function honeyPot($title = 'Click Here', $options = array()){
 		$options = array_merge(
 			array(
 				'rel' => 'nofollow',
@@ -104,7 +104,7 @@ class SeoHelper extends AppHelper {
 	* @param string default title tag
 	* @return string title for requested uri
 	*/
-	function title($default = ""){
+	public function title($default = ""){
 		$this->loadModel('SeoTitle');
 		$request = env('REQUEST_URI');
 		$seo_title = $this->SeoTitle->findTitleByUri($request);
@@ -118,9 +118,8 @@ class SeoHelper extends AppHelper {
 	* @param string modelname
 	* @return void
 	*/
-	function loadModel($model = null){
-		if($model && $this->$model == null){
-			App::import('Model',"Seo.$model");
+	public function loadModel($model = null){
+		if($model && !$this->$model){
 			$this->$model = ClassRegistry::init("Seo.$model");
 		}
 	}
@@ -128,7 +127,7 @@ class SeoHelper extends AppHelper {
 	/**
 	* Return the next Id to show.
 	*/
-	function nextId(){
+	public function nextId(){
 		return $this->honeyPotId++;
 	}
 	

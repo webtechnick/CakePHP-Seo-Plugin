@@ -33,7 +33,7 @@ class SeoSearchTerm extends SeoAppModel {
 	* @return void
 	* @access public
 	*/
-	function parseRequest($request = null){
+	public function parseRequest($request = null){
 		if($request){
 			$referrer = env('HTTP_REFERER');
 			// Check if from google and page 2
@@ -80,7 +80,7 @@ class SeoSearchTerm extends SeoAppModel {
 	* @param int limit
 	* @param array set of results
 	*/
-	function findRandomTerms($limit = 6){
+	public function findRandomTerms($limit = 6){
 		return $this->find('all', array(
 			'limit' => $limit,
 			'order' => 'RAND()'
@@ -92,7 +92,7 @@ class SeoSearchTerm extends SeoAppModel {
 	* @param int limit
 	* @return array set of results
 	*/
-	function findTopTerms($limit = 6){
+	public function findTopTerms($limit = 6){
 		return $this->find('all', array(
 			'limit' => $limit,
 			'order' => 'SeoSearchTerm.count DESC'
@@ -104,7 +104,7 @@ class SeoSearchTerm extends SeoAppModel {
 	* @param int id (optional)
 	* @return boolean success
 	*/
-	function itterateCount($id = null){
+	public function itterateCount($id = null){
 		if($id) $this->id = $id;
 		if($this->id){
 			return $this->saveField('count', $this->field('count') + 1);

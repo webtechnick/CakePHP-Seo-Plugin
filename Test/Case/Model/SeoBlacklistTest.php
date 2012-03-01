@@ -1,20 +1,20 @@
 <?php
 /* SeoBlacklist Test cases generated on: 2011-02-02 11:19:50 : 1296670790*/
-App::import('Model', 'seo.SeoBlacklist');
+App::import('Model', 'Seo.SeoBlacklist');
 
 class SeoBlacklistTest extends CakeTestCase {
 	public $fixtures = array('plugin.seo.seo_blacklist');
 
-	function startTest() {
-		$this->SeoBlacklist =& ClassRegistry::init('SeoBlacklist');
+	public function startTest() {
+		$this->SeoBlacklist = ClassRegistry::init('SeoBlacklist');
 	}
 	
-	function testIpValidCheck(){
+	public function testIpValidCheck(){
 		$this->assertTrue($this->SeoBlacklist->isIp(array('192.168.1.100')));
 		$this->assertFalse($this->SeoBlacklist->isIp(array('100')));
 	}
 	
-	function testSaveShouldLongTheIP(){
+	public function testSaveShouldLongTheIP(){
 		$this->SeoBlacklist->data = array(
 			'SeoBlacklist' => array(
 				'ip_range_start' => '127.255.253.220',
@@ -30,14 +30,14 @@ class SeoBlacklistTest extends CakeTestCase {
 		$this->assertEquals('127.255.253.222', $result['SeoBlacklist']['ip_range_end']);
 	}
 	
-	function testIsBannedByIp(){
+	public function testIsBannedByIp(){
 		$this->assertTrue($this->SeoBlacklist->isBanned('127.255.253.120'));
 		$this->assertTrue($this->SeoBlacklist->isBanned('127.255.253.121'));
 		$this->assertTrue($this->SeoBlacklist->isBanned('127.255.253.122'));
 		$this->assertFalse($this->SeoBlacklist->isBanned('127.255.253.123'));
 	}
 	
-	function testIsBannedByInt(){
+	public function testIsBannedByInt(){
 		$this->assertTrue($this->SeoBlacklist->isBanned(2147483000));
 		$this->assertTrue($this->SeoBlacklist->isBanned(2147483001));
 		$this->assertTrue($this->SeoBlacklist->isBanned(2147483002));
@@ -45,19 +45,19 @@ class SeoBlacklistTest extends CakeTestCase {
 		$this->assertFalse($this->SeoBlacklist->isBanned(2147483100));
 	}
 	
-	function testAddSingleIp(){
+	public function testAddSingleIp(){
 		$this->assertFalse($this->SeoBlacklist->isBanned('127.255.253.125'));
 		$this->assertTrue($this->SeoBlacklist->addToBanned('127.255.253.125', "note", true));
 		$this->assertTrue($this->SeoBlacklist->isBanned('127.255.253.125'));
 	}
 	
-	function testAddSingleIpIfNotAggressive(){
+	public function testAddSingleIpIfNotAggressive(){
 		$this->assertFalse($this->SeoBlacklist->isBanned('127.255.253.125'));
 		$this->assertTrue($this->SeoBlacklist->addToBanned('127.255.253.125', "note", false));
 		$this->assertFalse($this->SeoBlacklist->isBanned('127.255.253.125'));
 	}
 	
-	function testGetIpFromServer(){
+	public function testGetIpFromServer(){
 		$_SERVER['HTTP_CLIENT_IP'] = 'client';
 		$_SERVER['HTTP_X_FORWARDED_FOR'] = 'forwarded';
 		$_SERVER['REMOTE_ADDR'] = 'remote';
@@ -69,10 +69,9 @@ class SeoBlacklistTest extends CakeTestCase {
 		$this->assertEquals('remote', $this->SeoBlacklist->getIpFromServer());
 	}
 
-	function endTest() {
+	public function endTest() {
 		unset($this->SeoBlacklist);
 		ClassRegistry::flush();
 	}
 
 }
-

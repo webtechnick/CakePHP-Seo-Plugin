@@ -12,11 +12,11 @@ class SeoTitleTest extends CakeTestCase {
 		'plugin.seo.seo_canonical',
 	);
 
-	function startTest() {
-		$this->SeoTitle =& ClassRegistry::init('SeoTitle');
+	public function startTest() {
+		$this->SeoTitle = ClassRegistry::init('SeoTitle');
 	}
 
-	function endTest() {
+	public function endTest() {
 		unset($this->SeoTitle);
 		ClassRegistry::flush();
 	}

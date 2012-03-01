@@ -27,7 +27,7 @@
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('action' => 'view', $seoBlacklist['SeoBlacklist']['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $seoBlacklist['SeoBlacklist']['id'])); ?>
-				<?php echo $this->Html->link(__('Delete'), array('action' => 'delete', $seoBlacklist['SeoBlacklist']['id']), null, sprintf(__('Are you sure you want to delete # %s?'), $seoBlacklist['SeoBlacklist']['id'])); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $seoBlacklist['SeoBlacklist']['id']), null, __('Are you sure you want to delete # %s?', $seoBlacklist['SeoBlacklist']['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>

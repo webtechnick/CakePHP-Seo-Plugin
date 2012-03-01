@@ -2,25 +2,25 @@
 class SeoUrlsShell extends AppShell {
 	public $uses = array('Seo.SeoUrl');
 	
-	function main(){
+	public function main(){
 		$this->out("SeoUrl Shell");
 		$this->hr();
 		$this->help();
 	}
 	
-	function help(){
+	public function help(){
 		$this->out(" cake seo_urls import                  Import from the source in config");
 		$this->out(" cake seo_urls add <url> <priorty>     Add a url to use as levenshtien");
 	}
 	
-	function import(){
+	public function import(){
 		$this->out("Importing.");
 		$count = $this->SeoUrl->import(null, true, true);
 		$this->out();
 		$this->out("Import finished. $count Imported.");
 	}
 	
-	function add(){
+	public function add(){
 		$url = array_shift($this->args);
 		$priority = array_shift($this->args);
 		if(!$url){

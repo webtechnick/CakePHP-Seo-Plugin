@@ -3,11 +3,11 @@
 class SeoSchema extends CakeSchema {
 
 
-	function before($event = array()) {
+	public function before($event = array()) {
 		return true;
 	}
 
-	function after($event = array()) {
+	public function after($event = array()) {
 	}
 
 	public $seo_blacklists = array(

@@ -66,12 +66,12 @@ class SeoStatusCode extends SeoAppModel {
 	/**
 	* Check if SEO already exists, if so, unset it and set the ID then save.
 	*/
-	function beforeSave(){
+	public function beforeSave(){
 		$this->createOrSetUri();
 		return true;
 	}
 	
-	function findCodeList(){
+	public function findCodeList(){
 		$retval = array();
 		foreach($this->codes as $code => $text){
 			$retval[$code] = "$code : $text";
@@ -83,7 +83,7 @@ class SeoStatusCode extends SeoAppModel {
 	* Named scope to find list of uri -> status_codes and order by priority only approved/active
 	* @return list of active and approved uri => status_codes ordered by priority
 	*/
-	function findStatusCodeListByPriority(){
+	public function findStatusCodeListByPriority(){
 		return $this->find('all', array(
 			'fields' => array("{$this->SeoUri->alias}.uri","{$this->alias}.status_code"),
 			'order' => "{$this->alias}.priority ASC",
