@@ -7,32 +7,32 @@ class SeoAppModel extends AppModel {
 	public $recursive = 0;
 	
 	/**
-	* Overwritable IP fields for database saving
-	*/
+	 * Overwritable IP fields for database saving
+	 */
 	public $fieldsToLong = array();
 	
 	/**
-	* Filter fields
-	*/
+	 * Filter fields
+	 */
 	public $searchFields = array();
 	
 	/**
-	* Custom validation.
-	* Using CakePHP IP validation would be nice, but
-	* since we're storing ips as longs in our database
-	* we need a custom validation.
-	* @param field to check
-	* @return boolean
-	*/
+	 * Custom validation.
+	 * Using CakePHP IP validation would be nice, but
+	 * since we're storing ips as longs in our database
+	 * we need a custom validation.
+	 * @param field to check
+	 * @return boolean
+	 */
 	public function isIp($check = null) {
 		$ip_to_check = array_shift($check);
 		return (ip2long($ip_to_check));
 	}
 	
 	/**
-	* Save string IPs as longs
-	* @return true
-	*/
+	 * Save string IPs as longs
+	 * @return true
+	 */
 	public function beforeSave() {
 		foreach ($this->fieldsToLong as $field) {
 			if (isset($this->data[$this->alias][$field]) && !is_numeric($this->data[$this->alias][$field])) {
@@ -43,9 +43,9 @@ class SeoAppModel extends AppModel {
 	}
 	
 	/**
-	* Show the IPs back out.
-	* @return formatted results
-	*/
+	 * Show the IPs back out.
+	 * @return formatted results
+	 */
 	public function afterFind($results) {
 		if (!is_array($results)) {
 			return $results;
@@ -61,11 +61,11 @@ class SeoAppModel extends AppModel {
 	}
 	
 	/**
-	* Overwrite find so I can do some nice things with it.
-	* @param string find type
-	* - last : find last record by created date
-	* @param array of options
-	*/
+	 * Overwrite find so I can do some nice things with it.
+	 * @param string find type
+	 * - last : find last record by created date
+	 * @param array of options
+	 */
 	public function find($type, $options = array()) {
 		switch ($type) {
 		case 'last':
@@ -80,8 +80,8 @@ class SeoAppModel extends AppModel {
 	}
 	
 	/**
-	* Set or create the model, this is useful to find the URI
-	*/
+	 * Set or create the model, this is useful to find the URI
+	 */
 	public function createOrSetUri($model = 'SeoUri', $field = 'uri') {
 		$ModelName = Inflector::camelize($model);
 		$model_underscore = Inflector::underscore($model);
@@ -103,19 +103,19 @@ class SeoAppModel extends AppModel {
 	}
 	
 	/**
-	* Return if the incoming URI is a regular expression
-	* @param string
-	* @return boolean if is regular expression (as two # marks)
-	*/
+	 * Return if the incoming URI is a regular expression
+	 * @param string
+	 * @return boolean if is regular expression (as two # marks)
+	 */
 	public function isRegEx($uri) {
 		return preg_match('/^#(.*)#(.*)/', $uri);
 	}
 	
 	/**
-	* return conditions based on searchable fields and filter
-	* @param string filter
-	* @return conditions array
-	*/
+	 * return conditions based on searchable fields and filter
+	 * @param string filter
+	 * @return conditions array
+	 */
 	public function generateFilterConditions($filter = null) {
 		$retval = array();
 		if ($filter) {
@@ -127,9 +127,9 @@ class SeoAppModel extends AppModel {
 	}
 	
 	/**
-	* Returns the server IP
-	* @return string of incoming IP
-	*/
+	 * Returns the server IP
+	 * @return string of incoming IP
+	 */
 	public function getIpFromServer() {
 		$check_order = array(
 			'HTTP_CLIENT_IP', //shared client
@@ -144,4 +144,3 @@ class SeoAppModel extends AppModel {
 		}
 	}
 }
-

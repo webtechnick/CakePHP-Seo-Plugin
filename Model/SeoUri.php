@@ -46,17 +46,17 @@ class SeoUri extends SeoAppModel {
 	);
 	
 	/**
-	* Filter fields
-	*/
+	 * Filter fields
+	 */
 	public $searchFields = array(
 		'SeoUri.id','SeoUri.uri'
 	);
 	
 	/**
-	* If saving a regular expression, make sure to mark not approved unless
-	* is_approved is specifically being sent in.
-	* @return true
-	*/
+	 * If saving a regular expression, make sure to mark not approved unless
+	 * is_approved is specifically being sent in.
+	 * @return true
+	 */
 	public function beforeSave() {
 		//url encode the uri, but only once.
 		if (!empty($this->data[$this->alias]['uri']) && $this->isRegEx($this->data[$this->alias]['uri'])) {
@@ -70,8 +70,8 @@ class SeoUri extends SeoAppModel {
 	}
 	
 	/**
-	* Send need approval email if we need it.
-	*/
+	 * Send need approval email if we need it.
+	 */
 	public function afterSave($created) {
 		if ($created) {
 			//Maybe URI
@@ -82,10 +82,10 @@ class SeoUri extends SeoAppModel {
 	}
 	
 	/**
-	* Url encode the uri
-	* @param int id
-	* @return boolean success
-	*/
+	 * Url encode the uri
+	 * @param int id
+	 * @return boolean success
+	 */
 	public function urlEncode($id = null) {
 		if ($id) {
 			$this->id = $id;
@@ -97,10 +97,10 @@ class SeoUri extends SeoAppModel {
 	}
 	
 	/**
-	* Named scope to find for view
-	* @param int id
-	* @return result of find.
-	*/
+	 * Named scope to find for view
+	 * @param int id
+	 * @return result of find.
+	 */
 	public function findForViewById($id) {
 		return $this->find('first', array(
 			'conditions' => array('SeoUri.id' => $id),
@@ -109,21 +109,21 @@ class SeoUri extends SeoAppModel {
 	}
 	
 	/**
-	* Find the URI id by uri
-	* @param string uri
-	* @return mixed id
-	*/
+	 * Find the URI id by uri
+	 * @param string uri
+	 * @return mixed id
+	 */
 	public function findIdByUri($uri = null) {
 		return $this->field('id', array("{$this->alias}.uri" => $uri));
 	}
 	
 	/**
-	* This is a simple function to return all possible RegEx URIs from the DB
-	* (it has to return all of them, since we can't know which it's going to match)
-	* So we've wrapped the DB request in a simple cache request, 
-	*   configured by setting the config key cacheEngine
-	* @return array $uris array(id => uri)
-	*/
+	 * This is a simple function to return all possible RegEx URIs from the DB
+	 * (it has to return all of them, since we can't know which it's going to match)
+	 * So we've wrapped the DB request in a simple cache request, 
+	 *   configured by setting the config key cacheEngine
+	 * @return array $uris array(id => uri)
+	 */
 	public function findAllRegexUris() {
 		$cacheEngine = SeoUtil::getConfig('cacheEngine');
 		if (!empty($cacheEngine)) {
@@ -153,10 +153,10 @@ class SeoUri extends SeoAppModel {
 	}
 	
 	/**
-	* Checks an input $request against regex urls
-	* @param string $request
-	* @return array $uri_ids array(id)
-	*/
+	 * Checks an input $request against regex urls
+	 * @param string $request
+	 * @return array $uri_ids array(id)
+	 */
 	public function findRegexUri($request = null) {
 		$uri_ids = array();
 		$uris = $this->findAllRegexUris();
@@ -175,20 +175,20 @@ class SeoUri extends SeoAppModel {
 	
 	
 	/**
-	* Set as approved
-	* @param int id of seo redirect to approve
-	* @return boolean result of save
-	*/
+	 * Set as approved
+	 * @param int id of seo redirect to approve
+	 * @return boolean result of save
+	 */
 	public function setApproved($id = null) {
 		if ($id) $this->id = $id;
 		return $this->saveField('is_approved', true);
 	}
 	
 	/**
-	* Send the notification of a regular expression that needs approval.
-	* @param int id
-	* @return void
-	*/
+	 * Send the notification of a regular expression that needs approval.
+	 * @param int id
+	 * @return void
+	 */
 	public function sendNotification($id = null) {
 		if ($id) $this->id = $id;
 		$this->read();
@@ -215,4 +215,3 @@ class SeoUri extends SeoAppModel {
 	}
 	
 }
-

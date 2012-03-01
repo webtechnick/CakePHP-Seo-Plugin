@@ -13,17 +13,17 @@ class SeoHoneypotVisit extends SeoAppModel {
 	
 	
 	/**
-	* Fields to IP
-	*/
+	 * Fields to IP
+	 */
 	public $fieldsToLong = array(
 		'ip'
 	);
 	
 	/**
-	* HoneyPot visit triggered, log the visit in the database.
-	* @param string ip
-	* @return boolean success
-	*/
+	 * HoneyPot visit triggered, log the visit in the database.
+	 * @param string ip
+	 * @return boolean success
+	 */
 	public function add($ip = null) {
 		if (!$ip) {
 			$ip = $this->getIpFromServer();
@@ -38,10 +38,10 @@ class SeoHoneypotVisit extends SeoAppModel {
 	}
 	
 	/**
-	* Decide if the trap should be triggered
-	* @param string ip to check (default current IP)
-	* @return boolean
-	*/
+	 * Decide if the trap should be triggered
+	 * @param string ip to check (default current IP)
+	 * @return boolean
+	 */
 	public function isTriggered($ip = null) {
 		if (!$ip) {
 			$ip = $this->getIpFromServer();
@@ -62,9 +62,9 @@ class SeoHoneypotVisit extends SeoAppModel {
 	}
 	
 	/**
-	* Clear the list of old visits baesd on the current time.
-	* @return boolean success
-	*/
+	 * Clear the list of old visits baesd on the current time.
+	 * @return boolean success
+	 */
 	public function clear() {
 		$cutoff =  time() - SeoUtil::getConfig('timeBetweenTriggers');
 		return $this->deleteAll(array(
@@ -73,4 +73,3 @@ class SeoHoneypotVisit extends SeoAppModel {
 	}
 
 }
-

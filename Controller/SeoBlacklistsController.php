@@ -9,15 +9,15 @@ class SeoBlacklistsController extends SeoAppController {
 	}
 	
 	/**
-	* Banned action
-	*/
+	 * Banned action
+	 */
 	public function banned() {
 		$this->layout = 'banned';
 	}
 
 	/**
-	* Admin actions
-	*/
+	 * Admin actions
+	 */
 	public function admin_index($filter = null) {
 		if (!empty($this->request->data)) {
 			$filter = $this->request->data['Location']['filter'];

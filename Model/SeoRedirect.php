@@ -22,32 +22,32 @@ class SeoRedirect extends SeoAppModel {
 	);
 	
 	/**
-	* Filter fields
-	*/
+	 * Filter fields
+	 */
 	public $searchFields = array(
 		'SeoRedirect.redirect','SeoRedirect.callback','SeoRedirect.id','SeoUri.uri'
 	);
 	
 	/**
-	* Check if SEO already exists, if so, unset it and set the ID then save.
-	*/
+	 * Check if SEO already exists, if so, unset it and set the ID then save.
+	 */
 	public function beforeSave() {
 		$this->createOrSetUri();
 		return true;
 	}
 	
 	/**
-	* This is a helper function for testing.
-	*/
+	 * This is a helper function for testing.
+	 */
 	public function callbackTest($request) {
 		$this->uri_request = $request;
 		return 'ran_callback';
 	}
 	
 	/**
-	* Named scope to find list of uri -> redirect by order and approved/active
-	* @return list of active and approved uri -> redirects ordered by priority
-	*/
+	 * Named scope to find list of uri -> redirect by order and approved/active
+	 * @return list of active and approved uri -> redirects ordered by priority
+	 */
 	public function findRedirectListByPriority() {
 		return $this->find('all', array(
 			'fields' => array("{$this->SeoUri->alias}.uri","{$this->alias}.redirect","{$this->alias}.id","{$this->alias}.callback"),
@@ -59,4 +59,3 @@ class SeoRedirect extends SeoAppModel {
 		));
 	}
 }
-

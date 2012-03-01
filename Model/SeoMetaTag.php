@@ -36,8 +36,8 @@ class SeoMetaTag extends SeoAppModel {
 	);
 	
 	/**
-	* Filter fields
-	*/
+	 * Filter fields
+	 */
 	public $searchFields = array(
 		'SeoMetaTag.name','SeoMetaTag.content','SeoMetaTag.id','SeoUri.uri'
 	);
@@ -48,11 +48,11 @@ class SeoMetaTag extends SeoAppModel {
 	}
 	
 	/**
-	* Find all the tags by a specific reuqest,
-	* This takes in a request URI and finds all matching meta_tags for this URI
-	* @param incoming request URI
-	* @return array of results
-	*/
+	 * Find all the tags by a specific reuqest,
+	 * This takes in a request URI and finds all matching meta_tags for this URI
+	 * @param incoming request URI
+	 * @return array of results
+	 */
 	public function findAllTagsByUri($request = null) {
 		$retval = $this->find('all', array(
 			'conditions' => array(
@@ -82,4 +82,3 @@ class SeoMetaTag extends SeoAppModel {
 		return $retval;
 	}
 }
-

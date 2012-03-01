@@ -31,8 +31,8 @@ class SeoStatusCode extends SeoAppModel {
 	);
 	
 	/**
-	* Status codes
-	*/
+	 * Status codes
+	 */
 	public $codes = array(
 		'204' => 'No Content',
 		'205' => 'Reset Content',
@@ -57,15 +57,15 @@ class SeoStatusCode extends SeoAppModel {
 	);
 	
 	/**
-	* Filter fields
-	*/
+	 * Filter fields
+	 */
 	public $searchFields = array(
 		'SeoStatusCode.status_code','SeoStatusCode.id','SeoUri.uri'
 	);
 	
 	/**
-	* Check if SEO already exists, if so, unset it and set the ID then save.
-	*/
+	 * Check if SEO already exists, if so, unset it and set the ID then save.
+	 */
 	public function beforeSave() {
 		$this->createOrSetUri();
 		return true;
@@ -80,9 +80,9 @@ class SeoStatusCode extends SeoAppModel {
 	}
 	
 	/**
-	* Named scope to find list of uri -> status_codes and order by priority only approved/active
-	* @return list of active and approved uri => status_codes ordered by priority
-	*/
+	 * Named scope to find list of uri -> status_codes and order by priority only approved/active
+	 * @return list of active and approved uri => status_codes ordered by priority
+	 */
 	public function findStatusCodeListByPriority() {
 		return $this->find('all', array(
 			'fields' => array("{$this->SeoUri->alias}.uri","{$this->alias}.status_code"),

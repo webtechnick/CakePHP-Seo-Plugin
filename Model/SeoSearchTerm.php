@@ -27,12 +27,12 @@ class SeoSearchTerm extends SeoAppModel {
 	);
 	
 	/**
-	* Take the incomming request referrer and decide if we should save this term in our 
-	* database
-	* @param incoming request usually $this->here
-	* @return void
-	* @access public
-	*/
+	 * Take the incomming request referrer and decide if we should save this term in our 
+	 * database
+	 * @param incoming request usually $this->here
+	 * @return void
+	 * @access public
+	 */
 	public function parseRequest($request = null) {
 		if ($request) {
 			$referrer = env('HTTP_REFERER');
@@ -74,10 +74,10 @@ class SeoSearchTerm extends SeoAppModel {
 	}
 	
 	/**
-	* Pull out random terms
-	* @param int limit
-	* @param array set of results
-	*/
+	 * Pull out random terms
+	 * @param int limit
+	 * @param array set of results
+	 */
 	public function findRandomTerms($limit = 6) {
 		return $this->find('all', array(
 			'limit' => $limit,
@@ -86,10 +86,10 @@ class SeoSearchTerm extends SeoAppModel {
 	}
 	
 	/**
-	* Find the top terms
-	* @param int limit
-	* @return array set of results
-	*/
+	 * Find the top terms
+	 * @param int limit
+	 * @return array set of results
+	 */
 	public function findTopTerms($limit = 6) {
 		return $this->find('all', array(
 			'limit' => $limit,
@@ -98,10 +98,10 @@ class SeoSearchTerm extends SeoAppModel {
 	}
 	
 	/**
-	* Itterate the count on a specific term.
-	* @param int id (optional)
-	* @return boolean success
-	*/
+	 * Itterate the count on a specific term.
+	 * @param int id (optional)
+	 * @return boolean success
+	 */
 	public function itterateCount($id = null) {
 		if ($id) $this->id = $id;
 		if ($this->id) {

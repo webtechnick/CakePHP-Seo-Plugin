@@ -19,26 +19,26 @@ class SeoUrl extends SeoAppModel {
 	public $searchFields = array('SeoUrl.id','SeoUrl.url');
 	
 	/**
-	* Configuration settings
-	*/ 
+	 * Configuration settings
+	 */ 
 	public $settings = array();
 	
 	/**
-	* Load the settings
-	*/
+	 * Load the settings
+	 */
 	public function __construct($id = false, $table = null, $ds = null) {
 		parent::__construct($id, $table, $ds);
 		$this->settings = SeoUtil::getConfig('levenshtein');
 	}
 	
 	/**
-	* Import a set of valid URLS from a sitemap
-	*
-	* @param string path to sitemap we want to parse
-	* @param boolean clear the set first, then import.
-	* @param boolean verbose
-	* @param int count of imported urls
-	*/
+	 * Import a set of valid URLS from a sitemap
+	 *
+	 * @param string path to sitemap we want to parse
+	 * @param boolean clear the set first, then import.
+	 * @param boolean verbose
+	 * @param int count of imported urls
+	 */
 	public function import($sitemap = null, $clear_all = true, $verbose = false) {
 		$count = 0;
 		if ($this->settings['active']) {
@@ -71,13 +71,13 @@ class SeoUrl extends SeoAppModel {
 	
 	
 	/**
-	* Use levenshtein's distance to decide what "good" url is most closest to the incomming request
-	*
-	* @param string request
-	* @return array of result 
-	* - redirect the actually redirect to point to
-	* - shortest how close this came
-	*/
+	 * Use levenshtein's distance to decide what "good" url is most closest to the incomming request
+	 *
+	 * @param string request
+	 * @return array of result 
+	 * - redirect the actually redirect to point to
+	 * - shortest how close this came
+	 */
 	public function findRedirectByRequest($request) {
 		if ($this->settings['active']) {
 			$retval = array(
@@ -119,10 +119,10 @@ class SeoUrl extends SeoAppModel {
 	}
 	
 	/**
-	* Get the file out of the source config
-	*
-	* @return string file path to source.
-	*/
+	 * Get the file out of the source config
+	 *
+	 * @return string file path to source.
+	 */
 	protected function getPathToSiteMap() {
 		if (strpos($this->settings['source'], '/') === 0) {
 			return WWW_ROOT . substr($this->settings['source'], 1, strlen($this->settings['source'])); 

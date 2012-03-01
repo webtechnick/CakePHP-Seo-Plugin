@@ -3,33 +3,33 @@ App::uses('SeoUtil', 'Seo.Lib');
 class BlackListComponent extends Component {
 	
 	/**
-	* CakePHP based URL to redirect the banned uesr
-	*/
+	 * CakePHP based URL to redirect the banned uesr
+	 */
 	public $redirect = array('admin' => false, 'plugin' => 'seo', 'controller' => 'seo_blacklists', 'action' => 'banned');
 	
 	/**
-	* CakePHP based URL to the honeypot action setup in config
-	*/
+	 * CakePHP based URL to the honeypot action setup in config
+	 */
 	public $honeyPot = null;
 	
 	/**
-	* Error log
-	*/
+	 * Error log
+	 */
 	public $errors = array();
 	
 	/**
-	* Placeholder for the SeoBlacklist Model
-	*/
+	 * Placeholder for the SeoBlacklist Model
+	 */
 	public $SeoBlacklist = null;
 	
 	/**
-	* Placeholder for the SeoHoneypotVisit Model
-	*/
+	 * Placeholder for the SeoHoneypotVisit Model
+	 */
 	public $SeoHoneypotVisit = null;
 	
 	/**
-	* Initialize the component, set the settings
-	*/
+	 * Initialize the component, set the settings
+	 */
 	public function initialize(Controller $controller, $settings = array()) {
 		$this->Controller = $controller;
 		$this->_set($settings);
@@ -41,9 +41,9 @@ class BlackListComponent extends Component {
 	}
 	
 	/**
-	* Handle the banned user, decide if banned,
-	* if so, redirect the user.
-	*/
+	 * Handle the banned user, decide if banned,
+	 * if so, redirect the user.
+	 */
 	public function __isBanned() {
 		$this->loadModel('SeoBlacklist');
 		if ($this->SeoBlacklist->isBanned()) {
@@ -56,8 +56,8 @@ class BlackListComponent extends Component {
 	}
 	
 	/**
-	* Handle if honeypot action.
-	*/
+	 * Handle if honeypot action.
+	 */
 	public function __handleIfHoneyPot() {
 		if ($this->Controller->here == Router::url($this->honeyPot)) {
 			$this->loadModel('SeoHoneypotVisit');
@@ -72,14 +72,13 @@ class BlackListComponent extends Component {
 	}
 	
 	/**
-	* Load a plugin model 
-	* @param string modelname
-	* @return void
-	*/
+	 * Load a plugin model 
+	 * @param string modelname
+	 * @return void
+	 */
 	protected function loadModel($model = null) {
 		if ($model && !$this->$model) {
 			$this->$model = ClassRegistry::init("Seo.$model");
 		}
 	}
 }
-

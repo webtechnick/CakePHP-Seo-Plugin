@@ -16,34 +16,34 @@ class SeoAppError {
 	public $SeoUrl = null;
 	
 	/**
-	* Overload constructor so we can test it properly
-	*/
+	 * Overload constructor so we can test it properly
+	 */
 	public function __construct($test = false) {
 		$this->controller = new Controller(null, new CakeResponse);
 	}
 	
 	/**
-	* Helper method for use in the application to catch 404 errors if needed
-	* $this->cakeError('catch404');
-	*/
+	 * Helper method for use in the application to catch 404 errors if needed
+	 * $this->cakeError('catch404');
+	 */
 	public function catch404() {
 		$this->__uriToStatusCode();
 		$this->__uriToRedirect();
 	}
 	
 	/**
-	* Update to levenshtien
-	*/
+	 * Update to levenshtien
+	 */
 	public function runLevenshtein() {
 		$this->__uriToLevenshtein();
 	}
 	
 	/**
-	* Returns if the incomming request matches the seo_uri defined.
-	* @param incomming request
-	* @param uri
-	* @return boolean
-	*/
+	 * Returns if the incomming request matches the seo_uri defined.
+	 * @param incomming request
+	 * @param uri
+	 * @return boolean
+	 */
 	public function requestMatch($request, $uri) {
 		$this->__loadModel('SeoStatusCode');
 		//Many To Many -- Using regular expression
@@ -68,10 +68,10 @@ class SeoAppError {
 	}
 	
 	/**
-	* Go through the uri to StatusCode database and see if we've hit a match that we've setup
-	* @param if testing, return the status code instead of setting it.
-	* @return mixed void normally, status code in testing mode
-	*/
+	 * Go through the uri to StatusCode database and see if we've hit a match that we've setup
+	 * @param if testing, return the status code instead of setting it.
+	 * @return mixed void normally, status code in testing mode
+	 */
 	public function __uriToStatusCode($test = false) {
 		$this->__loadModel('SeoStatusCode');
 		$request = env('REQUEST_URI');
@@ -97,10 +97,10 @@ class SeoAppError {
 	}
 	
 	/**
-	* Go through the uri to redirect database and see if we've hit a 
-	* 301 that we've setup.
-	* @return void
-	*/
+	 * Go through the uri to redirect database and see if we've hit a 
+	 * 301 that we've setup.
+	 * @return void
+	 */
 	public function __uriToRedirect() {
 		$this->__loadModel('SeoRedirect');
 		$request = env('REQUEST_URI');
@@ -155,9 +155,9 @@ class SeoAppError {
 	}
 	
 	/**
-	* Go through the uri to levenshtein url database and find the closest redirect based in sitemap 
-	* @return void
-	*/
+	 * Go through the uri to levenshtein url database and find the closest redirect based in sitemap 
+	 * @return void
+	 */
 	public function __uriToLevenshtein() {
 		$levconfig = SeoUtil::getConfig('levenshtein');
 		if (!$levconfig['active']) {
@@ -177,9 +177,9 @@ class SeoAppError {
 	}
 	
 	/**
-	* Load the SeoRedirect Model if it's not already loaded.
-	* @return void
-	*/
+	 * Load the SeoRedirect Model if it's not already loaded.
+	 * @return void
+	 */
 	public function __loadModel($model) {
 		if (!$this->$model) {
 			$this->$model = ClassRegistry::init("Seo.$model");
@@ -205,4 +205,3 @@ class SeoExceptionHandler extends HttpException {
 		ErrorHandler::handleException($error);
 	}
 }
-

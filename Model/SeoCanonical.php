@@ -32,25 +32,25 @@ class SeoCanonical extends SeoAppModel {
 	);
 	
 	/**
-	* Filter fields
-	*/
+	 * Filter fields
+	 */
 	public $searchFields = array(
 		'SeoCanonical.id','SeoCanonical.canonical','SeoUri.uri'
 	);
 	
 	/**
-	* Assign or create the url.
-	*/
+	 * Assign or create the url.
+	 */
 	public function beforeSave() {
 		$this->createOrSetUri();
 		return true;
 	}
 	
 	/**
-	* Find the first canonical link that matches this requesting URI
-	* @param string incoming reuqest uri
-	* @return the first canonical link to match
-	*/
+	 * Find the first canonical link that matches this requesting URI
+	 * @param string incoming reuqest uri
+	 * @return the first canonical link to match
+	 */
 	public function findByUri($request = null) {
 		return $this->field('canonical', array(
 			"{$this->SeoUri->alias}.uri" => $request,

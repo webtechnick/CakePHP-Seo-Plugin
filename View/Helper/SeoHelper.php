@@ -14,10 +14,10 @@ class SeoHelper extends AppHelper {
 	public $honeyPotId = 1;
 	
 	/**
-	* Show the meta tags designated for this uri
-	* @param array of name => content meta tags to merge with giving priority to SEO meta tags
-	* @return string of meta tags to show.
-	*/
+	 * Show the meta tags designated for this uri
+	 * @param array of name => content meta tags to merge with giving priority to SEO meta tags
+	 * @return string of meta tags to show.
+	 */
 	public function metaTags($metaData = array()) {
 		$this->loadModel('SeoMetaTag');
 		$request = env('REQUEST_URI');
@@ -48,12 +48,12 @@ class SeoHelper extends AppHelper {
 	}
 	
 	/**
-	* Return a canonical link tag for SEO purpolses
-	* Utility method
-	* @param router friendly URL
-	* @param boolean full url or relative (default true)
-	* @return HTMlElement of canonical link or empty string if none found/used
-	*/
+	 * Return a canonical link tag for SEO purpolses
+	 * Utility method
+	 * @param router friendly URL
+	 * @param boolean full url or relative (default true)
+	 * @return HTMlElement of canonical link or empty string if none found/used
+	 */
 	public function canonical($url = null, $full = true) {
 		if ($url === null) {
 			$this->loadModel('SeoCanonical');
@@ -69,12 +69,12 @@ class SeoHelper extends AppHelper {
 	}
 	
 	/**
-	* Show a honeypot link
-	* to bait scrappers to click on for autobanning
-	* @param string title for link
-	* @param array of options
-	* @return HtmlLink to honeypot action
-	*/
+	 * Show a honeypot link
+	 * to bait scrappers to click on for autobanning
+	 * @param string title for link
+	 * @param array of options
+	 * @return HtmlLink to honeypot action
+	 */
 	public function honeyPot($title = 'Click Here', $options = array()) {
 		$options = array_merge(
 			array(
@@ -99,10 +99,10 @@ class SeoHelper extends AppHelper {
 	}
 	
 	/**
-	* Find the title tag related to this request and output the result.
-	* @param string default title tag
-	* @return string title for requested uri
-	*/
+	 * Find the title tag related to this request and output the result.
+	 * @param string default title tag
+	 * @return string title for requested uri
+	 */
 	public function title($default = "") {
 		$this->loadModel('SeoTitle');
 		$request = env('REQUEST_URI');
@@ -113,10 +113,10 @@ class SeoHelper extends AppHelper {
 	
 	
 	/**
-	* Load a plugin model 
-	* @param string modelname
-	* @return void
-	*/
+	 * Load a plugin model 
+	 * @param string modelname
+	 * @return void
+	 */
 	public function loadModel($model = null) {
 		if ($model && !$this->$model) {
 			$this->$model = ClassRegistry::init("Seo.$model");
@@ -124,11 +124,10 @@ class SeoHelper extends AppHelper {
 	}
 	
 	/**
-	* Return the next Id to show.
-	*/
+	 * Return the next Id to show.
+	 */
 	public function nextId() {
 		return $this->honeyPotId++;
 	}
 	
 }
-
