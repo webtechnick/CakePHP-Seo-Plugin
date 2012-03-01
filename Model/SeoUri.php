@@ -57,14 +57,13 @@ class SeoUri extends SeoAppModel {
 	* is_approved is specifically being sent in.
 	* @return true
 	*/
-	public function beforeSave(){
+	public function beforeSave() {
 		//url encode the uri, but only once.
-		if(!empty($this->data[$this->alias]['uri']) && $this->isRegEx($this->data[$this->alias]['uri'])){
-			if(empty($this->data[$this->alias]['is_approved'])){
+		if (!empty($this->data[$this->alias]['uri']) && $this->isRegEx($this->data[$this->alias]['uri'])) {
+			if (empty($this->data[$this->alias]['is_approved'])) {
 				$this->data[$this->alias]['is_approved'] = false;
 			}
-		}
-		else {
+		} else {
 			$this->data[$this->alias]['is_approved'] = true;
 		}
 		return true;
@@ -73,11 +72,11 @@ class SeoUri extends SeoAppModel {
 	/**
 	* Send need approval email if we need it.
 	*/
-	public function afterSave($created){
-		if($created){
+	public function afterSave($created) {
+		if ($created) {
 			//Maybe URI
 		}
-		if(isset($this->data[$this->alias]['is_approved']) && !$this->data[$this->alias]['is_approved']){
+		if (isset($this->data[$this->alias]['is_approved']) && !$this->data[$this->alias]['is_approved']) {
 			$this->sendNotification(); //Email IT about needing approval... currently me.
 		}  
 	}
@@ -87,8 +86,8 @@ class SeoUri extends SeoAppModel {
 	* @param int id
 	* @return boolean success
 	*/
-	public function urlEncode($id = null){
-		if($id){
+	public function urlEncode($id = null) {
+		if ($id) {
 			$this->id = $id;
 		}
 		$uri = $this->field('uri');
@@ -102,7 +101,7 @@ class SeoUri extends SeoAppModel {
 	* @param int id
 	* @return result of find.
 	*/
-	public function findForViewById($id){
+	public function findForViewById($id) {
 		return $this->find('first', array(
 			'conditions' => array('SeoUri.id' => $id),
 			'contain' => array('SeoRedirect','SeoTitle','SeoMetaTag','SeoStatusCode')
@@ -114,7 +113,7 @@ class SeoUri extends SeoAppModel {
 	* @param string uri
 	* @return mixed id
 	*/
-	public function findIdByUri($uri = null){
+	public function findIdByUri($uri = null) {
 		return $this->field('id', array("{$this->alias}.uri" => $uri));
 	}
 	
@@ -161,13 +160,13 @@ class SeoUri extends SeoAppModel {
 	public function findRegexUri($request = null) {
 		$uri_ids = array();
 		$uris = $this->findAllRegexUris();
-		foreach($uris as $uri){
+		foreach ($uris as $uri) {
 			//Wildcard match
-			if(strpos($request, str_replace('*','', $uri[$this->alias]['uri'])) !== false){
+			if (strpos($request, str_replace('*','', $uri[$this->alias]['uri'])) !== false) {
 				$uri_ids[] = $uri[$this->alias]['id'];
 			}
 			//Regex match
-			elseif($this->isRegex($uri[$this->alias]['uri']) && preg_match($uri[$this->alias]['uri'], $request)){
+			elseif($this->isRegex($uri[$this->alias]['uri']) && preg_match($uri[$this->alias]['uri'], $request)) {
 				$uri_ids[] = $uri[$this->alias]['id'];
 			}
 		}
@@ -180,8 +179,8 @@ class SeoUri extends SeoAppModel {
 	* @param int id of seo redirect to approve
 	* @return boolean result of save
 	*/
-	public function setApproved($id = null){
-		if($id) $this->id = $id;
+	public function setApproved($id = null) {
+		if ($id) $this->id = $id;
 		return $this->saveField('is_approved', true);
 	}
 	
@@ -190,12 +189,12 @@ class SeoUri extends SeoAppModel {
 	* @param int id
 	* @return void
 	*/
-	public function sendNotification($id = null){
-		if($id) $this->id = $id;
+	public function sendNotification($id = null) {
+		if ($id) $this->id = $id;
 		$this->read();
 		
-		if(!empty($this->data)){
-			if(!isset($this->Email)){
+		if (!empty($this->data)) {
+			if (!isset($this->Email)) {
 				App::import('Component','Email');
 				$this->Email = new EmailComponent();
 			}

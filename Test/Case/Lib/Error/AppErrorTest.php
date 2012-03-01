@@ -29,73 +29,73 @@ class AppErrorTest extends CakeTestCase {
 		$this->AppError->controller = new MockController();
 	}
 	
-	public function test_uriToLevenshtein(){
+	public function test_uriToLevenshtein() {
 		$_SERVER['REQUEST_URI'] = '/some_url'; // /some is the closest
 	  $this->AppError->controller->expectOnce('redirect', array('/some', 301));
 	  $this->AppError->__uriToLevenshtein();
 	}
 	
-	public function testUriToRedirectWildCard(){
+	public function testUriToRedirectWildCard() {
 	  $_SERVER['REQUEST_URI'] = '/blahblahtest'; // /blahblah* will catch this one
 	  $this->AppError->controller->expectOnce('redirect', array('/new', 301));
 	  $this->AppError->__uriToRedirect();
 	}
 	
-	public function testUriToRedirectWildCardNotMatch(){
+	public function testUriToRedirectWildCardNotMatch() {
 		$_SERVER['REQUEST_URI'] = '/admin/blahblahtest'; // /blahblah* should NOT catch this one
 	  $this->AppError->controller->expectNever('redirect');
 	  $this->AppError->__uriToRedirect();
 	}
 	
-	public function testUriToStatusCodeGone(){
+	public function testUriToStatusCodeGone() {
 		$_SERVER['REQUEST_URI'] = '/status_gone';
 		$result = $this->AppError->__uriToStatusCode(true);
 		$this->assertEquals('410', $result);
 	}
 	
-	public function testUriToStatusCodeOk(){
+	public function testUriToStatusCodeOk() {
 		$_SERVER['REQUEST_URI'] = '/ok_request';
 		$result = $this->AppError->__uriToStatusCode(true);
 		$this->assertEquals('', $result);
 	}
 	
-	public function testUriToRedirectWithCallbackFull(){
+	public function testUriToRedirectWithCallbackFull() {
 	  $_SERVER['REQUEST_URI'] = '/uri';
 	  $this->AppError->controller->expectOnce('redirect', array('/ran_callback', 301));
 	  $this->AppError->__uriToRedirect();
 	}
 	
-	public function testUriToRedirectWithRegEx(){
+	public function testUriToRedirectWithRegEx() {
 	  $_SERVER['REQUEST_URI'] = '/hearing-aids/558-virginia-beach-virginia-va-23454-virginia-audiology?from=sb-tracked:23457';
 	  $this->AppError->controller->expectOnce('redirect', array('/hearing-aids/558-virginia-beach-virginia-va-23454-virginia-audiology', 301));
 	  $this->AppError->__uriToRedirect();
 	}
 	
-	public function testUriToRedirectWithRegExTwo(){
+	public function testUriToRedirectWithRegExTwo() {
 	  $_SERVER['REQUEST_URI'] = '/some_url_to?from=sb-tracked:2345';
 	  $this->AppError->controller->expectOnce('redirect', array('/some_url_to', 301));
 	  $this->AppError->__uriToRedirect();
 	}
 	
-	public function testUriToRedirectWithRegExThree(){
+	public function testUriToRedirectWithRegExThree() {
 	  $_SERVER['REQUEST_URI'] = '/qas/32074-i-told-hearing-aids';
 	  $this->AppError->controller->expectOnce('redirect', array('/questions/32074-i-told-hearing-aids', 301));
 	  $this->AppError->__uriToRedirect();
 	}
 	
-	public function testUriToRedirect(){
+	public function testUriToRedirect() {
 	  $_SERVER['REQUEST_URI'] = '/blah';
 	  $this->AppError->controller->expectOnce('redirect', array('/', 301));
 	  $this->AppError->__uriToRedirect();
 	}
 	
-	public function testUriToRedirectNotActive(){
+	public function testUriToRedirectNotActive() {
 	  $_SERVER['REQUEST_URI'] = '/not_active';
 	  $this->AppError->controller->expectNever('redirect');
 	  $this->AppError->__uriToRedirect();
 	}
 	
-	public function testPriority(){
+	public function testPriority() {
 	  $_SERVER['REQUEST_URI'] = '/blahblahblah';
 	  $this->AppError->controller->expectOnce('redirect', array('/priority', 301));
 	  $this->AppError->__uriToRedirect();

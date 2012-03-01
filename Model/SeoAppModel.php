@@ -24,7 +24,7 @@ class SeoAppModel extends AppModel {
 	* @param field to check
 	* @return boolean
 	*/
-	public function isIp($check = null){
+	public function isIp($check = null) {
 		$ip_to_check = array_shift($check);
 		return (ip2long($ip_to_check));
 	}
@@ -33,9 +33,9 @@ class SeoAppModel extends AppModel {
 	* Save string IPs as longs
 	* @return true
 	*/
-	public function beforeSave(){
-		foreach($this->fieldsToLong as $field){
-			if(isset($this->data[$this->alias][$field]) && !is_numeric($this->data[$this->alias][$field])){
+	public function beforeSave() {
+		foreach ($this->fieldsToLong as $field) {
+			if (isset($this->data[$this->alias][$field]) && !is_numeric($this->data[$this->alias][$field])) {
 				$this->data[$this->alias][$field] = ip2long($this->data[$this->alias][$field]);
 			}
 		}
@@ -46,13 +46,13 @@ class SeoAppModel extends AppModel {
 	* Show the IPs back out.
 	* @return formatted results
 	*/
-	public function afterFind($results){
+	public function afterFind($results) {
 		if (!is_array($results)) {
 			return $results;
 		}
-		foreach($results as $key => $val){
-			foreach($this->fieldsToLong as $field){
-				if(isset($val[$this->alias][$field]) && is_numeric($val[$this->alias][$field])){
+		foreach ($results as $key => $val) {
+			foreach ($this->fieldsToLong as $field) {
+				if (isset($val[$this->alias][$field]) && is_numeric($val[$this->alias][$field])) {
 					$results[$key][$this->alias][$field] = long2ip($val[$this->alias][$field]);
 				}
 			}
@@ -66,8 +66,8 @@ class SeoAppModel extends AppModel {
 	* - last : find last record by created date
 	* @param array of options
 	*/
-	public function find($type, $options = array()){
-		switch($type){
+	public function find($type, $options = array()) {
+		switch ($type) {
 		case 'last':
 			$options = array_merge(
 				$options,
@@ -82,18 +82,17 @@ class SeoAppModel extends AppModel {
 	/**
 	* Set or create the model, this is useful to find the URI
 	*/
-	public function createOrSetUri($model = 'SeoUri', $field = 'uri'){
+	public function createOrSetUri($model = 'SeoUri', $field = 'uri') {
 		$ModelName = Inflector::camelize($model);
 		$model_underscore = Inflector::underscore($model);
 		
-		if(isset($this->data[$ModelName][$field])){
+		if (isset($this->data[$ModelName][$field])) {
 			$this->$ModelName->contain();
 			$this->$ModelName->recursive = -1;
 			//Find the Model, and set the id.
-			if($associated_id = $this->$ModelName->field('id', array($field => $this->data[$ModelName][$field]))){
+			if ($associated_id = $this->$ModelName->field('id', array($field => $this->data[$ModelName][$field]))) {
 				$this->data[$this->alias][$model_underscore . '_id'] = $associated_id;
-			}
-			else {
+			} else {
 				$save = array();
 				$save[$ModelName][$field] = $this->data[$ModelName][$field];
 				$this->$ModelName->create();
@@ -108,7 +107,7 @@ class SeoAppModel extends AppModel {
 	* @param string
 	* @return boolean if is regular expression (as two # marks)
 	*/
-	public function isRegEx($uri){
+	public function isRegEx($uri) {
 		return preg_match('/^#(.*)#(.*)/', $uri);
 	}
 	
@@ -117,10 +116,10 @@ class SeoAppModel extends AppModel {
 	* @param string filter
 	* @return conditions array
 	*/
-	public function generateFilterConditions($filter = null){
+	public function generateFilterConditions($filter = null) {
 		$retval = array();
-		if($filter){
-			foreach($this->searchFields as $field){
+		if ($filter) {
+			foreach ($this->searchFields as $field) {
 				$retval['OR']["$field LIKE"] =  '%' . $filter . '%'; 
 			}
 		}
@@ -131,15 +130,15 @@ class SeoAppModel extends AppModel {
 	* Returns the server IP
 	* @return string of incoming IP
 	*/
-	public function getIpFromServer(){
+	public function getIpFromServer() {
 		$check_order = array(
 			'HTTP_CLIENT_IP', //shared client
 			'HTTP_X_FORWARDED_FOR', //proxy address
 			'REMOTE_ADDR', //fail safe
 			);
 		
-		foreach($check_order as $key){
-			if(isset($_SERVER[$key]) && !empty($_SERVER[$key])){
+		foreach ($check_order as $key) {
+			if (isset($_SERVER[$key]) && !empty($_SERVER[$key])) {
 				return $_SERVER[$key];
 			}
 		}

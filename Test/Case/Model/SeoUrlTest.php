@@ -10,7 +10,7 @@ class SeoUrlTest extends CakeTestCase {
 		$this->SeoUrl = ClassRegistry::init('SeoUrl');
 	}
 	
-	public function test_findRedirectByRequest(){
+	public function test_findRedirectByRequest() {
 		$this->SeoUrl->settings['cost_add'] = 1;
 		$this->SeoUrl->settings['cost_change'] = 1;
 		$this->SeoUrl->settings['cost_delete'] = 1;
@@ -22,7 +22,7 @@ class SeoUrlTest extends CakeTestCase {
 		$this->assertEquals($result, array('redirect' => '/some_other', 'shortest' => 0));
 	}
 	
-	public function test_levenshtien(){
+	public function test_levenshtien() {
 		$request = "/content/Hearing-loss/Treatment";
 		$add = 1;
 		$change = 2;
@@ -34,7 +34,7 @@ class SeoUrlTest extends CakeTestCase {
 		$this->assertEquals(52, $lev);
 	}
 	
-	public function test_import(){
+	public function test_import() {
 		$result = $this->SeoUrl->import("/custom-sitemap.xml");
 		$this->assertEquals('269', $result);
 	}

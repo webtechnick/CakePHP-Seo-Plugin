@@ -42,7 +42,7 @@ class SeoMetaTag extends SeoAppModel {
 		'SeoMetaTag.name','SeoMetaTag.content','SeoMetaTag.id','SeoUri.uri'
 	);
 	
-	public function beforeSave(){
+	public function beforeSave() {
 		$this->createOrSetUri();
 		return true;
 	}
@@ -53,7 +53,7 @@ class SeoMetaTag extends SeoAppModel {
 	* @param incoming request URI
 	* @return array of results
 	*/
-	public function findAllTagsByUri($request = null){
+	public function findAllTagsByUri($request = null) {
 		$retval = $this->find('all', array(
 			'conditions' => array(
 				"{$this->SeoUri->alias}.uri" => $request,
@@ -62,13 +62,13 @@ class SeoMetaTag extends SeoAppModel {
 			'contain' => array("{$this->SeoUri->alias}.uri")
 		));
 		
-		if(!empty($retval)){
+		if (!empty($retval)) {
 			return $retval;
 		}
 		
 		$uri_ids = $this->SeoUri->findRegexUri($request);
 		
-		if(empty($uri_ids)){
+		if (empty($uri_ids)) {
 			return array();
 		}
 		

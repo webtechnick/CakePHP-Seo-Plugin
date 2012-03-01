@@ -20,7 +20,7 @@ class SeoUtil extends Object {
 	* @return string version number
 	* @access public
 	*/
-	static function version(){
+	static function version() {
 		return "6.0.0";
 	}
 	
@@ -29,7 +29,7 @@ class SeoUtil extends Object {
 	* @return string description
 	* @access public
 	*/
-	static function description(){
+	static function description() {
 		return "CakePHP Search Engine Optimization Plugin";
 	}
 	
@@ -38,14 +38,14 @@ class SeoUtil extends Object {
 	* @return string author
 	* @access public
 	*/
-	static function author(){
+	static function author() {
 		return "Nick Baker, Alan Blount";
 	}
 	
 	/**
 	* Load the SeoAppError class
 	*/
-	static function loadSeoError(){
+	static function loadSeoError() {
 		App::uses('SeoAppError', 'Seo.Error');
 		//return require_once(dirname(__FILE__) . DS . '..' . DS . 'seo_app_error.php');
 		return true;
@@ -54,7 +54,7 @@ class SeoUtil extends Object {
 	/**
 	* Utility method to call Seo.SeoBlacklist::isBanned($ip);
 	*/
-	static function isBanned($ip = null){
+	static function isBanned($ip = null) {
 		App::import('Model','Seo.SeoBlacklist');
 		return SeoBlacklist::isBanned($ip);
 	}
@@ -65,18 +65,18 @@ class SeoUtil extends Object {
 	* @return mixed result of configuration key.
 	* @access public
 	*/
-	static function getConfig($key){
-		if(isset(self::$configs[$key])){
+	static function getConfig($key) {
+		if (isset(self::$configs[$key])) {
 			return self::$configs[$key];
 		}
 		//try configure setting
-		if(self::$configs[$key] = Configure::read("Seo.$key")){
+		if (self::$configs[$key] = Configure::read("Seo.$key")) {
 			return self::$configs[$key];
 		}
 		//try load configuration file and try again.
 		Configure::load('seo');
 		self::$configs = Configure::read('Seo');
-		if(self::$configs[$key] = Configure::read("Seo.$key")){
+		if (self::$configs[$key] = Configure::read("Seo.$key")) {
 			return self::$configs[$key];
 		}
 		

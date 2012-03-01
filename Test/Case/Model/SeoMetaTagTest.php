@@ -19,22 +19,22 @@ class SeoMetaTagTest extends CakeTestCase {
 		$this->SeoMetaTag->SeoUri->Email = new MockEmailComponent();
 	}
 	
-	public function testFindAllTagsByUri(){
+	public function testFindAllTagsByUri() {
 		$results = $this->SeoMetaTag->findAllTagsByUri('/uri_for_meta');
 		$this->assertEquals(2, count($results));
 	}
 	
-	public function testFindAllTagsByUriRegEx(){
+	public function testFindAllTagsByUriRegEx() {
 		$results = $this->SeoMetaTag->findAllTagsByUri('/uri_for_meta_reg_ex/regex');
 		$this->assertEquals(2, count($results));
 	}
 	
-	public function testFindAllTagsByUriWildCard(){
+	public function testFindAllTagsByUriWildCard() {
 		$results = $this->SeoMetaTag->findAllTagsByUri('/uri_for_meta_wild_card/wild');
 		$this->assertEquals(1, count($results));
 	}
 	
-	public function testBeforeSaveShouldLinkToExistinUri(){
+	public function testBeforeSaveShouldLinkToExistinUri() {
 		$this->SeoMetaTag->data = array(
 			'SeoMetaTag' => array(
 				'name' => 'New',
@@ -54,7 +54,7 @@ class SeoMetaTagTest extends CakeTestCase {
 		$this->assertEquals(9, $results['SeoMetaTag']['seo_uri_id']);
 	}
 	
-	public function testBeforeSaveShouldLinkToCreatUri(){
+	public function testBeforeSaveShouldLinkToCreatUri() {
 		$this->SeoMetaTag->data = array(
 			'SeoMetaTag' => array(
 				'name' => 'New',

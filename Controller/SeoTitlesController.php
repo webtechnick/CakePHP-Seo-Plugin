@@ -4,7 +4,7 @@ class SeoTitlesController extends SeoAppController {
 
 	
 	public function admin_index($filter = null) {
-		if(!empty($this->request->data)){
+		if (!empty($this->request->data)) {
 			$filter = $this->request->data['SeoTitle']['filter'];
 		}
 		$conditions = $this->SeoTitle->generateFilterConditions($filter);
@@ -21,7 +21,7 @@ class SeoTitlesController extends SeoAppController {
 	}
 
 	public function admin_add() {
-		if(!empty($this->request->data)) {
+		if (!empty($this->request->data)) {
 			$this->SeoTitle->create();
 			if ($this->SeoTitle->save($this->request->data)) {
 				$this->Session->setFlash(__('The seo title has been saved'));
@@ -39,7 +39,7 @@ class SeoTitlesController extends SeoAppController {
 			$this->Session->setFlash(__('Invalid seo title'));
 			$this->redirect(array('action' => 'index'));
 		}
-		if(!empty($this->request->data)) {
+		if (!empty($this->request->data)) {
 			if ($this->SeoTitle->save($this->request->data)) {
 				$this->Session->setFlash(__('The seo title has been saved'));
 				$this->redirect(array('action' => 'index'));

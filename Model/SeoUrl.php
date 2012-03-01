@@ -26,7 +26,7 @@ class SeoUrl extends SeoAppModel {
 	/**
 	* Load the settings
 	*/
-	public function __construct($id = false, $table = null, $ds = null){
+	public function __construct($id = false, $table = null, $ds = null) {
 		parent::__construct($id, $table, $ds);
 		$this->settings = SeoUtil::getConfig('levenshtein');
 	}
@@ -39,28 +39,27 @@ class SeoUrl extends SeoAppModel {
 	* @param boolean verbose
 	* @param int count of imported urls
 	*/
-	public function import($sitemap = null, $clear_all = true, $verbose = false){
+	public function import($sitemap = null, $clear_all = true, $verbose = false) {
 		$count = 0;
-		if($this->settings['active']){
-			if($sitemap){
+		if ($this->settings['active']) {
+			if ($sitemap) {
 				$this->settings['source'] = $sitemap;
 			}
-			if($clear_all){
+			if ($clear_all) {
 				$this->deleteAll(1);
 			}
 			
 			$xml = simplexml_load_file($this->getPathToSiteMap());
-			foreach($xml->url as $url){
+			foreach ($xml->url as $url) {
 				$this->create();
 				$save_data = array(
 					'url' => parse_url((string) $url->loc, PHP_URL_PATH),
 					'priority' => (string) $url->priority
 				);
-				if($this->save($save_data)){
-					if($verbose) echo ".";
+				if ($this->save($save_data)) {
+					if ($verbose) echo ".";
 					$count++;
-				}
-				elseif($verbose){
+				} elseif ($verbose) {
 					echo "f";
 					debug($this->validationErrors);
 				}
@@ -79,16 +78,16 @@ class SeoUrl extends SeoAppModel {
 	* - redirect the actually redirect to point to
 	* - shortest how close this came
 	*/
-	public function findRedirectByRequest($request){
-		if($this->settings['active']){
+	public function findRedirectByRequest($request) {
+		if ($this->settings['active']) {
 			$retval = array(
 				'redirect' => '/',
 				'shortest' => -1
 			);
 			
 			//Run import if we have no urls to look at.
-			if($this->find('count') == 0){
-				if($this->import() == 0){
+			if ($this->find('count') == 0) {
+				if ($this->import() == 0) {
 					return $retval;
 				}
 			}
@@ -99,19 +98,18 @@ class SeoUrl extends SeoAppModel {
 				'order' => 'SeoUrl.priority ASC'
 			));
 			
-			foreach($urls as $url){
+			foreach ($urls as $url) {
 				//Less efficent to use constants, if they're all the same don't use them
-				if($this->settings['cost_add'] == $this->settings['cost_change'] && $this->settings['cost_change'] == $this->settings['cost_delete']){
+				if ($this->settings['cost_add'] == $this->settings['cost_change'] && $this->settings['cost_change'] == $this->settings['cost_delete']) {
 					$lev = levenshtein($request, $url['SeoUrl']['url']);
-				}
-				else {
+				} else {
 					$lev = levenshtein($request, $url['SeoUrl']['url'], $this->settings['cost_add'], $this->settings['cost_change'], $this->settings['cost_delete']);
 				}
-				if($lev <= $retval['shortest'] || $retval['shortest'] < 0){
+				if ($lev <= $retval['shortest'] || $retval['shortest'] < 0) {
 					$retval['redirect'] = $url['SeoUrl']['url'];
 					$retval['shortest'] = $lev;
 				}
-				if($retval['shortest'] < $this->settings['threshold'] || $lev == 0){
+				if ($retval['shortest'] < $this->settings['threshold'] || $lev == 0) {
 					break;
 				}
 			}
@@ -125,11 +123,10 @@ class SeoUrl extends SeoAppModel {
 	*
 	* @return string file path to source.
 	*/
-	protected function getPathToSiteMap(){
-		if(strpos($this->settings['source'], '/') === 0){
+	protected function getPathToSiteMap() {
+		if (strpos($this->settings['source'], '/') === 0) {
 			return WWW_ROOT . substr($this->settings['source'], 1, strlen($this->settings['source'])); 
-		}
-		else {
+		} else {
 			return $this->settings['source'];
 		}
 	}

@@ -4,7 +4,7 @@ class SeoUrlsController extends SeoAppController {
 
 	
 	public function admin_index($filter = null) {
-		if(!empty($this->request->data)){
+		if (!empty($this->request->data)) {
 			$filter = $this->request->data['SeoUrl']['filter'];
 		}
 		$conditions = $this->SeoUrl->generateFilterConditions($filter);
@@ -22,7 +22,7 @@ class SeoUrlsController extends SeoAppController {
 	}
 
 	public function admin_add() {
-		if(!empty($this->request->data)) {
+		if (!empty($this->request->data)) {
 			$this->SeoUrl->create();
 			if ($this->SeoUrl->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('The seo url has been saved'));
@@ -38,7 +38,7 @@ class SeoUrlsController extends SeoAppController {
 			$this->Session->setFlash(__('Invalid seo url'));
 			$this->redirect(array('action' => 'index'));
 		}
-		if(!empty($this->request->data)) {
+		if (!empty($this->request->data)) {
 			if ($this->SeoUrl->save($this->request->data)) {
 				$this->Session->setFlash(__('The seo url has been saved'));
 				$this->redirect(array('action' => 'index'));
@@ -66,11 +66,10 @@ class SeoUrlsController extends SeoAppController {
 		$this->redirect(array('action' => 'index'));
 	}
 	
-	public function admin_approve($id = null){
-	  if(!$id) {
+	public function admin_approve($id = null) {
+	  if (!$id) {
 			$this->Session->setFlash(__('Invalid id for seo url'));
-		}
-		elseif($this->SeoUrl->setApproved($id)) {
+		} elseif ($this->SeoUrl->setApproved($id)) {
 			$this->Session->setFlash(__('Seo Uri approved'));
 		}
 		$this->redirect(array('admin' => true, 'action' => 'index'));

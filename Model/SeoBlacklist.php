@@ -33,12 +33,12 @@ class SeoBlacklist extends SeoAppModel {
 	* @param string note to add to this ban
 	* @return boolean success of save
 	*/
-	public function addToBanned($ip = null, $note = "AutoBanned", $is_active = null){
-		if(!$ip){
+	public function addToBanned($ip = null, $note = "AutoBanned", $is_active = null) {
+		if (!$ip) {
 			$ip = $this->getIpFromServer();
 		}
 		
-		if($is_active === null){
+		if ($is_active === null) {
 			$is_active = SeoUtil::getConfig('aggressive');
 		}
 		
@@ -57,8 +57,8 @@ class SeoBlacklist extends SeoAppModel {
 	* @param string $ip to check if banned
 	* @return boolean true or false
 	*/
-	public function isBanned($ip = null){
-		if(!$ip){
+	public function isBanned($ip = null) {
+		if (!$ip) {
 			$ip = $this->getIpFromServer();
 		}
 		$ip_query = is_numeric($ip) ? $ip : ip2long($ip);

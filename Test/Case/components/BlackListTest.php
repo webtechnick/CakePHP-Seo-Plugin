@@ -8,7 +8,7 @@ App::import('Model', 'Seo.SeoHoneypotVisit');
 class BlackListTest extends CakeTestCase {
 	public $BlackList = null;
 	
-	public function startTest(){
+	public function startTest() {
 		Mock::generate('Controller');
 		Mock::generate('SeoHoneypotVisit');
 		$this->BlackList = new BlackListComponent();
@@ -17,25 +17,25 @@ class BlackListTest extends CakeTestCase {
 		$this->BlackList->SeoHoneypotVisit = new TestHoneyPotVisit();
 	}
 	
-	public function testIsBannedRedirect(){
+	public function testIsBannedRedirect() {
 		$this->BlackList->Controller->here = '/';
 		$this->BlackList->Controller->expectOnce('redirect');
 		$this->assertTrue($this->BlackList->__isBanned());
 	}
 	
-	public function testIsBannedOnBannedPage(){
+	public function testIsBannedOnBannedPage() {
 		$this->BlackList->Controller->here = '/seo/seo_blacklists/banned';
 		$this->BlackList->Controller->expectNever('redirect');
 		$this->assertTrue($this->BlackList->__isBanned());
 	}
 	
-	public function testHandleHoneyPot(){
+	public function testHandleHoneyPot() {
 		$this->BlackList->Controller->here = '/seo/seo_blacklists/honeypot';
 		$this->BlackList->Controller->expectOnce('redirect');
 		$this->assertTrue($this->BlackList->__isBanned());
 	}
 	
-	public function endTest(){
+	public function endTest() {
 		unset($this->BlackList);
 	}
 }
@@ -44,7 +44,7 @@ class TestBlacklist extends CakeTestModel {
   public $data = null;
   public $useTable = false;
   
-  function isBanned(){
+  function isBanned() {
   	return true;
   }
 }
@@ -54,7 +54,7 @@ class TestHoneyPotVisit extends CakeTestModel {
   public $data = null;
   public $useTable = false;
   
-  function isTriggered(){
+  function isTriggered() {
   	return true;
   }
 }

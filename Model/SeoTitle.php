@@ -35,7 +35,7 @@ class SeoTitle extends SeoAppModel {
 	/**
 	* Assign or create the url.
 	*/
-	public function beforeSave(){
+	public function beforeSave() {
 		$this->createOrSetUri();
 		return true;
 	}
@@ -45,7 +45,7 @@ class SeoTitle extends SeoAppModel {
 	* @param string incoming reuqest uri
 	* @return the first title tag to match
 	*/
-	public function findTitleByUri($request = null){
+	public function findTitleByUri($request = null) {
 		return $this->find('first', array(
 			'conditions' => array(
 				"{$this->SeoUri->alias}.uri" => $request,

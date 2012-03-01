@@ -8,17 +8,17 @@ class SeoHoneypotVisitTest extends CakeTestCase {
 		$this->SeoHoneypotVisit = ClassRegistry::init('SeoHoneypotVisit');
 	}
 	
-	public function testAdd(){
+	public function testAdd() {
 		$this->assertTrue($this->SeoHoneypotVisit->add('127.255.253.120'));
 	}
 	
-	public function testClear(){
+	public function testClear() {
 		$this->assertEquals(1, $this->SeoHoneypotVisit->find('count'));
 		$this->assertTrue($this->SeoHoneypotVisit->clear());
 		$this->assertEquals(0, $this->SeoHoneypotVisit->find('count'));
 	}
 	
-	public function testClearAfterAdding(){
+	public function testClearAfterAdding() {
 		$this->assertEquals(1, $this->SeoHoneypotVisit->find('count'));
 		$this->assertTrue($this->SeoHoneypotVisit->add('127.255.253.120'));
 		$this->assertTrue($this->SeoHoneypotVisit->add('127.255.253.120'));
@@ -26,7 +26,7 @@ class SeoHoneypotVisitTest extends CakeTestCase {
 		$this->assertEquals(2, $this->SeoHoneypotVisit->find('count'));
 	}
 	
-	public function testIsTriggered(){
+	public function testIsTriggered() {
 		$this->assertFalse($this->SeoHoneypotVisit->isTriggered('127.255.253.120'));
 		$this->assertTrue($this->SeoHoneypotVisit->add('127.255.253.120'));
 		$this->assertTrue($this->SeoHoneypotVisit->add('127.255.253.120'));

@@ -19,7 +19,7 @@ class SeoUriTest extends CakeTestCase {
 		$this->SeoUri->Email = new MockEmailComponent();
 	}
 	
-	public function testUrlEncode(){
+	public function testUrlEncode() {
 		$uri = $this->SeoUri->findById(1);
 		$this->assertEquals('/blah', $uri['SeoUri']['uri']);
 		$this->assertTrue($this->SeoUri->urlEncode(1));
@@ -33,14 +33,14 @@ class SeoUriTest extends CakeTestCase {
 		$this->assertEquals('/uri%20with%20spaces', $result['SeoUri']['uri']);
 	}
 	
-	public function testSetApproved(){
+	public function testSetApproved() {
 	  $this->SeoUri->id = 6;
 	  $this->assertFalse($this->SeoUri->field('is_approved'));
 	  $this->SeoUri->setApproved();
 	  $this->assertTrue($this->SeoUri->field('is_approved'));
 	}
 	
-	public function testSendNotification(){
+	public function testSendNotification() {
 	  $this->SeoUri->id = 6;
 	  $this->SeoUri->Email->expectOnce('send');
 	  $this->SeoUri->sendNotification();
@@ -48,7 +48,7 @@ class SeoUriTest extends CakeTestCase {
 	  $this->assertEquals('html', $this->SeoUri->Email->sendAs);
 	}
 	
-	public function testDeleteUriDeletsMeta(){
+	public function testDeleteUriDeletsMeta() {
 		$this->assertTrue($this->SeoUri->SeoMetaTag->hasAny(array('id' => 1)));
 		$this->assertTrue($this->SeoUri->SeoMetaTag->hasAny(array('id' => 2)));
 		$this->SeoUri->delete(9);
@@ -56,7 +56,7 @@ class SeoUriTest extends CakeTestCase {
 		$this->assertFalse($this->SeoUri->SeoMetaTag->hasAny(array('id' => 2)));
 	}
 	
-	public function testDeleteUriDeleteRedirect(){
+	public function testDeleteUriDeleteRedirect() {
 		$this->assertTrue($this->SeoUri->SeoRedirect->hasAny(array('id' => 7)));
 		$this->SeoUri->delete(7);
 		$this->assertFalse($this->SeoUri->SeoRedirect->hasAny(array('id' => 7)));

@@ -41,7 +41,7 @@ class SeoCanonical extends SeoAppModel {
 	/**
 	* Assign or create the url.
 	*/
-	public function beforeSave(){
+	public function beforeSave() {
 		$this->createOrSetUri();
 		return true;
 	}
@@ -51,7 +51,7 @@ class SeoCanonical extends SeoAppModel {
 	* @param string incoming reuqest uri
 	* @return the first canonical link to match
 	*/
-	public function findByUri($request = null){
+	public function findByUri($request = null) {
 		return $this->field('canonical', array(
 			"{$this->SeoUri->alias}.uri" => $request,
 			"{$this->SeoUri->alias}.is_approved" => true,
