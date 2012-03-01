@@ -65,7 +65,7 @@ class SeoUrisController extends SeoAppController {
 		}
 		if (!empty($this->request->data)) {
 			$this->clearAssociatesIfEmpty();
-			if ($this->SeoUri->save($this->request->data)) {
+			if ($this->SeoUri->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('The seo uri has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {

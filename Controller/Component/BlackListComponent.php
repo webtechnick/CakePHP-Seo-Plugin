@@ -30,8 +30,8 @@ class BlackListComponent extends Component {
 	/**
 	 * Initialize the component, set the settings
 	 */
-	public function initialize(Controller $controller, $settings = array()) {
-		$this->Controller = $controller;
+	public function initialize(Controller $Controller, $settings = array()) {
+		$this->Controller = $Controller;
 		$this->_set($settings);
 		$this->honeyPot = SeoUtil::getConfig('honeyPot');
 		
