@@ -1,34 +1,34 @@
 <?php
 class SeoRedirectsShell extends Shell {
-	var $uses = array('Seo.SeoUrl', 'Seo.SeoUri', 'Seo.SeoRedirect');
+	public $uses = array('Seo.SeoUrl', 'Seo.SeoUri', 'Seo.SeoRedirect');
 
 	/**
 	 * Default action
 	 */
-	function main(){
+	public function main(){
 		$this->help();
 	}
 
 	/**
 	 * Basic Help
 	 */
-	function help(){
-		$this->out("{$this->shell} Shell");
+	public function help(){
+		$this->out("{$this->name} Shell");
 		$this->hr();
-		$this->out(" cake {$this->shell} search <url or redirect>	   Quickly search for an existing redirect");
-		$this->out(" cake {$this->shell} add <url> <redirect> (priority:100) (callback:null)");
+		$this->out(" cake Seo.seo_redirects search <url or redirect>	   Quickly search for an existing redirect");
+		$this->out(" cake Seo.seo_redirects add <url> <redirect> (priority:100) (callback:null)");
 		$this->out("													Add a new simple redirect");
 		$this->out();
 		$this->out("examples:");
-		$this->out(" cake {$this->shell} add '/mybad/path*' '/my-cleaned-up-path' 50");
-		$this->out(" cake {$this->shell} add '/myother-bad/path*' '/my-cleaned-up-path' 60");
-		$this->out(" cake {$this->shell} add '/my*' '/my-failover-path' 10");
+		$this->out(" cake Seo.seo_redirects add '/mybad/path*' '/my-cleaned-up-path' 50");
+		$this->out(" cake Seo.seo_redirects add '/myother-bad/path*' '/my-cleaned-up-path' 60");
+		$this->out(" cake Seo.seo_redirects add '/my*' '/my-failover-path' 10");
 		$this->out();
 	}
 	/**
 	 * A quick and dirty search of existing Uri & Redirects
 	 */
-	function search() {
+	public function search() {
 		$term = array_shift($this->args);
 		$this->out("Searching URIs.");
 		$urls = $this->SeoUri->find('all', array(
@@ -71,7 +71,7 @@ class SeoRedirectsShell extends Shell {
 	/**
 	 * A means for simply adding redirects
 	 */
-	function add(){
+	public function add(){
 		$default = array(
 			'url' => null,
 			'redirect' => null,
