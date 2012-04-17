@@ -46,5 +46,15 @@ class SeoUrlsShell extends Shell {
 			$this->out();
 		}
 	}
+	/**
+	* Private method to output the error and exit(1)
+	* @param string message to output
+	* @return void
+	* @access private
+	*/
+	protected function errorAndExit($message) {
+		$this->out("Error: $message");
+		exit(1);
+	}
 }
 ?>
