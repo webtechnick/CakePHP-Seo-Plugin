@@ -2,6 +2,7 @@
 class SeoTitlesController extends SeoAppController {
 
 	var $name = 'SeoTitles';
+	var $helpers = array('Time');
 	
 	function admin_index($filter = null) {
 		if(!empty($this->data)){
