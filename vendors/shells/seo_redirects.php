@@ -24,7 +24,7 @@ class SeoRedirectsShell extends Shell {
 		$this->out(" cake {$this->shell} add '/myother-bad/path*' '/my-cleaned-up-path' 60");
 		$this->out(" cake {$this->shell} add '/my*' '/my-failover-path' 10");
 		$this->out(" cake {$this->shell} add '#/some-old-route-(.*)#i' '/new-route-$1' 10");
-		$this->out(" cake {$this->shell} add '#/(admin|moderator)/(.*)#i' '/$2?old-prefix-$1' 10");
+		$this->out(" cake {$this->shell} add '#/(admin|moderator)/(.*)#i' '/$2?old-prefix=$1' 10");
 		$this->out();
 		$this->out("more about SEO Redirects");
 		$this->out("  https://github.com/webtechnick/CakePHP-Seo-Plugin/wiki/Seo-Redirects");
@@ -98,7 +98,7 @@ class SeoRedirectsShell extends Shell {
 			return $this->errorAndExit("Sorry, the input <redirect> should start with a '/' or a 'http' you put inredirecturl'");
 		}
 		$save = array(
-			'SeoUri' => array('uri' => $url),
+			'SeoUri' => array('uri' => $url, 'is_approved' => 1),
 			'SeoRedirect' => compact('redirect', 'priority', 'callback'),
 			);
 		$existing = $this->SeoUri->find('first', array(
