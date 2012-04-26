@@ -2,6 +2,8 @@
 class SeoCanonicalsController extends SeoAppController {
 
 	var $name = 'SeoCanonicals';
+	
+	var $helpers = array('Time');
 
 	function admin_index($filter = null) {
 		if(!empty($this->data)){
