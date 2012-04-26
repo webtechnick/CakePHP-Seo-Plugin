@@ -85,6 +85,7 @@ class SeoRedirectsShell extends Shell {
 			);
 		$input = array_combine(array_keys($default), $this->args + array_fill(0, count($default), null));
 		extract(array_merge($default, set::filter($input)));
+		print_r(compact('url', 'redirect', 'priority', 'callback'));
 		if (empty($url) || strlen($url) < 3) {
 			return $this->errorAndExit("Sorry, bad/missing input <url> = '$url'");
 		}
@@ -94,7 +95,7 @@ class SeoRedirectsShell extends Shell {
 		if (empty($redirect) || (strlen($redirect) < 3 && substr($url, 0, 1)!='/'))  {
 			return $this->errorAndExit("Sorry, bad/missing input <redirect> = '$redirect'");
 		}
-		if (substr($redirect, 0, 1) !== '/' && substr($redirect, 0, 5) !== 'http') {
+		if (substr($redirect, 0, 1) !== '/' && substr($redirect, 0, 5) !== 'http' && strpos($redirect, '{callback}') === false) {
 			return $this->errorAndExit("Sorry, the input <redirect> should start with a '/' or a 'http' you put inredirecturl'");
 		}
 		$save = array(
