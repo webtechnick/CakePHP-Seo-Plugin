@@ -91,6 +91,17 @@ class SeoAppError {
 				}
 				Configure::write('debug', 0);
 				header("Status: $code " . $this->SeoStatusCode->codes[$code], true, $code);
+				if($code == 200){
+					echo '<!doctype html> 
+					<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+						<head>
+							<title>&nbsp;</title>
+							<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+							<meta name="robots" content="noindex" />
+						</head>
+						<body></body>
+					</html>';
+				}
 				die();
 			}
 		}
@@ -208,4 +219,3 @@ class SeoExceptionHandler extends HttpException {
 		ErrorHandler::handleException($error);
 	}
 }
-?>

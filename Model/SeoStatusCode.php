@@ -34,6 +34,7 @@ class SeoStatusCode extends SeoAppModel {
 	* Status codes
 	*/
 	var $codes = array(
+		'200' => 'OK', //if 200, we're going to return a very small amount of noindex data
 		'204' => 'No Content',
 		'205' => 'Reset Content',
 		'400' => 'Bad Request',

@@ -1,6 +1,6 @@
 # Search Engine Optimization CakePHP Plugin
 * Author: Nick Baker, Alan Blount
-* Version: 6.0.0
+* Version: 6.1.0
 * License: MIT
 * Website: <http://www.webtechnick.com>
 
@@ -12,9 +12,11 @@ Complete tool for all your CakePHP Search Engine Optimization needs
 * Highly configurable and intelligent 404 deep url guessing utilizing levenshtein's distance and your sitemap.xml
 * Highly configurable and customizable Meta Tags for any incoming URI
 * Title tag overwrites based on URI
+* Custom Status Codes based on URI
 * Scrapper Banning administration, complete with honeyPot baiting for scrappers to ban themselves.
 
 ## Changelog
+* 6.1.0 Added special case 200 Status Code to return noindex for easier and low bandwidth url killing than 410
 * 6.0.0 Updated for CakePHP 2.0
 * 5.1.0 New SeoUrls Shell to run sitemap levenshtein import on-demand.
 * 5.0.0 New Levenshtein Distance formula to best guess the appropriate 301 based off the 404 request.
@@ -30,9 +32,9 @@ Complete tool for all your CakePHP Search Engine Optimization needs
 
 ## Install
 
-Clone the repository into your `app/plugins/seo` directory:
+Clone the repository into your `app/Plugin/Seo` directory:
 
-	$ git clone git://github.com/webtechnick/CakePHP-Seo-Plugin.git app/plugins/seo
+	$ git clone git://github.com/webtechnick/CakePHP-Seo-Plugin.git app/Plugin/Seo
 
 Run the schema into your database:
 
@@ -86,7 +88,7 @@ update file `app/Config/bootstrap.php` with the following:
 ### Add Redirects	
 `http://www.example.com/admin/seo/seo_redirects/`
 
-### Add Redirects	
+### Add Status Codes	
 `http://www.example.com/admin/seo/seo_status_codes/`
 
 
