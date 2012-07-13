@@ -91,6 +91,8 @@ update file `app/Config/bootstrap.php` with the following:
 ### Add Status Codes	
 `http://www.example.com/admin/seo/seo_status_codes/`
 
+NOTE: Special case Status Code 200 will return minimum bandwidth noindex robots page, for alternative url killing (410 alternative)
+
 
 ## SEO Meta Tags Quick Start
 
