@@ -78,8 +78,10 @@ create file `app/app_error.php` with the following:
 ### Add Redirects	
 `http://www.example.com/admin/seo/seo_redirects/`
 
-### Add Redirects	
+### Add Status Code	
 `http://www.example.com/admin/seo/seo_status_codes/`
+
+NOTE: Special case Status Code 200 will return minimum bandwidth noindex robots page, for alternative url killing (410 alternative)
 
 
 ## SEO Meta Tags Quick Start
