@@ -15,16 +15,21 @@ class SeoRedirectsShell extends Shell {
 	function help(){
 		$this->out("{$this->shell} Shell");
 		$this->hr();
-		$this->out(" cake {$this->shell} search <url or redirect>	   Quickly search for an existing redirect");
-		$this->out(" cake {$this->shell} add <url> <redirect> (priority:100) (callback:null)");
-		$this->out("													Add a new simple redirect");
+		$this->out("Add a new simple redirect");
+		$this->out("  cake {$this->shell} add <url> <redirect> (priority:100) (callback:null)");
+		$this->out("    cake {$this->shell} add '/mybad/path*' '/my-cleaned-up-path' 50");
+		$this->out("    cake {$this->shell} add '/myother-bad/path*' '/my-cleaned-up-path' 60");
+		$this->out("    cake {$this->shell} add '/my*' '/my-failover-path' 10");
+		$this->out("    cake {$this->shell} add '#/some-old-route-(.*)#i' '/new-route-$1' 10");
+		$this->out("    cake {$this->shell} add '#/(admin|moderator)/(.*)#i' '/$2?old-prefix=$1' 10");
 		$this->out();
-		$this->out("examples:");
-		$this->out(" cake {$this->shell} add '/mybad/path*' '/my-cleaned-up-path' 50");
-		$this->out(" cake {$this->shell} add '/myother-bad/path*' '/my-cleaned-up-path' 60");
-		$this->out(" cake {$this->shell} add '/my*' '/my-failover-path' 10");
-		$this->out(" cake {$this->shell} add '#/some-old-route-(.*)#i' '/new-route-$1' 10");
-		$this->out(" cake {$this->shell} add '#/(admin|moderator)/(.*)#i' '/$2?old-prefix=$1' 10");
+		$this->out("Quickly search for an existing redirect:");
+		$this->out("  cake {$this->shell} search <url or redirect>");
+		$this->out("    cake {$this->shell} search 'partial-string'");
+		$this->out();
+		$this->out("Easily delete redirect or URI records (by id only)");
+		$this->out("  cake {$this->shell} delete \$id [\$seo_redirect_id] [\$seo_redirect_id]");
+		$this->out("  cake {$this->shell} delete_uri \$id [\$seo_uri_id] [\$seo_uri_id]");
 		$this->out();
 		$this->out("more about SEO Redirects");
 		$this->out("  https://github.com/webtechnick/CakePHP-Seo-Plugin/wiki/Seo-Redirects");
@@ -72,7 +77,6 @@ class SeoRedirectsShell extends Shell {
 			$this->out("        (active={$redirect['SeoRedirect']['is_active']}) (priority={$redirect['SeoRedirect']['priority']}) (callback={$redirect['SeoRedirect']['callback']})");
 		}
 	}
-
 	/**
 	 * A means for simply adding redirects
 	 */
@@ -128,8 +132,41 @@ class SeoRedirectsShell extends Shell {
 		}
 		else {
 			$this->out("Errors");
+			print_r($this->SeoUrl->errors);
 			print_r($this->SeoUrl->validationErrors);
 			$this->out();
+		}
+	}
+	/**
+	 * A simple way to delete SEO Redirects
+	 */
+	function delete() {
+		while (!empty($this->args)) {
+			$seo_redirect_id = array_shift($this->args);
+			if (empty($seo_redirect_id)) {
+				return $this->errorAndExit("Missing or empty SEO Redirect ID -- can not delete it: $seo_redirect_id");
+			}
+			if ($this->SeoRedirect->delete($seo_redirect_id)) {
+				$this->out("deleted SEO redirect id: $seo_redirect_id");
+			} else {
+				$this->errorAndExit("Unable to delete SEO redirect id: $seo_redirect_id");
+			}
+		}
+	}
+	/**
+	 * A simple way to delete SEO URIs
+	 */
+	function delete_uri() {
+		while (!empty($this->args)) {
+			$id = array_shift($this->args);
+			if (empty($id)) {
+				return $this->errorAndExit("Missing or empty SEO URI ID -- can not delete it: $id");
+			}
+			if ($this->SeoUri->delete($id)) {
+				$this->out("deleted SEO URI id: $id");
+			} else {
+				$this->errorAndExit("Unable to delete SEO URI id: $id");
+			}
 		}
 	}
 	/**
