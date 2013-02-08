@@ -90,8 +90,7 @@ class SeoAppModel extends AppModel {
 			//Find the Model, and set the id.
 			if($associated_id = $this->$ModelName->field('id', array($field => $this->data[$ModelName][$field]))){
 				$this->data[$this->alias][$model_underscore . '_id'] = $associated_id;
-			}
-			else {
+			}	else {
 				$save = array();
 				$save[$ModelName][$field] = $this->data[$ModelName][$field];
 				$this->$ModelName->create();

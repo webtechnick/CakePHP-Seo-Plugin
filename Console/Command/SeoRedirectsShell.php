@@ -1,4 +1,6 @@
 <?php
+App::uses('Shell', 'Console/Command');
+App::uses('Set', 'Utility');
 class SeoRedirectsShell extends Shell {
 	public $uses = array('Seo.SeoUrl', 'Seo.SeoUri', 'Seo.SeoRedirect');
 
@@ -82,9 +84,9 @@ class SeoRedirectsShell extends Shell {
 			'redirect' => null,
 			'priority' => 100,
 			'callback' => null,
-			);
+		);
 		$input = array_combine(array_keys($default), $this->args + array_fill(0, count($default), null));
-		extract(array_merge($default, set::filter($input)));
+		extract(array_merge($default, Set::filter($input)));
 		if (empty($url) || strlen($url) < 3) {
 			return $this->errorAndExit("Sorry, bad/missing input <url> = '$url'");
 		}
@@ -100,11 +102,11 @@ class SeoRedirectsShell extends Shell {
 		$save = array(
 			'SeoUri' => array('uri' => $url, 'is_approved' => 1),
 			'SeoRedirect' => compact('redirect', 'priority', 'callback'),
-			);
+		);
 		$existing = $this->SeoUri->find('first', array(
 			'contain' => array('SeoRedirect'),
 			'conditions' => array('SeoUri.uri LIKE' => $url.'%')
-			));
+		));
 		if (!empty($existing) && isset($existing['SeoRedirect']['id']) && !empty($existing['SeoRedirect']['id'])) {
 			$url = $existing;
 			$this->out("Found an existing Uri...");
@@ -115,7 +117,7 @@ class SeoRedirectsShell extends Shell {
 			return $this->errorAndExit("Want to change it?  you're going to have to do so via the web interface.");
 		}
 		$this->SeoRedirect->create();
-		if ($this->SeoRedirect->saveAll($save)) {
+		if ($this->SeoRedirect->save($save)) {
 			$redirect = $this->SeoRedirect->find('first', array(
 				'contain' => array('SeoUri'),
 				'conditions' => array('SeoRedirect.id' => $this->SeoRedirect->id),
@@ -124,10 +126,10 @@ class SeoRedirectsShell extends Shell {
 			$this->out("    {$redirect['SeoUri']['uri']} --> {$redirect['SeoRedirect']['redirect']}");
 			$this->out("        Uri #{$redirect['SeoUri']['id']} --> redirect #{$redirect['SeoRedirect']['id']}");
 			$this->out("	    (active={$redirect['SeoRedirect']['is_active']}) (priority={$redirect['SeoRedirect']['priority']}) (callback={$redirect['SeoRedirect']['callback']})");
-		}
-		else {
+		}	else {
 			$this->out("Errors");
 			print_r($this->SeoUrl->validationErrors);
+			print_r($this->SeoRedirect->validationErrors);
 			$this->out();
 		}
 	}
