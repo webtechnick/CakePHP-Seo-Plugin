@@ -38,7 +38,7 @@ Clone the repository into your `app/Plugin/Seo` directory:
 
 Run the schema into your database:
 
-	$ cake schema create seo -plugin seo
+	$ cake schema create --plugin Seo
 	
 ## Setup
 
