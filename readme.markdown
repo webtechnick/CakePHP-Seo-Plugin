@@ -190,12 +190,11 @@ In your GA code on your site add the line like so:
 		<?php echo $this->Seo->getABTestJS(); ?>
 	</script>
 	
-In your controller, to test if you're on a testable page and serve it do something like this:
+In your `AppController.php`, to test if you're on a testable page and serve it do something like this:
 
 	public function beforeFilter(){
 		if($test = $this->ABTest->getTest()){
 			//Do things specific to this test
-			//Set the view to render
 			$this->set('ABTest', $test);
 			$this->view = $test['SeoABTest']['slug'];
 		}
