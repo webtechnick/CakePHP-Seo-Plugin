@@ -135,20 +135,24 @@ class SeoHelper extends AppHelper {
 	
 	/**
 	* Return the ABTest GA code on current request
+	* @param mixed test to show code for (if null, will check the View for ABTest variable and use that.
 	* @param array of options
 	*  - varname the variable named of the legacy pageTracker variable (default pageTracker). Only used when legacy is turn on in config
 	*  - scriptBlock -- boolean if true will return scriptBlock of javascript (default false)
 	* @return string ga script test, or null
 	*/
-	public function getABTestJS($options = array()){
+	public function getABTestJS($test = null, $options = array()){
+		if(!$test){
+			if(isset($this->_View->viewVars['ABTest']) && $this->_View->viewVars['ABTest']){
+				$test = $this->_View->viewVars['ABTest'];
+			}
+		}
 		$options = array_merge(array(
 			'varname' => 'pageTracker',
 			'scriptBlock' => false,
 			),(array)$options
 		);
-		$this->loadModel('SeoABTest');
-		$test = $this->SeoABTest->findTestByUri();
-		if($test){
+		if($test && isset($test['SeoABTest']['slug'])){
 			$category = SeoUtil::getConfig('abTesting.category');
 			$scope = SeoUtil::getConfig('abTesting.scope');
 			if(SeoUtil::getConfig('abTesting.legacy')){

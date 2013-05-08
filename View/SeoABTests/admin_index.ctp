@@ -7,9 +7,8 @@
 		<tr>
 				<th><?php echo $this->Paginator->sort('seo_uri_id'); ?></th>
 				<th><?php echo $this->Paginator->sort('is_active'); ?></th>
-				<th><?php echo $this->Paginator->sort('title'); ?></th>
 				<th><?php echo $this->Paginator->sort('slug'); ?></th>
-				<th><?php echo $this->Paginator->sort('slot'); ?></th>
+				<th><?php echo $this->Paginator->sort('roll'); ?></th>
 				<th><?php echo $this->Paginator->sort('modified'); ?></th>
 				<th class="actions"><?php echo __('Actions'); ?></th>
 		</tr>
@@ -20,9 +19,8 @@
 				<?php echo $this->Html->link($seoABTest['SeoUri']['uri'], array('controller' => 'seo_uris', 'action' => 'view', $seoABTest['SeoUri']['id'])); ?>
 			</td>
 			<td><?php echo h($seoABTest['SeoABTest']['is_active']); ?>&nbsp;</td>
-			<td><?php echo h($seoABTest['SeoABTest']['title']); ?>&nbsp;</td>
 			<td><?php echo h($seoABTest['SeoABTest']['slug']); ?>&nbsp;</td>
-			<td><?php echo h($seoABTest['SeoABTest']['slot']); ?>&nbsp;</td>
+			<td><?php echo h($seoABTest['SeoABTest']['roll']); ?>&nbsp;</td>
 			<td><?php echo h($seoABTest['SeoABTest']['modified']); ?>&nbsp;</td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('action' => 'view', $seoABTest['SeoABTest']['id'])); ?>

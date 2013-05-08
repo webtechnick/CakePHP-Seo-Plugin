@@ -176,9 +176,10 @@ Update your `robots.txt` to exclude `/seo/` from being spidered.  All legitimate
 
 ## SEO AB Testing Quick Start
 
-Include the `Seo.Seo` Helper to your `AppController.php`:
+Include the `Seo.Seo` Helper and the `Seo.ABTest` Component to your `AppController.php`: 
 
 	var $helpers = array('Seo.Seo');
+	var $components = array('Seo.ABTest');
 
 In your GA code on your site add the line like so:
 
@@ -190,17 +191,19 @@ In your GA code on your site add the line like so:
 	
 In your controller, to test if you're on a testable page and serve it do something like this:
 
-	if($test = $this->SeoABTest->findTestByUri()){
-		//Do things specific to this test
-		return $this->render($test['SeoABTest']['slug']);
+	public function beforeFilter(){
+		if($test = $this->ABTest->getTest()){
+			//Do things specific to this test
+			//Set the view to render
+			$this->set('ABTest', $test);
+			$this->view = $test['SeoABTest']['slug'];
+		}
+		return parent::beforeFilter();
 	}
 	
 ProTip: For debuging in your controller before going live in GA set the debug flag to true, this will return tests that aren't active yet.
 
-	if($test = $this->SeoABTest->findTestByUri(null, true)){
-		//Do things specific to this test
-		return $this->render($test['SeoABTest']['slug']);
-	}
+	$test = $this->SeoABTest->getTest(true);
 
 ### Add AB Tests
 

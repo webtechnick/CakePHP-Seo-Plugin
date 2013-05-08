@@ -26,10 +26,14 @@ class SeoABTest extends SeoAppModel {
 				'message' => 'Must be associated to an seo_uri',
 			),
 		),
-		'title' => array(
+		'roll' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				'message' => 'Must have a title.',
+				'message' => 'Must have a roll must not be empty.',
+			),
+			'numberOrCallback' => array(
+				'rule' => array('numberOrCallback'),
+				'message' => 'The roll must either be a number between 1 and 100, or a callback function (Model::function syntax)'
 			),
 		),
 		'slug' => array(
@@ -95,6 +99,25 @@ class SeoABTest extends SeoAppModel {
 	}
 	
 	/**
+	* Validate the roll is a number between 1 and 100, or is a callback to a Model::function syntax
+	* @return boolean success
+	*/
+	function numberOrCallback(){
+		if(isset($this->data[$this->alias]['slug'])){
+			$roll = $this->data[$this->alias]['roll'];
+			if(is_int($roll) || preg_match('/\d+$/', $roll)) {
+				if($roll > 0 && $roll <= 100){
+					return true;
+				}
+			} elseif (strpos($roll,'::')) {
+				return true;
+			}
+			return false;
+		}
+		return true;
+	}
+	
+	/**
 	* Check if SEO already exists, if so, unset it and set the ID then save.
 	*/
 	public function beforeSave(){
@@ -103,8 +126,43 @@ class SeoABTest extends SeoAppModel {
 	}
 	
 	/**
+	* Rolls the test roll.
+	* @param mixed string roll, int roll, or array test
+	* @return boolean success
+	*/
+	public function roll($roll = null){
+		if(isset($roll[$this->alias]['roll'])){
+			$roll = $roll[$this->alias]['roll'];
+		}
+		if($roll){
+			if(strpos($roll, '::')){
+				list($model,$method) = explode('::',$roll);
+				return ClassRegistry::init($model)->$method();
+			} else {
+				return ($roll <= rand(1,100));
+			}
+		}
+		return false;
+	}
+	
+	/**
+	* Find a test and roll to use it.
+	* @param string request (default to env('REQUEST_URI') if left null)
+	* @param boolean debug, will return tests even if they're not active if true
+	* @return mixed test if we find a test and rolled successful, or false
+	*/
+	public function findTestWithRoll($request = null, $debug = false){
+		$test = $this->findTestByUri($request, $debug);
+		if($test && $this->roll($test)){
+			return true;
+		}
+		return false;
+	}
+	
+	/**
 	* Decide if we have a test for this request
 	* @param string request (optional will default to REQUEST_URI
+	* @param boolean debug (default false), if true, will also return non active tests based on the request
 	* @return mixed boolean false if no test, otherwise the ABTest will be returned
 	*/
 	public function findTestByUri($request = null, $debug = false){
@@ -116,6 +174,7 @@ class SeoABTest extends SeoAppModel {
 			"{$this->alias}.slug",
 			"{$this->alias}.slot",
 			"{$this->alias}.id",
+			"{$this->alias}.roll",
 		);
 		$conditions = array();
 		if(!$debug){
@@ -152,7 +211,7 @@ class SeoABTest extends SeoAppModel {
 			}
 		}
 		foreach($tests as $test){
-			if($this->SeoUri->requestMatch($request, $test[$this->SeoUri->alias]['uri'])){
+			if(SeoUtil::requestMatch($request, $test[$this->SeoUri->alias]['uri'])){
 				return $test;
 			}
 		}
