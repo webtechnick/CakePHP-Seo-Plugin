@@ -70,6 +70,7 @@ Create the file `app/config/seo.php` with the following configurations like so:
 				'category' => 'ABTest', //Category for your ABTesting in Google Analytics
 				'scope' => 3, //Scope for your ABTesting in Google Analytics
 				'legacy' => false, //Uses Legacy verion of Google Analytics JS code pageTracker._setCustomVar(...)
+				'session' => true, //Uses CakeSession to serve same test to uses who have seen them.
 			)
 		)
 	);
