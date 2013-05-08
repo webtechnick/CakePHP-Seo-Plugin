@@ -1,5 +1,6 @@
 <?php
-App::import('Lib','Seo.SeoUtil');
+App::uses('SeoUtil', 'Seo.Lib');
+App::uses('AppModel','Model');
 class SeoAppModel extends AppModel {
 	var $actsAs = array('Containable');
 	var $recursive = 0;
@@ -66,14 +67,14 @@ class SeoAppModel extends AppModel {
 	*/
 	function find($type, $options = array()){
 		switch($type){
-		case 'last':
-			$options = array_merge(
-				$options,
-				array('order' => "{$this->alias}.{$this->primaryKey} DESC")
+			case 'last':
+				$options = array_merge(
+					$options,
+					array('order' => "{$this->alias}.{$this->primaryKey} DESC")
 				);
-			return parent::find('first', $options);    
-		default: 
-			return parent::find($type, $options);
+				return parent::find('first', $options);    
+			default: 
+				return parent::find($type, $options);
 		}
 	}
 	
@@ -106,7 +107,7 @@ class SeoAppModel extends AppModel {
 	* @return boolean if is regular expression (as two # marks)
 	*/
 	function isRegEx($uri){
-		return preg_match('/^#(.*)#(.*)/', $uri);
+		return SeoUtil::isRegEx($uri);
 	}
 	
 	/**
@@ -142,4 +143,3 @@ class SeoAppModel extends AppModel {
 		}
 	}
 }
-?>

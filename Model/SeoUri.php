@@ -1,4 +1,5 @@
 <?php
+App::uses('SeoAppModel','Seo.Model');
 class SeoUri extends SeoAppModel {
 	var $name = 'SeoUri';
 	var $displayField = 'uri';
@@ -8,6 +9,11 @@ class SeoUri extends SeoAppModel {
 			'foreignKey' => 'seo_uri_id',
 			'dependent' => true,
 		),
+		'SeoABTest' => array(
+			'className' => 'Seo.SeoABTest',
+			'foreignKey' => 'seo_uri_id',
+			'dependent' => true,
+		)
 	);
 	var $hasOne = array(
 		'SeoRedirect' => array(
@@ -63,8 +69,7 @@ class SeoUri extends SeoAppModel {
 			if(empty($this->data[$this->alias]['is_approved'])){
 				$this->data[$this->alias]['is_approved'] = false;
 			}
-		}
-		else {
+		} else {
 			$this->data[$this->alias]['is_approved'] = true;
 		}
 		return true;
@@ -215,5 +220,16 @@ class SeoUri extends SeoAppModel {
 		}
 	}
 	
+	/**
+	* Given a request, see if the uri matches.
+	* @param string request
+	* @param mixed string uri or uri_id to look up
+	* @return boolean if request matches the URI given
+	*/
+	public function requestMatch($request, $uri = null){
+		if(is_int($uri)){
+			$uri = $this->field('uri', array('SeoUri.id' => $uri));
+		}
+		return SeoUtil::requestMatch($request, $uri);
+	}
 }
-?>

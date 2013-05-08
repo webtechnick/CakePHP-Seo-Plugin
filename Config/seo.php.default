@@ -23,6 +23,11 @@ $config = array(
     	'cost_change' => 1, //cost to change a character, higher the amount the less you can change to find a match
     	'cost_delete' => 1, //cost to delete a character, higher the ammount the less you can delete to find a match 
     	'source' => '/sitemap.xml' //URL to list of urls in a sitemap
+    ),
+    'abTesting' => array(
+    	'category' => 'ABTest', //Category for your ABTesting in Google Analytics
+    	'scope' => 3, //Scope for your ABTesting in Google Analytics
+    	'legacy' => false, //Uses Legacy verion of Google Analytics JS code pageTracker._setCustomVar(...)
     )
   )
 );

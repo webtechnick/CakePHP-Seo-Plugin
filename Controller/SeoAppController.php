@@ -1,6 +1,5 @@
 <?php
-App::import('Lib','Seo.SeoUtil');
+App::uses('SeoUtil', 'Seo.Lib');
+App::uses('AppController','Controller');
 class SeoAppController extends AppController {
 }
-
-?>

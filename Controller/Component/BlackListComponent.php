@@ -1,5 +1,5 @@
 <?php
-App::import('Lib','Seo.SeoUtil');
+App::uses('SeoUtil', 'Seo.Lib');
 class BlackListComponent extends Component {
 	
 	/**
@@ -65,8 +65,7 @@ class BlackListComponent extends Component {
 			if($this->SeoHoneypotVisit->isTriggered()){
 				$this->SeoBlacklist->addToBanned();
 				$this->isBanned();
-			}
-			else {
+			}	else {
 				$this->Controller->redirect('/');
 			}
 		}
@@ -84,4 +83,3 @@ class BlackListComponent extends Component {
 		}
 	}
 }
-?>

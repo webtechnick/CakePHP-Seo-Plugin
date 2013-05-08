@@ -82,4 +82,3 @@ class SeoMetaTag extends SeoAppModel {
 		return $retval;
 	}
 }
-?>

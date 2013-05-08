@@ -5,12 +5,14 @@
 * @since 4.5
 * @license MIT
 */
-App::import('Lib','Seo.SeoUtil');
+App::uses('SeoUtil', 'Seo.Lib');
+App::uses('SeoUri','Seo.Model');
 class SeoHelper extends AppHelper {
 	var $helpers = array('Html');
 	var $SeoMetaTag = null;
 	var $SeoTitle = null;
 	var $SeoCanonical = null;
+	var $SeoABTest = null;
 	var $honeyPotId = 1;
 	
 	/**
@@ -31,8 +33,7 @@ class SeoHelper extends AppHelper {
 			$data = array();
 			if($tag['SeoMetaTag']['is_http_equiv']){
 				$data['http-equiv'] = $tag['SeoMetaTag']['name'];
-			}
-			else {
+			}	else {
 				$data['name'] = $tag['SeoMetaTag']['name'];
 			}
 			$data['content'] = $tag['SeoMetaTag']['content'];
@@ -132,5 +133,35 @@ class SeoHelper extends AppHelper {
 		return $this->honeyPotId++;
 	}
 	
+	/**
+	* Return the ABTest GA code on current request
+	* @param array of options
+	*  - varname the variable named of the legacy pageTracker variable (default pageTracker). Only used when legacy is turn on in config
+	*  - scriptBlock -- boolean if true will return scriptBlock of javascript (default false)
+	* @return string ga script test, or null
+	*/
+	public function getABTestJS($options = array()){
+		$options = array_merge(array(
+			'varname' => 'pageTracker',
+			'scriptBlock' => false,
+			),(array)$options
+		);
+		$this->loadModel('SeoABTest');
+		$test = $this->SeoABTest->findTestByUri();
+		if($test){
+			$category = SeoUtil::getConfig('abTesting.category');
+			$scope = SeoUtil::getConfig('abTesting.scope');
+			if(SeoUtil::getConfig('abTesting.legacy')){
+				$retval = "{$options['varname']}._setCustomVar({$test['SeoABTest']['slot']},'$category','{$test['SeoABTest']['slug']}',$scope);";
+			} else {
+				$retval = "_gaq.push(['_setCustomVar',{$test['SeoABTest']['slot']},'$category','{$test['SeoABTest']['slug']}',$scope]);";
+			}
+			if($options['scriptBlock']){
+				return $this->Html->scriptBlock($retval);
+			}
+			return $retval;
+		}
+		return null;
+	}
+
 }
-?>
