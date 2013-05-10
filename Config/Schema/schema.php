@@ -13,16 +13,22 @@ class SeoSchema extends CakeSchema {
 		'seo_uri_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'index'),
 		'is_active' => array('type' => 'boolean', 'null' => false, 'default' => '1', 'key' => 'index'),
 		'slug' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 50, 'key' => 'unique', 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'slot' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 2, 'comment' => 'the google analytics slot for the custom variable'),
-		'roll' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'roll' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 200, 'collate' => 'utf8_general_ci', 'comment' => 'int based roll or Model::function callback', 'charset' => 'utf8'),
+		'priority' => array('type' => 'integer', 'null' => false, 'default' => '999', 'length' => 4, 'key' => 'index', 'comment' => 'lower the priority, the more priority it has over the other tests.'),
+		'redmine' => array('type' => 'integer', 'null' => true, 'default' => null, 'comment' => 'redmine ticket id'),
 		'description' => array('type' => 'text', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'start_date' => array('type' => 'date', 'null' => true, 'default' => null, 'key' => 'index', 'comment' => 'if null, we ignore it.'),
+		'end_date' => array('type' => 'date', 'null' => true, 'default' => null, 'key' => 'index', 'comment' => 'if null, we ignore it.'),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'slug' => array('column' => 'slug', 'unique' => 1),
 			'seo_uri_id' => array('column' => 'seo_uri_id', 'unique' => 0),
-			'is_active' => array('column' => 'is_active', 'unique' => 0)
+			'is_active' => array('column' => 'is_active', 'unique' => 0),
+			'priority' => array('column' => 'priority', 'unique' => 0),
+			'end_date' => array('column' => 'end_date', 'unique' => 0),
+			'start_date' => array('column' => 'start_date', 'unique' => 0)
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'MyISAM')
 	);

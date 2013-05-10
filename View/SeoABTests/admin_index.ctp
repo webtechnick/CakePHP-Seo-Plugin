@@ -9,7 +9,7 @@
 				<th><?php echo $this->Paginator->sort('is_active'); ?></th>
 				<th><?php echo $this->Paginator->sort('slug'); ?></th>
 				<th><?php echo $this->Paginator->sort('roll'); ?></th>
-				<th><?php echo $this->Paginator->sort('modified'); ?></th>
+				<th><?php echo $this->Paginator->sort('start_date'); ?><br><?php echo $this->Paginator->sort('end_date'); ?></th>
 				<th class="actions"><?php echo __('Actions'); ?></th>
 		</tr>
 		<?php foreach ($seoABTests as $seoABTest): ?>
@@ -21,7 +21,7 @@
 			<td><?php echo h($seoABTest['SeoABTest']['is_active']); ?>&nbsp;</td>
 			<td><?php echo h($seoABTest['SeoABTest']['slug']); ?>&nbsp;</td>
 			<td><?php echo h($seoABTest['SeoABTest']['roll']); ?>&nbsp;</td>
-			<td><?php echo h($seoABTest['SeoABTest']['modified']); ?>&nbsp;</td>
+			<td><?php echo h($seoABTest['SeoABTest']['start_date']); ?><br><?php echo h($seoABTest['SeoABTest']['end_date']) ?></td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('action' => 'view', $seoABTest['SeoABTest']['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $seoABTest['SeoABTest']['id'])); ?>

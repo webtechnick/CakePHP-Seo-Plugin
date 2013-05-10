@@ -155,15 +155,23 @@ class SeoHelper extends AppHelper {
 		if($test && isset($test['SeoABTest']['slug'])){
 			$category = SeoUtil::getConfig('abTesting.category');
 			$scope = SeoUtil::getConfig('abTesting.scope');
+			$slot = SeoUtil::getConfig('abTesting.slot');
 			if(SeoUtil::getConfig('abTesting.legacy')){
-				$retval = "{$options['varname']}._setCustomVar({$test['SeoABTest']['slot']},'$category','{$test['SeoABTest']['slug']}',$scope);";
+				$retval = "{$options['varname']}._setCustomVar($slot,'$category','{$test['SeoABTest']['slug']}',$scope);";
 			} else {
-				$retval = "_gaq.push(['_setCustomVar',{$test['SeoABTest']['slot']},'$category','{$test['SeoABTest']['slug']}',$scope]);";
+				$retval = "_gaq.push(['_setCustomVar',$slot,'$category','{$test['SeoABTest']['slug']}',$scope]);";
 			}
 			if($options['scriptBlock']){
 				return $this->Html->scriptBlock($retval);
 			}
 			return $retval;
+		}
+		return null;
+	}
+	
+	public function redmineLink($ticket_id = null){
+		if($ticket_id){
+			return $this->Html->link($ticket_id, SeoUtil::getConfig('abTesting.redmine') . $ticket_id, array('class' => 'btn btn-mini btn-info', 'target' => '_blank'));
 		}
 		return null;
 	}

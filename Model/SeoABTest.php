@@ -26,6 +26,19 @@ class SeoABTest extends SeoAppModel {
 				'message' => 'Must be associated to an seo_uri',
 			),
 		),
+		'priority' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				'message' => 'Priority must be a number',
+			),
+		),
+		'redmine' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				'message' => 'Priority must be a number',
+				'allowEmpty' => true,
+			),
+		),
 		'roll' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
@@ -55,6 +68,20 @@ class SeoABTest extends SeoAppModel {
 				'rule' => array('notempty'),
 				'message' => 'Must have a description of the test.',
 			),
+		),
+		'start_date' => array(
+			'date' => array(
+				'rule' => array('date'),
+				'message' => 'Enter a start valid date.',
+				'allowEmpty' => true
+			)
+		),
+		'end_date' => array(
+			'date' => array(
+				'rule' => array('date'),
+				'message' => 'Enter a end valid date.',
+				'allowEmpty' => true
+			)
 		),
 	);
 
@@ -137,9 +164,9 @@ class SeoABTest extends SeoAppModel {
 		if($roll){
 			if(strpos($roll, '::')){
 				list($model,$method) = explode('::',$roll);
-				return ClassRegistry::init($model)->$method();
+				return ClassRegistry::init($model)->$method(env('REQUEST_URI'));
 			} else {
-				return ($roll <= rand(1,100));
+				return ($roll >= rand(1,100));
 			}
 		}
 		return false;
@@ -172,15 +199,28 @@ class SeoABTest extends SeoAppModel {
 		$fields = array(
 			"{$this->SeoUri->alias}.uri",
 			"{$this->alias}.slug",
-			"{$this->alias}.slot",
 			"{$this->alias}.id",
 			"{$this->alias}.roll",
+			"{$this->alias}.priority"
 		);
-		$conditions = array();
+		$conditions = array(
+			"AND" => array(
+				array(
+					'OR' => array(
+						"{$this->alias}.start_date IS NULL",
+						"{$this->alias}.start_date <=" => date('Y-m-d')
+					)
+				),
+				array(
+					'OR' => array(
+						"{$this->alias}.end_date IS NULL",
+						"{$this->alias}.end_date >=" => date('Y-m-d')
+					)
+				)
+			)
+		);
 		if(!$debug){
-			$conditions = array(
-				"{$this->alias}.is_active" => true,
-			);
+			$conditions["{$this->alias}.is_active"] = true;
 		}
 		//Test one of one.
 		if($test = $this->find('first', array(
@@ -189,7 +229,8 @@ class SeoABTest extends SeoAppModel {
 				"{$this->SeoUri->alias}.is_approved" => true,
 			),$conditions),
 			'contain' => array("{$this->SeoUri->alias}.uri"),
-			'fields' => $fields
+			'fields' => $fields,
+			'order' => "{$this->alias}.priority ASC"
 		))){
 			return $test;
 		}
@@ -204,7 +245,8 @@ class SeoABTest extends SeoAppModel {
 			$tests = $this->find('all', array(
 				'conditions' => $conditions,
 				'contain' => array("{$this->SeoUri->alias}.uri"),
-				'fields' => $fields
+				'fields' => $fields,
+				'order' => "{$this->alias}.priority ASC"
 			));
 			if (!empty($tests) && !empty($cacheEngine)) {
 				Cache::write($cacheKey, $tests, $cacheEngine);

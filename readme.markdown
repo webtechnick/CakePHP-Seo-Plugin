@@ -203,7 +203,7 @@ In your `AppController.php`, to test if you're on a testable page and serve it d
 	
 ProTip: For debuging in your controller before going live in GA set the debug flag to true, this will return tests that aren't active yet.
 
-	$test = $this->SeoABTest->getTest(true);
+	$test = $this->SeoABTest->getTest(array('debug' => true));
 
 ### Add AB Tests
 

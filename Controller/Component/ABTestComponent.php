@@ -13,34 +13,54 @@ class ABTestComponent extends Component {
 	*/
 	public function reset(){
 		$this->ABTest = null;
+		CakeSession::delete('Seo.ABTests');
 	}
 	
 	/**
 	* Find, setup, and get the AB test, if we're using Sessions setup in the config, look at that first.
+	* @param array of options
+	* - debug (if true, will always return the test even if it's not active, and regardless of roll)
+	* - return (test|roll|both) default test.
 	* @return mixed array test if found and rolled, or false if no test
 	*/
-	public function getTest($debug = false){
+	public function getTest($options = array()){
+		$options = array_merge(array(
+			'debug' => false,
+			'return' => 'test',
+		), (array) $options);
+
+		$retval = array(
+			'test' => false,
+			'roll' => false,
+		);
+
 		$this->loadModel('SeoABTest');
-		if($test = $this->SeoABTest->findTestByUri(null, $debug)){
+		if($test = $this->SeoABTest->findTestByUri(null, $options['debug'])){
+			$retval['test'] = $test;
 			if(SeoUtil::getConfig('abTesting.session')){
 				$ab_tests = CakeSession::check('Seo.ABTests') ? CakeSession::read('Seo.ABTests') : array();
 			} else {
 				$ab_tests = array();
 			}
 			if(is_array($ab_tests) && isset($ab_tests[$test['SeoABTest']['id']])) {
-				return $ab_tests[$test['SeoABTest']['id']];
-			} elseif($debug || $this->SeoABTest->roll($test)) {
+				$retval['roll'] = !!($ab_tests[$test['SeoABTest']['id']]);
+			} elseif($options['debug'] || $this->SeoABTest->roll($test)) {
 				$ab_tests[$test['SeoABTest']['id']] = $test;
-				$retval = $test;
+				$retval['roll'] = true;
 			} else {
 				$ab_tests[$test['SeoABTest']['id']] = false;
-				$retval = false;
+				$retval['roll'] = false;
 			}
 			if(SeoUtil::getConfig('abTesting.session')){
 				CakeSession::write('Seo.ABTests', $ab_tests);
 			}
-			$this->ABTest = $retval;
-			return $retval;
+			$this->ABTest = $retval['test'];
+		}
+
+		switch($options['return']){
+			case 'test' : return $retval['test'];
+			case 'roll' : return $retval['roll'];
+			default     : return $retval;
 		}
 	}
 	

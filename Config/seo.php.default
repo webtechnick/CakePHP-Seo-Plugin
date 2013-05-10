@@ -27,8 +27,10 @@ $config = array(
     'abTesting' => array(
     	'category' => 'ABTest', //Category for your ABTesting in Google Analytics
     	'scope' => 3, //Scope for your ABTesting in Google Analytics
+    	'slot' => 4, //Slot for your ABTesting in Google Analytics
     	'legacy' => false, //Uses Legacy verion of Google Analytics JS code pageTracker._setCustomVar(...)
     	'session' => true, //will use sessions to store tests for users who've already seen them.
+    	'redmine' => false, //or the full URL if your redmine http://www.redmine-example.com/issues/
     )
   )
 );
