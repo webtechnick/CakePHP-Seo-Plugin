@@ -6,7 +6,7 @@ class ABTestComponent extends Component {
 	/**
 	* The Acutal AB test being tested.
 	*/
-	public $ABTest = null;
+	public $test = null;
 	
 	/**
 	* Reset the component
@@ -21,18 +21,24 @@ class ABTestComponent extends Component {
 	* @param array of options
 	* - debug (if true, will always return the test even if it's not active, and regardless of roll)
 	* - return (test|roll|both) default test.
+	* - refresh (will preform the search as normal without the cached test result) default false
 	* @return mixed array test if found and rolled, or false if no test
 	*/
 	public function getTest($options = array()){
 		$options = array_merge(array(
 			'debug' => false,
 			'return' => 'test',
+			'refresh' => false,
 		), (array) $options);
 
 		$retval = array(
 			'test' => false,
 			'roll' => false,
 		);
+		
+		if(!$options['refresh'] && $this->test){
+			return $this->test;
+		}
 
 		$this->loadModel('SeoABTest');
 		if($test = $this->SeoABTest->findTestByUri(null, $options['debug'])){
@@ -54,7 +60,7 @@ class ABTestComponent extends Component {
 			if(SeoUtil::getConfig('abTesting.session')){
 				CakeSession::write('Seo.ABTests', $ab_tests);
 			}
-			$this->ABTest = $retval['test'];
+			$this->test = $retval;
 		}
 
 		switch($options['return']){
