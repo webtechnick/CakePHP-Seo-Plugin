@@ -237,7 +237,8 @@ class SeoABTest extends SeoAppModel {
 			"{$this->alias}.slug",
 			"{$this->alias}.id",
 			"{$this->alias}.roll",
-			"{$this->alias}.priority"
+			"{$this->alias}.priority",
+			"{$this->alias}.testable"
 		);
 		$conditions = array(
 			"AND" => array(
