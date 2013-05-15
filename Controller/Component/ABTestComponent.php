@@ -42,25 +42,27 @@ class ABTestComponent extends Component {
 
 		$this->loadModel('SeoABTest');
 		if($test = $this->SeoABTest->findTestByUri(null, $options['debug'])){
-			$retval['test'] = $test;
-			if(SeoUtil::getConfig('abTesting.session')){
-				$ab_tests = CakeSession::check('Seo.ABTests') ? CakeSession::read('Seo.ABTests') : array();
-			} else {
-				$ab_tests = array();
+			if($this->SeoABTest->isTestable($test)){
+				$retval['test'] = $test;
+				if(SeoUtil::getConfig('abTesting.session')){
+					$ab_tests = CakeSession::check('Seo.ABTests') ? CakeSession::read('Seo.ABTests') : array();
+				} else {
+					$ab_tests = array();
+				}
+				if(is_array($ab_tests) && isset($ab_tests[$test['SeoABTest']['id']])) {
+					$retval['roll'] = !!($ab_tests[$test['SeoABTest']['id']]);
+				} elseif($options['debug'] || $this->SeoABTest->roll($test)) {
+					$ab_tests[$test['SeoABTest']['id']] = $test;
+					$retval['roll'] = true;
+				} else {
+					$ab_tests[$test['SeoABTest']['id']] = false;
+					$retval['roll'] = false;
+				}
+				if(SeoUtil::getConfig('abTesting.session')){
+					CakeSession::write('Seo.ABTests', $ab_tests);
+				}
+				$this->test = $retval;
 			}
-			if(is_array($ab_tests) && isset($ab_tests[$test['SeoABTest']['id']])) {
-				$retval['roll'] = !!($ab_tests[$test['SeoABTest']['id']]);
-			} elseif($options['debug'] || $this->SeoABTest->roll($test)) {
-				$ab_tests[$test['SeoABTest']['id']] = $test;
-				$retval['roll'] = true;
-			} else {
-				$ab_tests[$test['SeoABTest']['id']] = false;
-				$retval['roll'] = false;
-			}
-			if(SeoUtil::getConfig('abTesting.session')){
-				CakeSession::write('Seo.ABTests', $ab_tests);
-			}
-			$this->test = $retval;
 		}
 
 		switch($options['return']){

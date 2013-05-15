@@ -49,6 +49,13 @@ class SeoABTest extends SeoAppModel {
 				'message' => 'The roll must either be a number between 1 and 100, or a callback function (Model::function syntax)'
 			),
 		),
+		'testable' => array(
+			'callback' => array(
+				'rule' => array('testableValidation'),
+				'message' => 'testable must either be blank (always true), or a callback function (Model::function syntax)',
+				'allowEmpty' => true,
+			),
+		),
 		'slug' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
@@ -125,14 +132,25 @@ class SeoABTest extends SeoAppModel {
 		return true;
 	}
 	
+	function testableValidation(){
+		if(isset($this->data[$this->alias]['testable'])){
+			$testable = $this->data[$this->alias]['testable'];
+			if (strpos($testable,'::')) {
+				return true;
+			}
+			return false;
+		}
+		return true;
+	}
+	
 	/**
 	* Validate the roll is a number between 1 and 100, or is a callback to a Model::function syntax
 	* @return boolean success
 	*/
 	function numberOrCallback(){
-		if(isset($this->data[$this->alias]['slug'])){
+		if(isset($this->data[$this->alias]['roll'])){
 			$roll = $this->data[$this->alias]['roll'];
-			if(is_int($roll) || preg_match('/\d+$/', $roll)) {
+			if(is_int($roll) || preg_match('/^\d+$/', $roll)) {
 				if($roll > 0 && $roll <= 100){
 					return true;
 				}
@@ -173,14 +191,32 @@ class SeoABTest extends SeoAppModel {
 	}
 	
 	/**
+	* Take in a test and decide if it's testable.
+	* @param mixed string testable or array of test
+	* @return boolean isTestable
+	*/
+	public function isTestable($testable = null){
+		if(isset($testable[$this->alias]['testable'])){
+			$testable = $testable[$this->alias]['testable'];
+		}
+		if($testable){
+			if(strpos($testable, '::')){
+				list($model,$method) = explode('::',$testable);
+				return ClassRegistry::init($model)->$method(env('REQUEST_URI'));
+			}
+		}
+		return true;
+	}
+	
+	/**
 	* Find a test and roll to use it.
 	* @param string request (default to env('REQUEST_URI') if left null)
 	* @param boolean debug, will return tests even if they're not active if true
 	* @return mixed test if we find a test and rolled successful, or false
 	*/
-	public function findTestWithRoll($request = null, $debug = false){
+	public function findTestableWithRoll($request = null, $debug = false){
 		$test = $this->findTestByUri($request, $debug);
-		if($test && $this->roll($test)){
+		if($test && $this->isTestable($test) && $this->roll($test)){
 			return true;
 		}
 		return false;
