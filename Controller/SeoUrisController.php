@@ -3,6 +3,7 @@ class SeoUrisController extends SeoAppController {
 
 	var $name = 'SeoUris';
 	var $helpers = array('Time');
+	var $uses = array('Seo.SeoUri');
 	
 	private function clearAssociatesIfEmpty(){
 		foreach($this->data['SeoMetaTag'] as $key => $metatag){

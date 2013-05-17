@@ -80,6 +80,39 @@ class SeoUtil extends Object {
 		
 		return null;
 	}
+	
+	/**
+	* Return if the incoming URI is a regular expression
+	* @param string
+	* @return boolean if is regular expression (as two # marks)
+	*/
+	static function isRegEx($uri){
+		return preg_match('/^#(.*)#(.*)/', $uri);
+	}
+	
+	/**
+	* Given a request, see if the uri matches.
+	* @param string request
+	* @param string uri
+	* @return boolean if request matches the URI given
+	*/
+	static function requestMatch($request, $uri = null){
+		if($uri){
+			if(self::isRegEx($uri) && preg_match($uri, $request)) {
+				//Many To Many --using regular expression
+				return true;
+			}	elseif(strpos($uri, '*') !== false) {
+				//Many to One -- Check for * wildcard in uri, if present only match up to the * in the request.
+				$uri = str_replace('*','',$uri);
+				if(strpos($request, $uri) === 0){
+					return true;
+				}
+			} elseif(strtolower($uri) == strtolower($request)) {
+				//One to One
+				return true;
+			}
+		}
+		return false;
+	}
 
 }
-?>

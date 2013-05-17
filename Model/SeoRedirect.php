@@ -59,4 +59,3 @@ class SeoRedirect extends SeoAppModel {
 		));
 	}
 }
-?>

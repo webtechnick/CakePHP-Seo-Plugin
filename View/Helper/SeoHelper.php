@@ -5,12 +5,14 @@
 * @since 4.5
 * @license MIT
 */
-App::import('Lib','Seo.SeoUtil');
+App::uses('SeoUtil', 'Seo.Lib');
+App::uses('SeoUri','Seo.Model');
 class SeoHelper extends AppHelper {
 	var $helpers = array('Html');
 	var $SeoMetaTag = null;
 	var $SeoTitle = null;
 	var $SeoCanonical = null;
+	var $SeoABTest = null;
 	var $honeyPotId = 1;
 	
 	/**
@@ -31,8 +33,7 @@ class SeoHelper extends AppHelper {
 			$data = array();
 			if($tag['SeoMetaTag']['is_http_equiv']){
 				$data['http-equiv'] = $tag['SeoMetaTag']['name'];
-			}
-			else {
+			}	else {
 				$data['name'] = $tag['SeoMetaTag']['name'];
 			}
 			$data['content'] = $tag['SeoMetaTag']['content'];
@@ -132,5 +133,47 @@ class SeoHelper extends AppHelper {
 		return $this->honeyPotId++;
 	}
 	
+	/**
+	* Return the ABTest GA code on current request
+	* @param mixed test to show code for (if null, will check the View for ABTest variable and use that.
+	* @param array of options
+	*  - varname the variable named of the legacy pageTracker variable (default pageTracker). Only used when legacy is turn on in config
+	*  - scriptBlock -- boolean if true will return scriptBlock of javascript (default false)
+	* @return string ga script test, or null
+	*/
+	public function getABTestJS($test = null, $options = array()){
+		if(!$test){
+			if(isset($this->_View->viewVars['ABTest']) && $this->_View->viewVars['ABTest']){
+				$test = $this->_View->viewVars['ABTest'];
+			}
+		}
+		$options = array_merge(array(
+			'varname' => 'pageTracker',
+			'scriptBlock' => false,
+			),(array)$options
+		);
+		if($test && isset($test['SeoABTest']['slug'])){
+			$category = SeoUtil::getConfig('abTesting.category');
+			$scope = SeoUtil::getConfig('abTesting.scope');
+			$slot = SeoUtil::getConfig('abTesting.slot');
+			if(SeoUtil::getConfig('abTesting.legacy')){
+				$retval = "{$options['varname']}._setCustomVar($slot,'$category','{$test['SeoABTest']['slug']}',$scope);";
+			} else {
+				$retval = "_gaq.push(['_setCustomVar',$slot,'$category','{$test['SeoABTest']['slug']}',$scope]);";
+			}
+			if($options['scriptBlock']){
+				return $this->Html->scriptBlock($retval);
+			}
+			return $retval;
+		}
+		return null;
+	}
+	
+	public function redmineLink($ticket_id = null){
+		if($ticket_id){
+			return $this->Html->link($ticket_id, SeoUtil::getConfig('abTesting.redmine') . $ticket_id, array('class' => 'btn btn-mini btn-info', 'target' => '_blank'));
+		}
+		return null;
+	}
+
 }
-?>

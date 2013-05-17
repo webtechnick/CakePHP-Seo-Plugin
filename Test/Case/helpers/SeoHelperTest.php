@@ -11,15 +11,22 @@ class SeoHelperTest extends CakeTestCase {
 		'plugin.seo.seo_uri',
 		'plugin.seo.seo_title',
 		'plugin.seo.seo_canonical',
+		'plugin.seo.seo_a_b_test',
 	);
 	
 	function startTest() {
-		$this->Seo = new SeoHelper();
-		$this->Seo->Html = new HtmlHelper();
+		$View = new View();
+		$this->Seo = new SeoHelper($View);
+		$this->Seo->Html = new HtmlHelper($View);
 		$cacheEngine = SeoUtil::getConfig('cacheEngine');
 		if (!empty($cacheEngine)) {
 			Cache::clear($cacheEngine);
 		}
+	}
+	
+	function testGetABTestJS(){
+		$result = $this->Seo->getABTestJS();
+		
 	}
 	
 	function testCanonical(){

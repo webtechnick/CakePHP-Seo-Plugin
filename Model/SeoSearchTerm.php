@@ -4,7 +4,7 @@
 * @author Nick Baker
 * @version 6.0
 */
-App::import('Lib','Seo.SeoUtil');
+App::uses('SeoUtil', 'Seo.Lib');
 class SeoSearchTerm extends SeoAppModel {
 	var $name = 'SeoSearchTerm';
 	var $displayField = 'term';

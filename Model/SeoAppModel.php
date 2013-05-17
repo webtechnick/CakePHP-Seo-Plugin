@@ -140,7 +140,7 @@ class SeoAppModel extends AppModel {
 	 * @return boolean if is regular expression (as two # marks)
 	 */
 	public function isRegEx($uri) {
-		return preg_match('/^#(.*)#(.*)/', $uri);
+		return SeoUtil::isRegEx($uri);
 	}
 
 	/**

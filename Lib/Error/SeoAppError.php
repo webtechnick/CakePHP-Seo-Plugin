@@ -9,11 +9,13 @@ App::uses('SeoUtil', 'Seo.Lib');
 App::uses('CakeLog', 'Log');
 App::uses('Controller', 'Controller');
 App::uses('CakeResponse', 'Network');
+App::uses('SeoUri','Seo.Model');
 class SeoAppError {
 	
 	var $SeoRedirect = null;
 	var $SeoStatusCode = null;
 	var $SeoUrl = null;
+	var $SeoUri = null;
 	
 	/**
 	* Overload constructor so we can test it properly
@@ -45,26 +47,7 @@ class SeoAppError {
 	* @return boolean
 	*/
 	function requestMatch($request, $uri){
-		$this->__loadModel('SeoStatusCode');
-		//Many To Many -- Using regular expression
-		if($this->SeoStatusCode->isRegEx($uri)){
-			if(preg_match($uri, $request)){
-				return true;
-			}
-		}
-		//Many to One -- Check for * wildcard in uri, if present only match up to the * in the request.
-		elseif(strpos($uri, '*') !== false){
-			$uri = str_replace('*','',$uri);
-			if(strpos($request, $uri) === 0){
-				return true;
-			}
-		}
-		//One to One
-		elseif(strtolower($uri) == strtolower($request)){
-			return true;
-		}
-		
-		return false;
+		return SeoUtil::requestMatch($request, $uri);
 	}
 	
 	/**
@@ -136,16 +119,14 @@ class SeoAppError {
 			if($run_redirect && isset($callback) && $callback){
 				if(strpos($callback, '::') !== false){
 					list($model, $method) = explode('::',$callback);
-				}
-				else {
+				}	else {
 					$method = $callback;
 					$model = 'SeoRedirect';
 				}
 				$callback_retval = ClassRegistry::init($model)->$method($request);
 				if($callback_retval !== false){
 					$redirect = str_replace('{callback}',$callback_retval,$redirect);
-				}
-				else { //if we have false as the retval, do NOT run the redirect
+				}	else { //if we have false as the retval, do NOT run the redirect
 					$run_redirect = false;
 				}
 			}
@@ -157,8 +138,7 @@ class SeoAppError {
 						CakeLog::write('seo_redirects', "SeoRedirect ID {$seo_redirect['SeoRedirect']['id']} : $request matched $uri redirecting to $redirect");
 					}
 					$this->controller->redirect($redirect, 301);
-				}
-				else {
+				}	else {
 					if(SeoUtil::getConfig('log')){
 						CakeLog::write('seo_redirects', "Redirect loop detected! request:\n $request\n	uri: $uri\n	redirect: $redirect\n	callback: $callback\n");
 					}
