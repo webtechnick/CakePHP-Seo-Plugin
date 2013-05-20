@@ -199,7 +199,7 @@ class SeoABTest extends SeoAppModel {
 		if(isset($testable[$this->alias]['testable'])){
 			$testable = $testable[$this->alias]['testable'];
 		}
-		if($testable){
+		if(is_string($testable) && $testable){
 			if(strpos($testable, '::')){
 				list($model,$method) = explode('::',$testable);
 				return ClassRegistry::init($model)->$method(env('REQUEST_URI'));
