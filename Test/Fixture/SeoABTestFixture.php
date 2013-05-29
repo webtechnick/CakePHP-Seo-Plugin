@@ -58,5 +58,4 @@ class SeoABTestFixture extends CakeTestFixture {
 			'modified' => '2013-05-10 11:57:58'
 		),
 	);
-
 }
