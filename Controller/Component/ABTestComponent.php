@@ -22,7 +22,7 @@ class ABTestComponent extends Component {
 	* - debug (if true, will always return the test even if it's not active, and regardless of roll)
 	* - return (test|roll|both) default test.
 	* - refresh (will preform the search as normal without the cached test result) default false
-	* @return mixed array test if found and rolled, or false if no test
+	* @return mixed array test if found and rolled, or boolean depending on return option.
 	*/
 	public function getTest($options = array()){
 		$options = array_merge(array(
