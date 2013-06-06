@@ -4,6 +4,9 @@ class SeoABTestsController extends SeoAppController {
 
 	var $name = 'SeoABTests';
 	var $helpers = array('Time');
+	public $paginate = array(
+		'order' => 'SeoABTest.created DESC'
+	);
 	
 	function beforeFilter(){
 		parent::beforeFilter();
