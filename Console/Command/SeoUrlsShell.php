@@ -36,7 +36,7 @@ class SeoUrlsShell extends Shell {
 		if($this->SeoUrl->hasAny(array('SeoUrl.url' => $url))){
 			$save_data['id'] = $this->SeoUrl->field('id', array('SeoUrl.url' => $url));
 		}
-		$this->SeoUrl->create();
+		$this->SeoUrl->clear();
 		if($this->SeoUrl->save($save_data)){
 			$this->out("$url $priority added.");
 		}

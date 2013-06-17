@@ -40,7 +40,7 @@ class SeoBlacklistsController extends SeoAppController {
 
 	function admin_add() {
 		if (!empty($this->data)) {
-			$this->SeoBlacklist->create();
+			$this->SeoBlacklist->clear();
 			if ($this->SeoBlacklist->save($this->data)) {
 				$this->Session->setFlash(__('The seo blacklist has been saved'));
 				$this->redirect(array('action' => 'index'));

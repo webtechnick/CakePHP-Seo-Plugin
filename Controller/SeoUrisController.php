@@ -49,7 +49,7 @@ class SeoUrisController extends SeoAppController {
 
 	function admin_add() {
 		if (!empty($this->data)) {
-			$this->SeoUri->create();
+			$this->SeoUri->clear();
 			$this->clearAssociatesIfEmpty();
 			if ($this->SeoUri->saveAll($this->data)) {
 				$this->Session->setFlash(__('The seo uri has been saved'));

@@ -23,7 +23,7 @@ class SeoUrlsController extends SeoAppController {
 
 	function admin_add() {
 		if (!empty($this->data)) {
-			$this->SeoUrl->create();
+			$this->SeoUrl->clear();
 			if ($this->SeoUrl->saveAll($this->data)) {
 				$this->Session->setFlash(__('The seo url has been saved'));
 				$this->redirect(array('action' => 'index'));

@@ -116,7 +116,7 @@ class SeoRedirectsShell extends Shell {
 			$this->out();
 			return $this->errorAndExit("Want to change it?  you're going to have to do so via the web interface.");
 		}
-		$this->SeoRedirect->create();
+		$this->SeoRedirect->clear();
 		if ($this->SeoRedirect->save($save)) {
 			$redirect = $this->SeoRedirect->find('first', array(
 				'contain' => array('SeoUri'),

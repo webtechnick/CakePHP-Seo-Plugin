@@ -125,7 +125,7 @@ class SeoAppModel extends AppModel {
 			} else {
 				$save = array();
 				$save[$ModelName][$field] = $this->data[$ModelName][$field];
-				$this->$ModelName->create();
+				$this->$ModelName->clear();
 				$this->$ModelName->save($save);
 				$this->data[$this->alias][$model_underscore . '_id'] = $this->$ModelName->id;
 			}
@@ -177,4 +177,14 @@ class SeoAppModel extends AppModel {
 			}
 		}
 	}
+	
+	/**
+  * This is what I want create to do, but without setting defaults.
+  */
+  public function clear(){
+  	$this->id = false;
+		$this->data = array();
+		$this->validationErrors = array();
+		return $this->data;
+  }
 }

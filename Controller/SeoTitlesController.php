@@ -23,7 +23,7 @@ class SeoTitlesController extends SeoAppController {
 
 	function admin_add() {
 		if (!empty($this->data)) {
-			$this->SeoTitle->create();
+			$this->SeoTitle->clear();
 			if ($this->SeoTitle->save($this->data)) {
 				$this->Session->setFlash(__('The seo title has been saved'));
 				$this->redirect(array('action' => 'index'));

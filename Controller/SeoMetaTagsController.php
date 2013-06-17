@@ -24,7 +24,7 @@ class SeoMetaTagsController extends SeoAppController {
 
 	function admin_add() {
 		if (!empty($this->data)) {
-			$this->SeoMetaTag->create();
+			$this->SeoMetaTag->clear();
 			if ($this->SeoMetaTag->save($this->data)) {
 				$this->Session->setFlash(__('The seo meta tag has been saved'));
 				$this->redirect(array('action' => 'index'));

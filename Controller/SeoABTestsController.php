@@ -33,7 +33,7 @@ class SeoABTestsController extends SeoAppController {
 
 	function admin_add() {
 		if (!empty($this->data)) {
-			$this->SeoABTest->create();
+			$this->SeoABTest->clear();
 			if ($this->SeoABTest->save($this->data)) {
 				$this->Session->setFlash(__('The seo AB Test has been saved'));
 				$this->redirect(array('action' => 'index'));

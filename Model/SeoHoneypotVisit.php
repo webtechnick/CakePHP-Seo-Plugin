@@ -29,7 +29,7 @@ class SeoHoneypotVisit extends SeoAppModel {
 			$ip = $this->getIpFromServer();
 		}
 		
-		$this->create();
+		$this->clear();
 		return $this->save(array(
 			$this->alias => array(
 				'ip' => $ip

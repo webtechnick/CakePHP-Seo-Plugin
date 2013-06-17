@@ -24,7 +24,7 @@ class SeoStatusCodesController extends SeoAppController {
 
 	function admin_add() {
 		if (!empty($this->data)) {
-			$this->SeoStatusCode->create();
+			$this->SeoStatusCode->clear();
 			if ($this->SeoStatusCode->save($this->data)) {
 				$this->Session->setFlash(__('The seo status code has been saved'));
 				$this->redirect(array('action' => 'index'));

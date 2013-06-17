@@ -24,7 +24,7 @@ class SeoCanonicalsController extends SeoAppController {
 
 	function admin_add() {
 		if (!empty($this->data)) {
-			$this->SeoCanonical->create();
+			$this->SeoCanonical->clear();
 			if ($this->SeoCanonical->save($this->data)) {
 				$this->Session->setFlash(__('The seo canonical has been saved'));
 				$this->redirect(array('action' => 'index'));
