@@ -48,7 +48,7 @@ class SeoTitle extends SeoAppModel {
 	function findTitleByUri($request = null){
 		return $this->find('first', array(
 			'conditions' => array(
-				"{$this->SeoUri->alias}.uri" => $request,
+				array("'$request' LIKE `{$this->SeoUri->alias}`.`uri`"),
 				"{$this->SeoUri->alias}.is_approved" => true
 			),
 			'contain' => array("{$this->SeoUri->alias}.uri"),
