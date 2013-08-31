@@ -15,7 +15,7 @@ class SeoMetaTagTest extends CakeTestCase {
 	);
 	
 	function startTest() {
-		$this->SeoMetaTag =& ClassRegistry::init('SeoMetaTag');
+		$this->SeoMetaTag = ClassRegistry::init('SeoMetaTag');
 		$this->SeoMetaTag->SeoUri->Email = new MockEmailComponent();
 	}
 	

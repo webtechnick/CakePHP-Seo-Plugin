@@ -15,7 +15,7 @@ class SeoStatusCodeTest extends CakeTestCase {
 	);
 
 	function startTest() {
-		$this->SeoStatusCode =& ClassRegistry::init('SeoStatusCode');
+		$this->SeoStatusCode = ClassRegistry::init('SeoStatusCode');
 		$this->SeoRedirect->SeoUri->Email = new MockEmailComponent();
 	}
 	

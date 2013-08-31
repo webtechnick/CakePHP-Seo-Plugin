@@ -12,7 +12,7 @@ class TestSeoUrlsController extends SeoUrlsController {
 
 class SeoUrlsControllerTest extends CakeTestCase {
 	function startTest() {
-		$this->SeoUrls =& new TestSeoUrlsController();
+		$this->SeoUrls = new TestSeoUrlsController();
 		$this->SeoUrls->constructClasses();
 	}
 

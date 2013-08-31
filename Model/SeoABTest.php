@@ -165,7 +165,7 @@ class SeoABTest extends SeoAppModel {
 	/**
 	* Check if SEO already exists, if so, unset it and set the ID then save.
 	*/
-	public function beforeSave(){
+	public function beforeSave($options = array()){
 		$this->createOrSetUri();
 		return true;
 	}

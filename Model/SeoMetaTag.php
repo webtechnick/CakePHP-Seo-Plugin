@@ -42,7 +42,7 @@ class SeoMetaTag extends SeoAppModel {
 		'SeoMetaTag.name','SeoMetaTag.content','SeoMetaTag.id','SeoUri.uri'
 	);
 	
-	function beforeSave(){
+	function beforeSave($options = array()){
 		$this->createOrSetUri();
 		return true;
 	}

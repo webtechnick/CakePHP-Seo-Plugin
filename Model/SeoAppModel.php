@@ -149,7 +149,7 @@ class SeoAppModel extends AppModel {
 	 * @param string filter
 	 * @return conditions array
 	 */
-	public function generateFilterConditions($filter = null) {
+	public function generateFilterConditions($filter = NULL, $pre = '') {
 		$retval = array();
 		if ($filter) {
 			foreach ($this->searchFields as $field) {

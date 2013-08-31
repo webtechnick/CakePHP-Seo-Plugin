@@ -13,7 +13,7 @@ class SeoTitleTest extends CakeTestCase {
 	);
 
 	function startTest() {
-		$this->SeoTitle =& ClassRegistry::init('SeoTitle');
+		$this->SeoTitle = ClassRegistry::init('SeoTitle');
 	}
 
 	function endTest() {

@@ -41,7 +41,7 @@ class SeoCanonical extends SeoAppModel {
 	/**
 	* Assign or create the url.
 	*/
-	function beforeSave(){
+	function beforeSave($options = array()){
 		$this->createOrSetUri();
 		return true;
 	}

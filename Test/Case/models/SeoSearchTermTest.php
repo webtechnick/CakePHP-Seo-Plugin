@@ -6,7 +6,7 @@ class SeoSearchTermTest extends CakeTestCase {
 	var $fixtures = array('plugin.seo.seo_search_term');
 
 	function startTest() {
-		$this->SeoSearchTerm =& ClassRegistry::init('SeoSearchTerm');
+		$this->SeoSearchTerm = ClassRegistry::init('SeoSearchTerm');
 	}
 	
 	function testParseRequest(){

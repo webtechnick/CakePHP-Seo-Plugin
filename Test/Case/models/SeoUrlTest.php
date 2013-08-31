@@ -7,7 +7,7 @@ class SeoUrlTest extends CakeTestCase {
 		'plugin.seo.seo_url'
 	);
 	function startTest() {
-		$this->SeoUrl =& ClassRegistry::init('SeoUrl');
+		$this->SeoUrl = ClassRegistry::init('SeoUrl');
 	}
 	
 	function test_findRedirectByRequest(){

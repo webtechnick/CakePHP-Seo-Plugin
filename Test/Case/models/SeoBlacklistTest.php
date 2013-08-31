@@ -6,7 +6,7 @@ class SeoBlacklistTest extends CakeTestCase {
 	var $fixtures = array('plugin.seo.seo_blacklist');
 
 	function startTest() {
-		$this->SeoBlacklist =& ClassRegistry::init('SeoBlacklist');
+		$this->SeoBlacklist = ClassRegistry::init('SeoBlacklist');
 	}
 	
 	function testIpValidCheck(){

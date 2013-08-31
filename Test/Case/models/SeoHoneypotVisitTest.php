@@ -5,7 +5,7 @@ App::import('Model', 'seo.SeoHoneypotVisit');
 class SeoHoneypotVisitTest extends CakeTestCase {
 	var $fixtures = array('plugin.seo.seo_honeypot_visit');
 	function startTest() {
-		$this->SeoHoneypotVisit =& ClassRegistry::init('SeoHoneypotVisit');
+		$this->SeoHoneypotVisit = ClassRegistry::init('SeoHoneypotVisit');
 	}
 	
 	function testAdd(){
