@@ -115,7 +115,7 @@ class SeoUri extends SeoAppModel {
 	 * @param boolean $created
 	 * @return boolean
 	 */
-	public function afterSave($created = false) {
+	public function afterSave($created, $options = array()) {
 		if ($created) {
 			//Maybe URI
 		}
@@ -123,7 +123,7 @@ class SeoUri extends SeoAppModel {
 			//Email IT about needing approval... currently me.
 			$this->sendNotification();
 		}
-		return parent::afterSave($created);
+		return parent::afterSave($created, $options);
 	}
 
 	/**
