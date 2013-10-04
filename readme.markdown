@@ -1,6 +1,6 @@
 # Search Engine Optimization CakePHP Plugin
 * Author: Nick Baker, Alan Blount
-* Version: 5.1.0
+* Version: 6.1.0
 * License: MIT
 * Website: <http://www.webtechnick.com>
 
@@ -12,9 +12,14 @@ Complete tool for all your CakePHP Search Engine Optimization needs
 * Highly configurable and intelligent 404 deep url guessing utilizing levenshtein's distance and your sitemap.xml
 * Highly configurable and customizable Meta Tags for any incoming URI
 * Title tag overwrites based on URI
+* Custom Status Codes based on URI
 * Scrapper Banning administration, complete with honeyPot baiting for scrappers to ban themselves.
+* Google Analytics AB Testing Management based on URIs
 
 ## Changelog
+* 6.2.0 Added SeoABTesting, update your Config/seo.php file
+* 6.1.0 Added special case 200 Status Code to return noindex for easier and low bandwidth url killing than 410
+* 6.0.0 Updated for CakePHP 2.0
 * 5.1.0 New SeoUrls Shell to run sitemap levenshtein import on-demand.
 * 5.0.0 New Levenshtein Distance formula to best guess the appropriate 301 based off the 404 request.
 				This only happens if it's active in the config (default false), and no 301 redirect rules would catch it
@@ -29,9 +34,9 @@ Complete tool for all your CakePHP Search Engine Optimization needs
 
 ## Install
 
-Clone the repository into your `app/plugins/seo` directory:
+Clone the repository into your `app/Plugin/Seo` directory:
 
-	$ git clone git://github.com/webtechnick/CakePHP-Seo-Plugin.git app/plugins/seo
+	$ git clone git://github.com/webtechnick/CakePHP-Seo-Plugin.git app/Plugin/Seo
 
 Run the schema into your database:
 
@@ -60,25 +65,42 @@ Create the file `app/config/seo.php` with the following configurations like so:
 				'cost_change' => 1, //cost to change a character, higher the amount the less you can change to find a match
 				'cost_delete' => 1, //cost to delete a character, higher the ammount the less you can delete to find a match 
 				'source' => '/sitemap.xml' //URL to list of urls, a sitemap
+			),
+			'abTesting' => array(
+				'category' => 'ABTest', //Category for your ABTesting in Google Analytics
+				'scope' => 3, //Scope for your ABTesting in Google Analytics
+				'legacy' => false, //Uses Legacy verion of Google Analytics JS code pageTracker._setCustomVar(...)
+				'session' => true, //Uses CakeSession to serve same test to uses who have seen them.
 			)
 		)
 	);
 	?>
 
 ## SEO Redirect/Status Code Quick Start
-create file `app/app_error.php` with the following:
+update file `app/Config/core.php` with the following:
 
 	<?php
-		App::import('Lib','Seo.SeoUtil');
-		SeoUtil::loadSeoError();
-		class AppError extends SeoAppError {
-		}
+		Configure::write('Exception', array(
+				'handler' => 'SeoExceptionHandler::handle',
+				'renderer' => 'ExceptionRenderer',
+				'log' => true
+		));
 	?>
+	
+update file `app/Config/bootstrap.php` with the following:
+
+	require_once(APP . 'Plugin' . DS . 'Seo' . DS . 'Lib' . DS . 'Error' . DS . 'SeoAppError.php');
+	
+	
 	
 ### Add Redirects	
 `http://www.example.com/admin/seo/seo_redirects/`
 
+<<<<<<< HEAD
 ### Add Status Code	
+=======
+### Add Status Codes	
+>>>>>>> cakephp2.0
 `http://www.example.com/admin/seo/seo_status_codes/`
 
 NOTE: Special case Status Code 200 will return minimum bandwidth noindex robots page, for alternative url killing (410 alternative)
@@ -86,7 +108,7 @@ NOTE: Special case Status Code 200 will return minimum bandwidth noindex robots 
 
 ## SEO Meta Tags Quick Start
 
-Include the `Seo.Seo` Helper to your `app_controller.php`:
+Include the `Seo.Seo` Helper to your `AppController.php`:
 
 	var $helpers = array('Seo.Seo');
 
@@ -104,7 +126,7 @@ Alter your layout to include the Seo Meta Tags in the head of your layout
 
 ## SEO Titles Quick Start
 
-Include the `Seo.Seo` Helper to your `app_controller.php`:
+Include the `Seo.Seo` Helper to your `AppController.php`:
 
   var $helpers = array('Seo.Seo');
 
@@ -122,7 +144,7 @@ Alter your layout to include the Seo Title in the head of your layout
 
 ## SEO Canonical Quick Start
 
-Include the `Seo.Seo` Helper to your `app_controller.php`:
+Include the `Seo.Seo` Helper to your `AppController.php`:
 
   var $helpers = array('Seo.Seo');
 
@@ -139,7 +161,7 @@ Alter your layout to include the Seo Canonical in the head of your layout
 
 ## SEO BlackList Quick Start
 
-Include The `Seo.BlackList` Component in your `app_controller.php`:
+Include The `Seo.BlackList` Component in your `AppController.php`:
 
 	var $components = array('Seo.BlackList');
 
@@ -155,6 +177,43 @@ Update your `robots.txt` to exclude `/seo/` from being spidered.  All legitimate
 ### Add/Manage Banned IPs
 
 `http://www.example.com/admin/seo/seo_blacklists`
+
+
+## SEO AB Testing Quick Start
+
+Include the `Seo.Seo` Helper and the `Seo.ABTest` Component to your `AppController.php`: 
+
+	var $helpers = array('Seo.Seo');
+	var $components = array('Seo.ABTest');
+
+In your GA code on your site add the line like so:
+
+	<script type="text/javascript">
+		<!-- GA Items -->
+		var pageTracker = _gat._getTracker('UA-SOMEKEY');
+		<?php echo $this->Seo->getABTestJS(); ?>
+	</script>
+	
+In your `AppController.php`, to test if you're on a testable page and serve it do something like this:
+
+	public function beforeFilter(){
+		if($test = $this->ABTest->getTest()){
+			//Do things specific to this test
+			$this->set('ABTest', $test);
+			$this->view = $test['SeoABTest']['slug'];
+		}
+		return parent::beforeFilter();
+	}
+	
+ProTip: For debuging in your controller before going live in GA set the debug flag to true, this will return tests that aren't active yet.
+
+	$test = $this->SeoABTest->getTest(array('debug' => true));
+
+### Add AB Tests
+
+`http://www.example.com/admin/seo/seo_a_b_tests`
+
+ProTip: By setting the ABTest to debug, it will return true in your controller, but you won't be tracking the GA code.
 
 
 # Wiki Links
