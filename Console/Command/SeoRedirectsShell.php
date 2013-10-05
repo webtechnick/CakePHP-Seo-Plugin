@@ -1,5 +1,5 @@
 <?php
-App::uses('Shell', 'Console/Command');
+App::uses('Shell', 'Console');
 App::uses('Set', 'Utility');
 class SeoRedirectsShell extends Shell {
 	public $uses = array('Seo.SeoUrl', 'Seo.SeoUri', 'Seo.SeoRedirect');
