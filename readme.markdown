@@ -46,52 +46,51 @@ Run the schema into your database:
 
 Create the file `app/Config/seo.php` with the following configurations like so:
 
-	<?php
 	$config = array(
 		'Seo' => array(
 			'approverEmail' => 'nick@example.com',
 			'replyEmail' => 'noreply@example.com',
+			'emailConfig' => 'default', //config of your email, if false will use default CakeEmail()
 			'parentDomain' => 'http://www.example.com',
+			'aggressive' => true, //if false, log affenders for later review instead of autobanning
 			'triggerCount' => 2,
 			'timeBetweenTriggers' => 60 * 60 * 24, //seconds
-			'aggressive' => true, //if false, log affenders for later review instead of autobanning
 			'honeyPot' => array('admin' => false, 'plugin' => 'seo', 'controller' => 'seo_blacklists', 'action' => 'honeypot'),
 			'log' => true,
 			'cacheEngine' => false, // optionally cache things to save on DB requests - eg: 'default'
+			'searchTerms' => true, //turn on term finding
 			'levenshtein' => array(
 				'active' => false,
-				'threshold' => 5, //-1 to always find the closest match
+				'threshold' => 5, //-1 to ALWAYS find the closest match
 				'cost_add' => 1, //cost to add a character, higher the amount the less you can add to find a match
 				'cost_change' => 1, //cost to change a character, higher the amount the less you can change to find a match
 				'cost_delete' => 1, //cost to delete a character, higher the ammount the less you can delete to find a match 
-				'source' => '/sitemap.xml' //URL to list of urls, a sitemap
+				'source' => '/sitemap.xml' //URL to list of urls in a sitemap
 			),
 			'abTesting' => array(
 				'category' => 'ABTest', //Category for your ABTesting in Google Analytics
 				'scope' => 3, //Scope for your ABTesting in Google Analytics
+				'slot' => 4, //Slot for your ABTesting in Google Analytics
 				'legacy' => false, //Uses Legacy verion of Google Analytics JS code pageTracker._setCustomVar(...)
-				'session' => true, //Uses CakeSession to serve same test to uses who have seen them.
+				'session' => true, //will use sessions to store tests for users who've already seen them.
+				'redmine' => false, //or the full URL if your redmine http://www.redmine-example.com/issues/
 			)
 		)
 	);
-	?>
 
 ## SEO Redirect/Status Code Quick Start
 update file `app/Config/core.php` with the following:
 
-	<?php
-		Configure::write('Exception', array(
-				'handler' => 'SeoExceptionHandler::handle',
-				'renderer' => 'ExceptionRenderer',
-				'log' => true
-		));
-	?>
-	
+	Configure::write('Exception', array(
+		'handler' => 'SeoExceptionHandler::handle',
+		'renderer' => 'ExceptionRenderer',
+		'log' => true
+	));
+
 update file `app/Config/bootstrap.php` with the following:
 
 	require_once(APP . 'Plugin' . DS . 'Seo' . DS . 'Lib' . DS . 'Error' . DS . 'SeoAppError.php');
-	
-	
+
 	
 ### Add Redirects	
 `http://www.example.com/admin/seo/seo_redirects/`
