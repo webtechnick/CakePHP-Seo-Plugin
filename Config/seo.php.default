@@ -8,6 +8,7 @@ $config = array(
   'Seo' => array(
     'approverEmail' => 'nick@example.com',
     'replyEmail' => 'noreply@example.com',
+    'emailConfig' => 'default', //config of your email, if false will use default CakeEmail()
     'parentDomain' => 'http://www.example.com',
     'aggressive' => true, //if false, log affenders for later review instead of autobanning
     'triggerCount' => 2,
@@ -34,4 +35,3 @@ $config = array(
     )
   )
 );
-?>

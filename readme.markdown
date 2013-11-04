@@ -44,7 +44,7 @@ Run the schema into your database:
 	
 ## Setup
 
-Create the file `app/config/seo.php` with the following configurations like so:
+Create the file `app/Config/seo.php` with the following configurations like so:
 
 	<?php
 	$config = array(
@@ -96,11 +96,7 @@ update file `app/Config/bootstrap.php` with the following:
 ### Add Redirects	
 `http://www.example.com/admin/seo/seo_redirects/`
 
-<<<<<<< HEAD
-### Add Status Code	
-=======
 ### Add Status Codes	
->>>>>>> cakephp2.0
 `http://www.example.com/admin/seo/seo_status_codes/`
 
 NOTE: Special case Status Code 200 will return minimum bandwidth noindex robots page, for alternative url killing (410 alternative)

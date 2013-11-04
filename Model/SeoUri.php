@@ -248,13 +248,15 @@ class SeoUri extends SeoAppModel {
 		$this->read();
 		if (!empty($this->data)) {
 			if (!isset($this->Email)) {
-				App::import('Component','Email');
-				$this->Email = new EmailComponent();
+				App::uses('CakeEmail', 'Network/Email');
+				$this->Email = new CakeEmail();
+				if ($email_config = SeoUtil::getConfig('approverEmail')) {
+					$this->Email->config($email_config);
+				}
 			}
-			$this->Email->to = SeoUtil::getConfig('approverEmail');
-			$this->Email->from = SeoUtil::getConfig('replyEmail');
-			$this->Email->subject = "301 Redirect: {$this->data[$this->alias]['uri']} to {$this->data[$this->SeoRedirect->alias]['redirect']} needs approval";
-			$this->Email->sendAs = 'html';
+			$this->Email->to(SeoUtil::getConfig('approverEmail'));
+			$this->Email->from(SeoUtil::getConfig('replyEmail'));
+			$this->Email->subject("301 Redirect: {$this->data[$this->alias]['uri']} to {$this->data[$this->SeoRedirect->alias]['redirect']} needs approval");
 			$this->Email->send("A new regular expression 301 redirect needs to be approved.<br /><br/>
 
 				URI: {$this->data[$this->alias]['uri']}<br />
