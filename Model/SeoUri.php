@@ -250,7 +250,7 @@ class SeoUri extends SeoAppModel {
 			if (!isset($this->Email)) {
 				App::uses('CakeEmail', 'Network/Email');
 				$this->Email = new CakeEmail();
-				if ($email_config = SeoUtil::getConfig('approverEmail')) {
+				if ($email_config = SeoUtil::getConfig('emailConfig')) {
 					$this->Email->config($email_config);
 				}
 			}
