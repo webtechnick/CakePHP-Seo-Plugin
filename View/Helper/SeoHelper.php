@@ -54,20 +54,24 @@ class SeoHelper extends AppHelper {
 	* Utility method
 	* @param router friendly URL
 	* @param boolean full url or relative (default true)
+	* @param boolean overwrite (will always check SeoCanonical first)
 	* @return HTMlElement of canonical link or empty string if none found/used
 	*/
-	function canonical($url = null, $full = true){
-		if($url === null){
+	function canonical($url = null, $full = true, $overwrite = false){
+		if ($overwrite || $url === null) {
 			$this->loadModel('SeoCanonical');
 			$request = env('REQUEST_URI');
-			$url = $this->SeoCanonical->findByUri($request);
+			$seo_url = $this->SeoCanonical->findByUri($request);
+			if (!empty($seo_url)) { //Only overwrite if we have a canonical to overwrite
+				$url = $seo_url;
+			}
 		}
-		
-		if($url){
+
+		if ($url) {
 			$path = Router::url($url, $full);
 			return $this->Html->tag('link', null, array('rel' => 'canonical', 'href' => $path));
 		}
-		return "";
+		return '';
 	}
 	
 	/**
