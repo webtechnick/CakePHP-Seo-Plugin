@@ -195,7 +195,6 @@ class SeoExceptionHandler extends HttpException {
 		}
 		
 		$text = $message ? $message : $error->message;
-		CakeLog::write('error' . $error->code, $text . '\n\r' . $error->getTraceAsString());
 		ErrorHandler::handleException($error);
 	}
 }
