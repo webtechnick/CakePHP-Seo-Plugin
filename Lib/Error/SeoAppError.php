@@ -92,67 +92,73 @@ class SeoAppError {
 	
 	/**
 	* Go through the uri to redirect database and see if we've hit a 
-	* 301 that we've setup.
+	* 301 that we've set up.
 	* @return void
 	*/
-	function __uriToRedirect(){
+	function __uriToRedirect() {
 		$this->__loadModel('SeoRedirect');
 		$request = env('REQUEST_URI');
 		$seo_redirects = $this->SeoRedirect->findRedirectListByPriority();
 		if (empty($seo_redirects) || !is_array($seo_redirects)) {
 			return;
 		}
-		$run_redirect = false;
-		foreach($seo_redirects as $seo_redirect){
+
+		foreach ($seo_redirects as $seo_redirect) {
 			$uri = $seo_redirect['SeoUri']['uri'];
 			$redirect = $seo_redirect['SeoRedirect']['redirect'];
 			$callback = $seo_redirect['SeoRedirect']['callback'];
 			
-			if($this->requestMatch($request, $uri)){
-				$run_redirect = true;
-				if($this->SeoRedirect->isRegEx($uri)){
-					$redirect = preg_replace($uri, $redirect, $request);
-				}
+			if (!$this->requestMatch($request, $uri)) {
+				continue;
+			}
+
+			if ($this->SeoRedirect->isRegEx($uri)) {
+				$redirect = preg_replace($uri, $redirect, $request);
 			}
 			
-			//Run callback if we have one
-			if($run_redirect && isset($callback) && $callback){
-				if(strpos($callback, '::') !== false){
+			// Run callback if we have one
+			if (!empty($callback)) {
+				if (strpos($callback, '::') !== false) {
 					list($model, $method) = explode('::',$callback);
-				}	else {
+				} else {
 					$method = $callback;
-					$model = 'SeoRedirect';
+					$model  = 'SeoRedirect';
 				}
 				$callback_retval = ClassRegistry::init($model)->$method($request);
-				if($callback_retval !== false){
-					$redirect = str_replace('{callback}',$callback_retval,$redirect);
-				}	else { //if we have false as the retval, do NOT run the redirect
-					$run_redirect = false;
+
+				if ($callback_retval === false) {
+					// if we have false as the retval, do NOT run the redirect
+					return;
 				}
+				$redirect = str_replace('{callback}', $callback_retval, $redirect);
 			}
 			
-			//Run the redirect if we have one, and its not the same as it was coming in.
-			if($run_redirect){
-				if($redirect != $request){
-					if(SeoUtil::getConfig('log')){
-						CakeLog::write('seo_redirects', "SeoRedirect ID {$seo_redirect['SeoRedirect']['id']} : $request matched $uri redirecting to $redirect");
-					}
-
-					if (!empty($seo_redirect['SeoRedirect']['is_nocache'])) {
-						$this->controller->response->header(array(
-							'Cache-Control' => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
-							'Expires' => 'Sat, 26 Jul 1997 05:00:00 GMT',
-						));
-					}
-
-					$this->controller->redirect($redirect, 301);
-				}	else {
-					if(SeoUtil::getConfig('log')){
-						CakeLog::write('seo_redirects', "Redirect loop detected! request:\n $request\n	uri: $uri\n	redirect: $redirect\n	callback: $callback\n");
-					}
+			// Look for loops.
+			if ($redirect == $request) {
+				if (SeoUtil::getConfig('log')) {
+					CakeLog::write('seo_redirects',
+						"Redirect loop detected! request:\n $request\n	uri: $uri\n	redirect: $redirect\n	callback: $callback\n"
+					);
 				}
 				return;
 			}
+
+			// No loop, run the redirect.
+			if (SeoUtil::getConfig('log')) {
+				CakeLog::write('seo_redirects',
+					"SeoRedirect ID {$seo_redirect['SeoRedirect']['id']} : $request matched $uri redirecting to $redirect"
+				);
+			}
+
+			if (!empty($seo_redirect['SeoRedirect']['is_nocache'])) {
+				$this->controller->response->header(array(
+					'Cache-Control' => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
+					'Expires' => 'Sat, 26 Jul 1997 05:00:00 GMT',
+				));
+			}
+
+			$this->controller->redirect($redirect, 301);
+			return;
 		}
 	}
 	
