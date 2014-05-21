@@ -137,6 +137,14 @@ class SeoAppError {
 					if(SeoUtil::getConfig('log')){
 						CakeLog::write('seo_redirects', "SeoRedirect ID {$seo_redirect['SeoRedirect']['id']} : $request matched $uri redirecting to $redirect");
 					}
+
+					if (!empty($seo_redirect['SeoRedirect']['is_nocache'])) {
+						$this->controller->response->header(array(
+							'Cache-Control' => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
+							'Expires' => 'Sat, 26 Jul 1997 05:00:00 GMT',
+						));
+					}
+
 					$this->controller->redirect($redirect, 301);
 				}	else {
 					if(SeoUtil::getConfig('log')){
