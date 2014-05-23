@@ -72,8 +72,6 @@ class SeoAppError {
 				if($test){
 					return $code;
 				}
-				Configure::write('debug', 0);
-				header("Status: $code " . $this->SeoStatusCode->codes[$code], true, $code);
 				if($code == 200){
 					echo '<!doctype html> 
 					<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -85,9 +83,19 @@ class SeoAppError {
 						<body></body>
 					</html>';
 				}
-				die();
+				$this->executeStatusCode($code);
 			}
 		}
+	}
+	
+	/**
+	* Actually execute the status code.
+	*/
+	function executeStatusCode($code) {
+		$this->__loadModel('SeoStatusCode');
+		Configure::write('debug', 0);
+		header("Status: $code " . $this->SeoStatusCode->codes[$code], true, $code);
+		die();
 	}
 	
 	/**
