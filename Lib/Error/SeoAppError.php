@@ -92,10 +92,19 @@ class SeoAppError {
 	* Actually execute the status code.
 	*/
 	function executeStatusCode($code) {
-		$this->__loadModel('SeoStatusCode');
 		Configure::write('debug', 0);
+		$this->__loadModel('SeoStatusCode');
 		header("Status: $code " . $this->SeoStatusCode->codes[$code], true, $code);
-		die();
+		die($this->SeoStatusCode->codes[$code]);
+		if ($code == 410) {
+			throw new GoneExecption();
+		}
+		if ($code == 404) {
+			throw new NotFoundException();
+		}
+		if ($code == 500) {
+			throw new InternalErrorException();
+		}
 	}
 	
 	/**
@@ -205,5 +214,16 @@ class SeoExceptionHandler extends HttpException {
 		$text = $message ? $message : $error->message;
 		CakeLog::write('error' . $error->code, $text . '\n\r' . $error->getTraceAsString());
 		ErrorHandler::handleException($error);
+	}
+}
+/**
+* Seo410Gone Exception
+*/
+class GoneExecption extends HttpException {
+	public function __construct($message = null, $code = 410) {
+		if (empty($message)) {
+			$message = 'Gone';
+		}
+		parent::__construct($message, $code);
 	}
 }
