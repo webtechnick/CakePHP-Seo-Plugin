@@ -29,7 +29,7 @@ class SeoStatusCode extends SeoAppModel {
 			'foreignKey' => 'seo_uri_id',
 		)
 	);
-	
+
 	/**
 	* Status codes
 	*/
@@ -56,14 +56,14 @@ class SeoStatusCode extends SeoAppModel {
 		'416' => 'Requested Range Not Satisfiable',
 		'417' => 'Expectation Failed',
 	);
-	
+
 	/**
 	* Filter fields
 	*/
 	var $searchFields = array(
 		'SeoStatusCode.status_code','SeoStatusCode.id','SeoUri.uri'
 	);
-	
+
 	/**
 	* Check if SEO already exists, if so, unset it and set the ID then save.
 	*/
@@ -71,7 +71,7 @@ class SeoStatusCode extends SeoAppModel {
 		$this->createOrSetUri();
 		return true;
 	}
-	
+
 	function findCodeList(){
 		$retval = array();
 		foreach($this->codes as $code => $text){
@@ -79,15 +79,16 @@ class SeoStatusCode extends SeoAppModel {
 		}
 		return $retval;
 	}
-	
+
 	/**
 	* Named scope to find list of uri -> status_codes and order by priority only approved/active
 	* @return list of active and approved uri => status_codes ordered by priority
 	*/
 	function findStatusCodeListByPriority(){
 		return $this->find('all', array(
-			'fields' => array("{$this->SeoUri->alias}.uri","{$this->alias}.status_code"),
-			'order' => "{$this->alias}.priority ASC",
+			'contain' => array($this->SeoUri->alias => 'uri'),
+			'fields' => array("{$this->alias}.status_code"),
+			'order' => array("{$this->alias}.priority" => 'ASC'),
 			'conditions' => array(
 				"{$this->alias}.is_active" => true,
 				"{$this->SeoUri->alias}.is_approved" => true,

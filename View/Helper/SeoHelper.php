@@ -7,6 +7,7 @@
 */
 App::uses('SeoUtil', 'Seo.Lib');
 App::uses('SeoUri','Seo.Model');
+App::uses('AppHelper','View/Helper');
 class SeoHelper extends AppHelper {
 	var $helpers = array('Html');
 	var $SeoMetaTag = null;
@@ -14,7 +15,7 @@ class SeoHelper extends AppHelper {
 	var $SeoCanonical = null;
 	var $SeoABTest = null;
 	var $honeyPotId = 1;
-	
+
 	/**
 	* Show the meta tags designated for this uri
 	* @param array of name => content meta tags to merge with giving priority to SEO meta tags
@@ -25,7 +26,7 @@ class SeoHelper extends AppHelper {
 		$request = env('REQUEST_URI');
 		$meta_tags = $this->SeoMetaTag->findAllTagsByUri($request);
 		$retval = "";
-		
+
 		foreach($meta_tags as $tag){
 			if(isset($metaData[$tag['SeoMetaTag']['name']])){
 				unset($metaData[$tag['SeoMetaTag']['name']]);
@@ -39,16 +40,16 @@ class SeoHelper extends AppHelper {
 			$data['content'] = $tag['SeoMetaTag']['content'];
 			$retval .= $this->Html->meta($data);
 		}
-		
+
 		if(!empty($metaData)){
 			foreach($metaData as $name => $content){
 				$retval .= $this->Html->meta(array('name' => $name, 'content' => $content));
 			}
 		}
-		
+
 		return $retval;
 	}
-	
+
 	/**
 	* Return a canonical link tag for SEO purpolses
 	* Utility method
@@ -73,7 +74,7 @@ class SeoHelper extends AppHelper {
 		}
 		return '';
 	}
-	
+
 	/**
 	* Show a honeypot link
 	* to bait scrappers to click on for autobanning
@@ -89,21 +90,21 @@ class SeoHelper extends AppHelper {
 			),
 			$options
 		);
-		
+
 		$link = $this->Html->link(
 			$title,
 			SeoUtil::getConfig('honeyPot'),
 			$options
 		);
-		
+
 		$javascript = $this->Html->scriptBlock("
 			document.getElementById('{$options['id']}').style.display = 'none';
 			document.getElementById('{$options['id']}').style.zIndex = -1;
 		");
-		
-		return $link . $javascript; 
+
+		return $link . $javascript;
 	}
-	
+
 	/**
 	* Find the title tag related to this request and output the result.
 	* @param string default title tag
@@ -116,10 +117,10 @@ class SeoHelper extends AppHelper {
 		$title = $seo_title ? $seo_title['SeoTitle']['title'] : $default;
 		return $this->Html->tag('title', $title);
 	}
-	
-	
+
+
 	/**
-	* Load a plugin model 
+	* Load a plugin model
 	* @param string modelname
 	* @return void
 	*/
@@ -129,14 +130,14 @@ class SeoHelper extends AppHelper {
 			$this->$model = ClassRegistry::init("Seo.$model");
 		}
 	}
-	
+
 	/**
 	* Return the next Id to show.
 	*/
 	function nextId(){
 		return $this->honeyPotId++;
 	}
-	
+
 	/**
 	* Return the ABTest GA code on current request
 	* @param mixed test to show code for (if null, will check the View for ABTest variable and use that.
@@ -172,12 +173,24 @@ class SeoHelper extends AppHelper {
 		}
 		return null;
 	}
-	
+
+	/**
+	 * This is a custom helper to translate ticket_id's
+	 * into a full link into redmine based on a a config url 'abTesting.redmine'
+	 * (custom functionality you may not need)
+	 *
+	 * @param mixed $ticket_id (string or int)
+	 * @return string $html
+	 */
 	public function redmineLink($ticket_id = null){
-		if($ticket_id){
-			return $this->Html->link($ticket_id, SeoUtil::getConfig('abTesting.redmine') . $ticket_id, array('class' => 'btn btn-mini btn-info', 'target' => '_blank'));
+		if (empty($ticket_id) || !is_numeric($ticket_id)) {
+			return null;
 		}
-		return null;
+		return $this->Html->link(
+			$ticket_id,
+			SeoUtil::getConfig('abTesting.redmine') . $ticket_id,
+			array('class' => 'btn btn-mini btn-info', 'target' => '_blank')
+		);
 	}
 
 }
