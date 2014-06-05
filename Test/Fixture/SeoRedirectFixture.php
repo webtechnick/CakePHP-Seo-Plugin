@@ -19,6 +19,7 @@ class SeoRedirectFixture extends CakeTestFixture {
 		'callback' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
+		'is_nocache' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'seo_uri_id' => array('column' => 'seo_uri_id', 'unique' => 0)
@@ -40,7 +41,8 @@ class SeoRedirectFixture extends CakeTestFixture {
 			'is_active' => 1,
 			'callback' => 'Lorem ipsum dolor sit amet',
 			'created' => '2013-04-19 11:42:46',
-			'modified' => '2013-04-19 11:42:46'
+			'modified' => '2013-04-19 11:42:46',
+			'is_nocache' => 0
 		),
 		array(
 			'id' => 2,
@@ -50,7 +52,8 @@ class SeoRedirectFixture extends CakeTestFixture {
 			'is_active' => 1,
 			'callback' => 'Lorem ipsum dolor sit amet',
 			'created' => '2013-04-19 11:42:46',
-			'modified' => '2013-04-19 11:42:46'
+			'modified' => '2013-04-19 11:42:46',
+			'is_nocache' => 0
 		),
 		array(
 			'id' => 3,
@@ -60,7 +63,8 @@ class SeoRedirectFixture extends CakeTestFixture {
 			'is_active' => 1,
 			'callback' => 'Lorem ipsum dolor sit amet',
 			'created' => '2013-04-19 11:42:46',
-			'modified' => '2013-04-19 11:42:46'
+			'modified' => '2013-04-19 11:42:46',
+			'is_nocache' => 0
 		),
 		array(
 			'id' => 4,
@@ -70,7 +74,8 @@ class SeoRedirectFixture extends CakeTestFixture {
 			'is_active' => 1,
 			'callback' => 'Lorem ipsum dolor sit amet',
 			'created' => '2013-04-19 11:42:46',
-			'modified' => '2013-04-19 11:42:46'
+			'modified' => '2013-04-19 11:42:46',
+			'is_nocache' => 0
 		),
 		array(
 			'id' => 5,
@@ -80,7 +85,8 @@ class SeoRedirectFixture extends CakeTestFixture {
 			'is_active' => 1,
 			'callback' => 'Lorem ipsum dolor sit amet',
 			'created' => '2013-04-19 11:42:46',
-			'modified' => '2013-04-19 11:42:46'
+			'modified' => '2013-04-19 11:42:46',
+			'is_nocache' => 0
 		),
 		array(
 			'id' => 6,
@@ -90,7 +96,8 @@ class SeoRedirectFixture extends CakeTestFixture {
 			'is_active' => 1,
 			'callback' => 'Lorem ipsum dolor sit amet',
 			'created' => '2013-04-19 11:42:46',
-			'modified' => '2013-04-19 11:42:46'
+			'modified' => '2013-04-19 11:42:46',
+			'is_nocache' => 0
 		),
 		array(
 			'id' => 7,
@@ -100,7 +107,8 @@ class SeoRedirectFixture extends CakeTestFixture {
 			'is_active' => 1,
 			'callback' => 'Lorem ipsum dolor sit amet',
 			'created' => '2013-04-19 11:42:46',
-			'modified' => '2013-04-19 11:42:46'
+			'modified' => '2013-04-19 11:42:46',
+			'is_nocache' => 0
 		),
 		array(
 			'id' => 8,
@@ -110,7 +118,8 @@ class SeoRedirectFixture extends CakeTestFixture {
 			'is_active' => 1,
 			'callback' => 'Lorem ipsum dolor sit amet',
 			'created' => '2013-04-19 11:42:46',
-			'modified' => '2013-04-19 11:42:46'
+			'modified' => '2013-04-19 11:42:46',
+			'is_nocache' => 0
 		),
 		array(
 			'id' => 9,
@@ -120,7 +129,8 @@ class SeoRedirectFixture extends CakeTestFixture {
 			'is_active' => 1,
 			'callback' => 'Lorem ipsum dolor sit amet',
 			'created' => '2013-04-19 11:42:46',
-			'modified' => '2013-04-19 11:42:46'
+			'modified' => '2013-04-19 11:42:46',
+			'is_nocache' => 0
 		),
 		array(
 			'id' => 10,
@@ -130,7 +140,8 @@ class SeoRedirectFixture extends CakeTestFixture {
 			'is_active' => 1,
 			'callback' => 'Lorem ipsum dolor sit amet',
 			'created' => '2013-04-19 11:42:46',
-			'modified' => '2013-04-19 11:42:46'
+			'modified' => '2013-04-19 11:42:46',
+			'is_nocache' => 0
 		),
 	);
 
