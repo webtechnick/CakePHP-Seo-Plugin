@@ -1,6 +1,6 @@
 # Search Engine Optimization CakePHP Plugin
-* Author: Nick Baker, Alan Blount
-* Version: 6.1.0
+* Author: Nick Baker, Alan Blount, Matt Reishus
+* Version: 6.2.1
 * License: MIT
 * Website: <http://www.webtechnick.com>
 
@@ -17,6 +17,7 @@ Complete tool for all your CakePHP Search Engine Optimization needs
 * Google Analytics AB Testing Management based on URIs
 
 ## Changelog
+* 6.2.1 Cleaup and bug fix, no more duplicate errors. new is_nocache boolean for SeoRedirects.
 * 6.2.0 Added SeoABTesting, update your Config/seo.php file
 * 6.1.0 Added special case 200 Status Code to return noindex for easier and low bandwidth url killing than 410
 * 6.0.0 Updated for CakePHP 2.0
