@@ -21,18 +21,18 @@ class SeoHelper extends AppHelper {
 	* @param array of name => content meta tags to merge with giving priority to SEO meta tags
 	* @return string of meta tags to show.
 	*/
-	function metaTags($metaData = array()){
+	function metaTags($metaData = array()) {
 		$this->loadModel('SeoMetaTag');
 		$request = env('REQUEST_URI');
 		$meta_tags = $this->SeoMetaTag->findAllTagsByUri($request);
 		$retval = "";
 
-		foreach($meta_tags as $tag){
-			if(isset($metaData[$tag['SeoMetaTag']['name']])){
+		foreach ($meta_tags as $tag) {
+			if (isset($metaData[$tag['SeoMetaTag']['name']])) {
 				unset($metaData[$tag['SeoMetaTag']['name']]);
 			}
 			$data = array();
-			if($tag['SeoMetaTag']['is_http_equiv']){
+			if ($tag['SeoMetaTag']['is_http_equiv']) {
 				$data['http-equiv'] = $tag['SeoMetaTag']['name'];
 			}	else {
 				$data['name'] = $tag['SeoMetaTag']['name'];
@@ -41,8 +41,8 @@ class SeoHelper extends AppHelper {
 			$retval .= $this->Html->meta($data);
 		}
 
-		if(!empty($metaData)){
-			foreach($metaData as $name => $content){
+		if (!empty($metaData)) {
+			foreach ($metaData as $name => $content) {
 				$retval .= $this->Html->meta(array('name' => $name, 'content' => $content));
 			}
 		}
@@ -58,7 +58,7 @@ class SeoHelper extends AppHelper {
 	* @param boolean overwrite (will always check SeoCanonical first)
 	* @return HTMlElement of canonical link or empty string if none found/used
 	*/
-	function canonical($url = null, $full = true, $overwrite = false){
+	function canonical($url = null, $full = true, $overwrite = false) {
 		if ($overwrite || $url === null) {
 			$this->loadModel('SeoCanonical');
 			$request = env('REQUEST_URI');
@@ -82,7 +82,7 @@ class SeoHelper extends AppHelper {
 	* @param array of options
 	* @return HtmlLink to honeypot action
 	*/
-	function honeyPot($title = 'Click Here', $options = array()){
+	function honeyPot($title = 'Click Here', $options = array()) {
 		$options = array_merge(
 			array(
 				'rel' => 'nofollow',
@@ -110,7 +110,7 @@ class SeoHelper extends AppHelper {
 	* @param string default title tag
 	* @return string title for requested uri
 	*/
-	function title($default = ""){
+	function title($default = "") {
 		$this->loadModel('SeoTitle');
 		$request = env('REQUEST_URI');
 		$seo_title = $this->SeoTitle->findTitleByUri($request);
@@ -124,8 +124,8 @@ class SeoHelper extends AppHelper {
 	* @param string modelname
 	* @return void
 	*/
-	function loadModel($model = null){
-		if($model && $this->$model == null){
+	function loadModel($model = null) {
+		if ($model && $this->$model == null) {
 			App::import('Model',"Seo.$model");
 			$this->$model = ClassRegistry::init("Seo.$model");
 		}
@@ -134,7 +134,7 @@ class SeoHelper extends AppHelper {
 	/**
 	* Return the next Id to show.
 	*/
-	function nextId(){
+	function nextId() {
 		return $this->honeyPotId++;
 	}
 
@@ -146,9 +146,9 @@ class SeoHelper extends AppHelper {
 	*  - scriptBlock -- boolean if true will return scriptBlock of javascript (default false)
 	* @return string ga script test, or null
 	*/
-	public function getABTestJS($test = null, $options = array()){
-		if(!$test){
-			if(isset($this->_View->viewVars['ABTest']) && $this->_View->viewVars['ABTest']){
+	public function getABTestJS($test = null, $options = array()) {
+		if (!$test) {
+			if (isset($this->_View->viewVars['ABTest']) && $this->_View->viewVars['ABTest']) {
 				$test = $this->_View->viewVars['ABTest'];
 			}
 		}
@@ -157,16 +157,16 @@ class SeoHelper extends AppHelper {
 			'scriptBlock' => false,
 			),(array)$options
 		);
-		if($test && isset($test['SeoABTest']['slug'])){
+		if ($test && isset($test['SeoABTest']['slug'])) {
 			$category = SeoUtil::getConfig('abTesting.category');
 			$scope = SeoUtil::getConfig('abTesting.scope');
 			$slot = SeoUtil::getConfig('abTesting.slot');
-			if(SeoUtil::getConfig('abTesting.legacy')){
+			if (SeoUtil::getConfig('abTesting.legacy')) {
 				$retval = "{$options['varname']}._setCustomVar($slot,'$category','{$test['SeoABTest']['slug']}',$scope);";
 			} else {
 				$retval = "_gaq.push(['_setCustomVar',$slot,'$category','{$test['SeoABTest']['slug']}',$scope]);";
 			}
-			if($options['scriptBlock']){
+			if ($options['scriptBlock']) {
 				return $this->Html->scriptBlock($retval);
 			}
 			return $retval;
@@ -182,7 +182,7 @@ class SeoHelper extends AppHelper {
 	 * @param mixed $ticket_id (string or int)
 	 * @return string $html
 	 */
-	public function redmineLink($ticket_id = null){
+	public function redmineLink($ticket_id = null) {
 		if (empty($ticket_id) || !is_numeric($ticket_id)) {
 			return null;
 		}
