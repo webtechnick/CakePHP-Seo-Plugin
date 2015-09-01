@@ -51,6 +51,27 @@ class SeoHelper extends AppHelper {
 	}
 
 	/**
+	* Pull in the DNS prefetches if we have any
+	* @param array of dns urls to tell the browser to prefetch (default in config)
+	* @return null | html tags with dns-prefetch
+	*/
+	public function dnsPrefetch($prefetches = array()) {
+		$prefetches = array_merge(
+			SeoUtil::getConfig('dnsPrefetch'),
+			(array) $prefetches
+		);
+
+		if (empty($prefetches)) {
+			return null;
+		}
+		$retval = '';
+		foreach ($prefetches as $dns) {
+			$retval .= $this->Html->tag('link', null, array('rel' => 'dns-prefetch', 'href' => $dns));
+		}
+		return $retval;
+	}
+
+	/**
 	* Return a canonical link tag for SEO purpolses
 	* Utility method
 	* @param router friendly URL
