@@ -1,4 +1,4 @@
-<?php 
+<?php
 class SeoSchema extends CakeSchema {
 
 	public function before($event = array()) {
@@ -100,7 +100,9 @@ class SeoSchema extends CakeSchema {
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
-			'seo_uri_id' => array('column' => 'seo_uri_id', 'unique' => 0)
+			'seo_uri_id' => array('column' => 'seo_uri_id', 'unique' => 0),
+			'is_active' => array('column' => 'is_active', 'unique' => 0),
+			'priority' => array('column' => 'priority', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'MyISAM')
 	);
@@ -127,7 +129,9 @@ class SeoSchema extends CakeSchema {
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
-			'seo_uri_id' => array('column' => 'seo_uri_id', 'unique' => 0)
+			'seo_uri_id' => array('column' => 'seo_uri_id', 'unique' => 0),
+			'is_active' => array('column' => 'is_active', 'unique' => 0),
+			'priority' => array('column' => 'priority', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'MyISAM')
 	);
