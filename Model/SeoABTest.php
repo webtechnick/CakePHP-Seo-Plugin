@@ -40,8 +40,8 @@ class SeoABTest extends SeoAppModel {
 			),
 		),
 		'roll' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
 				'message' => 'Must have a roll must not be empty.',
 			),
 			'numberOrCallback' => array(
@@ -57,8 +57,8 @@ class SeoABTest extends SeoAppModel {
 			),
 		),
 		'slug' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
 				'message' => 'Must have a slug (custom Variable for GA)',
 			),
 			'noquotes' => array(
@@ -71,8 +71,8 @@ class SeoABTest extends SeoAppModel {
 			),
 		),
 		'description' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
 				'message' => 'Must have a description of the test.',
 			),
 		),
@@ -108,11 +108,11 @@ class SeoABTest extends SeoAppModel {
 			'order' => ''
 		)
 	);
-	
+
 	public $searchFields = array(
 		'SeoUri.uri', 'SeoABTest.title', 'SeoABTest.slug', 'SeoABTest.id'
 	);
-	
+
 	public $slots = array(
 		1 => 1,
 		2 => 2,
@@ -120,7 +120,7 @@ class SeoABTest extends SeoAppModel {
 		4 => 4,
 		5 => 5,
 	);
-	
+
 	/**
 	* Validate there are no ' marks in the slug
 	* @return boolean success
@@ -131,7 +131,7 @@ class SeoABTest extends SeoAppModel {
 		}
 		return true;
 	}
-	
+
 	function testableValidation(){
 		if(isset($this->data[$this->alias]['testable'])){
 			$testable = $this->data[$this->alias]['testable'];
@@ -142,7 +142,7 @@ class SeoABTest extends SeoAppModel {
 		}
 		return true;
 	}
-	
+
 	/**
 	* Validate the roll is a number between 1 and 100, or is a callback to a Model::function syntax
 	* @return boolean success
@@ -161,7 +161,7 @@ class SeoABTest extends SeoAppModel {
 		}
 		return true;
 	}
-	
+
 	/**
 	* Check if SEO already exists, if so, unset it and set the ID then save.
 	*/
@@ -169,7 +169,7 @@ class SeoABTest extends SeoAppModel {
 		$this->createOrSetUri();
 		return true;
 	}
-	
+
 	/**
 	* Rolls the test roll.
 	* @param mixed string roll, int roll, or array test
@@ -189,7 +189,7 @@ class SeoABTest extends SeoAppModel {
 		}
 		return false;
 	}
-	
+
 	/**
 	* Take in a test and decide if it's testable.
 	* @param mixed string testable or array of test
@@ -207,7 +207,7 @@ class SeoABTest extends SeoAppModel {
 		}
 		return true;
 	}
-	
+
 	/**
 	* Find a test and roll to use it.
 	* @param string request (default to env('REQUEST_URI') if left null)
@@ -221,7 +221,7 @@ class SeoABTest extends SeoAppModel {
 		}
 		return false;
 	}
-	
+
 	/**
 	* Decide if we have a test for this request
 	* @param string request (optional will default to REQUEST_URI
@@ -271,7 +271,7 @@ class SeoABTest extends SeoAppModel {
 		))){
 			return $test;
 		}
-		
+
 		//Check Many to Many and Many to One
 		$cacheEngine = SeoUtil::getConfig('cacheEngine');
 		if (!empty($cacheEngine)) {

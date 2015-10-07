@@ -10,13 +10,13 @@ class SeoSearchTerm extends SeoAppModel {
 	var $displayField = 'term';
 	var $validate = array(
 		'term' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
 			),
 		),
 		'uri' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
 			),
 		),
 		'count' => array(
@@ -25,9 +25,9 @@ class SeoSearchTerm extends SeoAppModel {
 			),
 		),
 	);
-	
+
 	/**
-	* Take the incomming request referrer and decide if we should save this term in our 
+	* Take the incomming request referrer and decide if we should save this term in our
 	* database
 	* @param incoming request usually $this->here
 	* @return void
@@ -74,7 +74,7 @@ class SeoSearchTerm extends SeoAppModel {
 			}
 		}
 	}
-	
+
 	/**
 	* Pull out random terms
 	* @param int limit
@@ -86,7 +86,7 @@ class SeoSearchTerm extends SeoAppModel {
 			'order' => 'RAND()'
 		));
 	}
-	
+
 	/**
 	* Find the top terms
 	* @param int limit
@@ -98,7 +98,7 @@ class SeoSearchTerm extends SeoAppModel {
 			'order' => 'SeoSearchTerm.count DESC'
 		));
 	}
-	
+
 	/**
 	* Itterate the count on a specific term.
 	* @param int id (optional)
