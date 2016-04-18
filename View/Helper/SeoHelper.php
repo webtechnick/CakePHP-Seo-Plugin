@@ -210,7 +210,7 @@ class SeoHelper extends AppHelper {
 		return $this->Html->link(
 			$ticket_id,
 			SeoUtil::getConfig('abTesting.redmine') . $ticket_id,
-			array('class' => 'btn btn-mini btn-info', 'target' => '_blank')
+			array('class' => 'btn btn-xs btn-info', 'target' => '_blank')
 		);
 	}
 

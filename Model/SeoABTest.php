@@ -12,7 +12,7 @@ class SeoABTest extends SeoAppModel {
  *
  * @var string
  */
-	public $displayField = 'title';
+	public $displayField = 'slug';
 
 /**
  * Validation rules
@@ -110,7 +110,7 @@ class SeoABTest extends SeoAppModel {
 	);
 
 	public $searchFields = array(
-		'SeoUri.uri', 'SeoABTest.title', 'SeoABTest.slug', 'SeoABTest.id'
+		'SeoUri.uri', 'SeoABTest.description', 'SeoABTest.slug', 'SeoABTest.id'
 	);
 
 	public $slots = array(
