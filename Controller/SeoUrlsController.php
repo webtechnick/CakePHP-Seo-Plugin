@@ -40,29 +40,33 @@ class SeoUrlsController extends SeoAppController {
 		}
 		if (!empty($this->data)) {
 			if ($this->SeoUrl->save($this->data)) {
-				$this->Session->setFlash(__('The seo url has been saved'));
+				$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
+				$this->Session->setFlash(__('The seo url has been saved'), $goodFlash);
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The seo url could not be saved. Please, try again.'));
+				$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
+				$this->Session->setFlash(__('The seo url could not be saved. Please, try again.'), $badFlash);
 			}
 		}
 		if (empty($this->data)) {
-			$this->data = $this->SeoUrl->findForViewById($id);
+			$this->data = $this->SeoUrl->findById($id);
 		}
-		$this->set('status_codes', $this->SeoUrl->SeoStatusCode->findCodeList());
 		$this->set('id', $id);
 	}
 
 	function admin_delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for seo url'));
+			$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
+			$this->Session->setFlash(__('Invalid id for seo url'), $badFlash);
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->SeoUrl->delete($id)) {
-			$this->Session->setFlash(__('Seo url deleted'));
+			$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
+			$this->Session->setFlash(__('Seo url deleted'), $goodFlash);
 			$this->redirect(array('action'=>'index'));
 		}
-		$this->Session->setFlash(__('Seo url was not deleted'));
+		$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
+		$this->Session->setFlash(__('Seo url was not deleted'), $badFlash);
 		$this->redirect(array('action' => 'index'));
 	}
 	

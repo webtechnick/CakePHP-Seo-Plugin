@@ -32,52 +32,63 @@ class SeoBlacklistsController extends SeoAppController {
 
 	function admin_view($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid seo blacklist'));
+			$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
+			$this->Session->setFlash(__('Invalid seo blacklist'), $badFlash);
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('seoBlacklist', $this->SeoBlacklist->read(null, $id));
+		$this->set('id', $id);
 	}
 
 	function admin_add() {
 		if (!empty($this->data)) {
 			$this->SeoBlacklist->clear();
 			if ($this->SeoBlacklist->save($this->data)) {
-				$this->Session->setFlash(__('The seo blacklist has been saved'));
+				$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
+				$this->Session->setFlash(__('The seo blacklist has been saved'), $goodFlash);
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The seo blacklist could not be saved. Please, try again.'));
+				$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
+				$this->Session->setFlash(__('The seo blacklist could not be saved. Please, try again.'), $badFlash);
 			}
 		}
 	}
 
 	function admin_edit($id = null) {
 		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid seo blacklist'));
+			$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
+			$this->Session->setFlash(__('Invalid seo blacklist'), $badFlash);
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
 			if ($this->SeoBlacklist->save($this->data)) {
-				$this->Session->setFlash(__('The seo blacklist has been saved'));
+				$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
+				$this->Session->setFlash(__('The seo blacklist has been saved'), $goodFlash);
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The seo blacklist could not be saved. Please, try again.'));
+				$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
+				$this->Session->setFlash(__('The seo blacklist could not be saved. Please, try again.'), $badFlash);
 			}
 		}
 		if (empty($this->data)) {
 			$this->data = $this->SeoBlacklist->read(null, $id);
 		}
+		$this->set('id', $id);
 	}
 
 	function admin_delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for seo blacklist'));
+			$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
+			$this->Session->setFlash(__('Invalid id for seo blacklist'), $badFlash);
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->SeoBlacklist->delete($id)) {
-			$this->Session->setFlash(__('Seo blacklist deleted'));
+			$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
+			$this->Session->setFlash(__('Seo blacklist deleted'), $goodFlash);
 			$this->redirect(array('action'=>'index'));
 		}
-		$this->Session->setFlash(__('Seo blacklist was not deleted'));
+		$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
+		$this->Session->setFlash(__('Seo blacklist was not deleted'), $badFlash);
 		$this->redirect(array('action' => 'index'));
 	}
 }
