@@ -220,12 +220,12 @@ class SeoAppError {
 class SeoExceptionHandler extends HttpException {
 	public static function handle($error, $message = null){
 		$SeoAppError = new SeoAppError();
-		if($error->code == 404){
+		if($error->getCode() == 404){
 			$SeoAppError->catch404();
 			$SeoAppError->runLevenshtein();
 		}
 		
-		$text = $message ? $message : $error->message;
+		$text = $message ? $message : $error->getMessage();
 		ErrorHandler::handleException($error);
 	}
 }
