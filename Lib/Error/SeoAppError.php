@@ -72,8 +72,6 @@ class SeoAppError {
 				if($test){
 					return $code;
 				}
-				Configure::write('debug', 0);
-				header("Status: $code " . $this->SeoStatusCode->codes[$code], true, $code);
 				if($code == 200){
 					echo '<!doctype html>
 					<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -85,13 +83,32 @@ class SeoAppError {
 						<body></body>
 					</html>';
 				}
-				die();
+				$this->executeStatusCode($code);
 			}
 		}
 	}
 
 	/**
-	* Go through the uri to redirect database and see if we've hit a
+	* Actually execute the status code.
+	*/
+	function executeStatusCode($code) {
+		Configure::write('debug', 0);
+		$this->__loadModel('SeoStatusCode');
+		header("Status: $code " . $this->SeoStatusCode->codes[$code], true, $code);
+		die($this->SeoStatusCode->codes[$code]);
+		if ($code == 410) {
+			throw new GoneExecption();
+		}
+		if ($code == 404) {
+			throw new NotFoundException();
+		}
+		if ($code == 500) {
+			throw new InternalErrorException();
+		}
+	}
+	
+	/**
+	* Go through the uri to redirect database and see if we've hit a 
 	* 301 that we've set up.
 	* @return void
 	*/
@@ -206,12 +223,22 @@ class SeoAppError {
 class SeoExceptionHandler extends HttpException {
 	public static function handle($error, $message = null){
 		$SeoAppError = new SeoAppError();
-		if($error->code == 404){
+		if($error->getCode() == 404){
 			$SeoAppError->catch404();
 			$SeoAppError->runLevenshtein();
 		}
-
-		$text = $message ? $message : $error->message;
+		$text = $message ? $message : $error->getMessage();
 		ErrorHandler::handleException($error);
+	}
+}
+/**
+* Seo410Gone Exception
+*/
+class GoneExecption extends HttpException {
+	public function __construct($message = null, $code = 410) {
+		if (empty($message)) {
+			$message = 'Gone';
+		}
+		parent::__construct($message, $code);
 	}
 }

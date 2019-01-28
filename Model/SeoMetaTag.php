@@ -10,14 +10,14 @@ class SeoMetaTag extends SeoAppModel {
 			),
 		),
 		'name' => array(
-			'notempty' => array(
-				'rule' => array('notEmpty'),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
 				'message' => 'Name must be present.',
 			),
 		),
 		'content' => array(
-			'notempty' => array(
-				'rule' => array('notEmpty'),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
 				'message' => 'Content must be present.',
 			),
 		),
@@ -34,19 +34,19 @@ class SeoMetaTag extends SeoAppModel {
 			'foreignKey' => 'seo_uri_id',
 		)
 	);
-	
+
 	/**
 	* Filter fields
 	*/
 	var $searchFields = array(
 		'SeoMetaTag.name','SeoMetaTag.content','SeoMetaTag.id','SeoUri.uri'
 	);
-	
+
 	function beforeSave($options = array()){
 		$this->createOrSetUri();
 		return true;
 	}
-	
+
 	/**
 	* Find all the tags by a specific reuqest,
 	* This takes in a request URI and finds all matching meta_tags for this URI
@@ -61,24 +61,24 @@ class SeoMetaTag extends SeoAppModel {
 			),
 			'contain' => array("{$this->SeoUri->alias}.uri")
 		));
-		
+
 		if(!empty($retval)){
 			return $retval;
 		}
-		
+
 		$uri_ids = $this->SeoUri->findRegexUri($request);
-		
+
 		if(empty($uri_ids)){
 			return array();
 		}
-		
+
 		$retval = $this->find('all', array(
 			'conditions' => array(
 				"{$this->alias}.seo_uri_id" => $uri_ids
 			),
 			'contain' => array()
 		));
-		
+
 		return $retval;
 	}
 }

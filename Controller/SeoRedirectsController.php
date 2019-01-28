@@ -15,7 +15,8 @@ class SeoRedirectsController extends SeoAppController {
 	
 	function admin_view($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid seo redirect'));
+			$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
+			$this->Session->setFlash(__('Invalid seo redirect'), $badFlash);
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('seoRedirect', $this->SeoRedirect->read(null, $id));
@@ -26,25 +27,30 @@ class SeoRedirectsController extends SeoAppController {
 		if (!empty($this->data)) {
 			$this->SeoRedirect->clear();
 			if ($this->SeoRedirect->save($this->data)) {
-				$this->Session->setFlash(__('The seo redirect has been saved'));
+				$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
+				$this->Session->setFlash(__('The seo redirect has been saved'), $goodFlash);
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The seo redirect could not be saved. Please, try again.'));
+				$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
+				$this->Session->setFlash(__('The seo redirect could not be saved. Please, try again.'), $badFlash);
 			}
 		}
 	}
 
 	function admin_edit($id = null) {
 		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid seo redirect'));
+			$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
+			$this->Session->setFlash(__('Invalid seo redirect'), $badFlash);
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
 			if ($this->SeoRedirect->save($this->data)) {
-				$this->Session->setFlash(__('The seo redirect has been saved'));
+				$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
+				$this->Session->setFlash(__('The seo redirect has been saved'), $goodFlash);
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The seo redirect could not be saved. Please, try again.'));
+				$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
+				$this->Session->setFlash(__('The seo redirect could not be saved. Please, try again.'), $badFlash);
 			}
 		}
 		if (empty($this->data)) {
@@ -55,14 +61,17 @@ class SeoRedirectsController extends SeoAppController {
 
 	function admin_delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for seo redirect'));
+			$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
+			$this->Session->setFlash(__('Invalid id for seo redirect'), $badFlash);
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->SeoRedirect->delete($id)) {
-			$this->Session->setFlash(__('Seo redirect deleted'));
+			$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
+			$this->Session->setFlash(__('Seo redirect deleted'), $goodFlash);
 			$this->redirect(array('action'=>'index'));
 		}
-		$this->Session->setFlash(__('Seo redirect was not deleted'));
+		$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
+		$this->Session->setFlash(__('Seo redirect was not deleted'), $badFlash);
 		$this->redirect(array('action' => 'index'));
 	}
 }
