@@ -16,7 +16,7 @@ class SeoStatusCodesController extends SeoAppController {
 	function admin_view($id = null) {
 		if (!$id) {
 			$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-			$this->Session->setFlash(__('Invalid seo status code'), $badFlash);
+			$this->Flash->set(__('Invalid seo status code'), $badFlash);
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('seoStatusCode', $this->SeoStatusCode->read(null, $id));
@@ -28,11 +28,11 @@ class SeoStatusCodesController extends SeoAppController {
 			$this->SeoStatusCode->clear();
 			if ($this->SeoStatusCode->save($this->data)) {
 				$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
-				$this->Session->setFlash(__('The seo status code has been saved'), $goodFlash);
+				$this->Flash->set(__('The seo status code has been saved'), $goodFlash);
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-				$this->Session->setFlash(__('The seo status code could not be saved. Please, try again.'), $badFlash);
+				$this->Flash->set(__('The seo status code could not be saved. Please, try again.'), $badFlash);
 			}
 		}
 		$this->set('status_codes', $this->SeoStatusCode->findCodeList());
@@ -41,17 +41,17 @@ class SeoStatusCodesController extends SeoAppController {
 	function admin_edit($id = null) {
 		if (!$id && empty($this->data)) {
 			$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-			$this->Session->setFlash(__('Invalid seo status code'), $badFlash);
+			$this->Flash->set(__('Invalid seo status code'), $badFlash);
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
 			if ($this->SeoStatusCode->save($this->data)) {
 				$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
-				$this->Session->setFlash(__('The seo status code has been saved'), $goodFlash);
+				$this->Flash->set(__('The seo status code has been saved'), $goodFlash);
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-				$this->Session->setFlash(__('The seo status code could not be saved. Please, try again.'), $badFlash);
+				$this->Flash->set(__('The seo status code could not be saved. Please, try again.'), $badFlash);
 			}
 		}
 		if (empty($this->data)) {
@@ -64,16 +64,16 @@ class SeoStatusCodesController extends SeoAppController {
 	function admin_delete($id = null) {
 		if (!$id) {
 			$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-			$this->Session->setFlash(__('Invalid id for seo status code'), $badFlash);
+			$this->Flash->set(__('Invalid id for seo status code'), $badFlash);
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->SeoStatusCode->delete($id)) {
 			$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
-			$this->Session->setFlash(__('Seo status code deleted'), $goodFlash);
+			$this->Flash->set(__('Seo status code deleted'), $goodFlash);
 			$this->redirect(array('action'=>'index'));
 		}
 		$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-		$this->Session->setFlash(__('Seo status code was not deleted'), $badFlash);
+		$this->Flash->set(__('Seo status code was not deleted'), $badFlash);
 		$this->redirect(array('action' => 'index'));
 	}
 }
