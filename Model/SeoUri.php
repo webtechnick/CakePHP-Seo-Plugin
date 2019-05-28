@@ -74,8 +74,8 @@ class SeoUri extends SeoAppModel {
 				'rule' => array('isUnique'),
 				'message' => 'Must be a unique url'
 			),
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
 				'message' => 'Uri Must be present'
 			)
 		)
@@ -268,7 +268,7 @@ class SeoUri extends SeoAppModel {
 				");
 		}
 	}
-	
+
 	/**
 	 * Given a request, see if the uri matches.
 	 * @param string request

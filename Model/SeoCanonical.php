@@ -10,8 +10,8 @@ class SeoCanonical extends SeoAppModel {
 			),
 		),
 		'canonical' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
 				'message' => 'A canonical link must be entered',
 			),
 		),
@@ -30,14 +30,14 @@ class SeoCanonical extends SeoAppModel {
 			'foreignKey' => 'seo_uri_id',
 		)
 	);
-	
+
 	/**
 	* Filter fields
 	*/
 	var $searchFields = array(
 		'SeoCanonical.id','SeoCanonical.canonical','SeoUri.uri'
 	);
-	
+
 	/**
 	* Assign or create the url.
 	*/
@@ -45,7 +45,7 @@ class SeoCanonical extends SeoAppModel {
 		$this->createOrSetUri();
 		return true;
 	}
-	
+
 	/**
 	* Find the first canonical link that matches this requesting URI
 	* @param string incoming reuqest uri

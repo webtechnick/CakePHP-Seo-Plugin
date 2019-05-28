@@ -6,7 +6,7 @@
 * @since 2.0
 * @license MIT
 */
-class SeoUtil extends Object {
+class SeoUtil extends CakeObject {
 
 	/**
 	* Seo configurations stored in

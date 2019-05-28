@@ -5,8 +5,8 @@ class SeoUrl extends SeoAppModel {
 	var $displayField = 'url';
 	var $validate = array(
 		'url' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
 				'message' => 'Must not be empty',
 			),
 			'unique' => array(
@@ -15,14 +15,14 @@ class SeoUrl extends SeoAppModel {
 			)
 		),
 	);
-	
+
 	var $searchFields = array('SeoUrl.id','SeoUrl.url');
-	
+
 	/**
 	* Configuration settings
-	*/ 
+	*/
 	var $settings = array();
-	
+
 	/**
 	* Load the settings
 	*/
@@ -30,7 +30,7 @@ class SeoUrl extends SeoAppModel {
 		parent::__construct($id, $table, $ds);
 		$this->settings = SeoUtil::getConfig('levenshtein');
 	}
-	
+
 	/**
 	* Import a set of valid URLS from a sitemap
 	*
@@ -48,7 +48,7 @@ class SeoUrl extends SeoAppModel {
 			if($clear_all){
 				$this->deleteAll(1);
 			}
-			
+
 			$xml = simplexml_load_file($this->getPathToSiteMap());
 			foreach($xml->url as $url){
 				$this->clear();
@@ -65,17 +65,17 @@ class SeoUrl extends SeoAppModel {
 					debug($this->validationErrors);
 				}
 			}
-			
+
 		}
 		return $count;
 	}
-	
-	
+
+
 	/**
 	* Use levenshtein's distance to decide what "good" url is most closest to the incomming request
 	*
 	* @param string request
-	* @return array of result 
+	* @return array of result
 	* - redirect the actually redirect to point to
 	* - shortest how close this came
 	*/
@@ -85,20 +85,20 @@ class SeoUrl extends SeoAppModel {
 				'redirect' => '/',
 				'shortest' => -1
 			);
-			
+
 			//Run import if we have no urls to look at.
 			if($this->find('count') == 0){
 				if($this->import() == 0){
 					return $retval;
 				}
 			}
-			
+
 			$urls = $this->find('all', array(
 				'fields' => array('SeoUrl.url'),
 				'recursive' => -1,
 				'order' => 'SeoUrl.priority ASC'
 			));
-			
+
 			foreach($urls as $url){
 				//Less efficent to use constants, if they're all the same don't use them
 				if($this->settings['cost_add'] == $this->settings['cost_change'] && $this->settings['cost_change'] == $this->settings['cost_delete']){
@@ -119,7 +119,7 @@ class SeoUrl extends SeoAppModel {
 		}
 		return false;
 	}
-	
+
 	/**
 	* Get the file out of the source config
 	*
@@ -127,7 +127,7 @@ class SeoUrl extends SeoAppModel {
 	*/
 	private function getPathToSiteMap(){
 		if(strpos($this->settings['source'], '/') === 0){
-			return WWW_ROOT . substr($this->settings['source'], 1, strlen($this->settings['source'])); 
+			return WWW_ROOT . substr($this->settings['source'], 1, strlen($this->settings['source']));
 		}
 		else {
 			return $this->settings['source'];

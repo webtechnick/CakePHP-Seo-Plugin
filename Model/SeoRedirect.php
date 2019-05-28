@@ -4,8 +4,8 @@ class SeoRedirect extends SeoAppModel {
 	var $displayField = 'uri';
 	var $validate = array(
 		'redirect' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
 				'message' => 'Redirect must not be empty',
 			),
 		),

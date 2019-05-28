@@ -35,8 +35,8 @@ class SeoTitle extends SeoAppModel {
 			)
 		),
 		'title' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
 				'message' => 'Title must be present',
 			),
 		),

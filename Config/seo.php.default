@@ -22,7 +22,7 @@ $config = array(
     	'threshold' => 5, //-1 to ALWAYS find the closest match
     	'cost_add' => 1, //cost to add a character, higher the amount the less you can add to find a match
     	'cost_change' => 1, //cost to change a character, higher the amount the less you can change to find a match
-    	'cost_delete' => 1, //cost to delete a character, higher the ammount the less you can delete to find a match 
+    	'cost_delete' => 1, //cost to delete a character, higher the ammount the less you can delete to find a match
     	'source' => '/sitemap.xml' //URL to list of urls in a sitemap
     ),
     'abTesting' => array(
@@ -32,6 +32,15 @@ $config = array(
     	'legacy' => false, //Uses Legacy verion of Google Analytics JS code pageTracker._setCustomVar(...)
     	'session' => true, //will use sessions to store tests for users who've already seen them.
     	'redmine' => false, //or the full URL if your redmine http://www.redmine-example.com/issues/
-    )
+    ),
+    'dnsPrefetch' => array(
+        //Default prefixes Examples. make sure to start each one with // or http:// or https://
+        //'//use.typekit.net',
+        //'//maps.google.com',
+        //'//fonts.googleapis.com',
+        //'//maps.googleapis.com',
+        //'//www.google-analytics.com',
+        //'//www.googletagmanager.com',
+    ),
   )
 );
