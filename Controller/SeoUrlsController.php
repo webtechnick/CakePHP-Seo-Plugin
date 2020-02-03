@@ -2,7 +2,7 @@
 class SeoUrlsController extends SeoAppController {
 
 	var $name = 'SeoUrls';
-	
+
 	function admin_index($filter = null) {
 		if(!empty($this->data)){
 			$filter = $this->data['SeoUrl']['filter'];
@@ -14,7 +14,7 @@ class SeoUrlsController extends SeoAppController {
 
 	function admin_view($id = null) {
 		if (!$id) {
-			$this->Flash->set(__('Invalid seo url'));
+			$this->badFlash(__('Invalid seo url'));
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('seoUri', $this->SeoUrl->findById($id));
@@ -25,27 +25,25 @@ class SeoUrlsController extends SeoAppController {
 		if (!empty($this->data)) {
 			$this->SeoUrl->clear();
 			if ($this->SeoUrl->saveAll($this->data)) {
-				$this->Flash->set(__('The seo url has been saved'));
+				$this->goodFlash(__('The seo url has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Flash->set(__('The seo url could not be saved. Please, try again.'));
+				$this->badFlash(__('The seo url could not be saved. Please, try again.'));
 			}
 		}
 	}
 
 	function admin_edit($id = null) {
 		if (!$id && empty($this->data)) {
-			$this->Flash->set(__('Invalid seo url'));
+			$this->badFlash(__('Invalid seo url'));
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
 			if ($this->SeoUrl->save($this->data)) {
-				$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
-				$this->Flash->set(__('The seo url has been saved'), $goodFlash);
+				$this->goodFlash(__('The seo url has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-				$this->Flash->set(__('The seo url could not be saved. Please, try again.'), $badFlash);
+				$this->badFlash(__('The seo url could not be saved. Please, try again.'));
 			}
 		}
 		if (empty($this->data)) {
@@ -56,26 +54,23 @@ class SeoUrlsController extends SeoAppController {
 
 	function admin_delete($id = null) {
 		if (!$id) {
-			$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-			$this->Flash->set(__('Invalid id for seo url'), $badFlash);
+			$this->badFlash(__('Invalid id for seo url'));
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->SeoUrl->delete($id)) {
-			$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
-			$this->Flash->set(__('Seo url deleted'), $goodFlash);
+			$this->goodFlash(__('Seo url deleted'));
 			$this->redirect(array('action'=>'index'));
 		}
-		$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-		$this->Flash->set(__('Seo url was not deleted'), $badFlash);
+		$this->badFlash(__('Seo url was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
-	
+
 	function admin_approve($id = null){
-	  if(!$id) {
-			$this->Flash->set(__('Invalid id for seo url'));
+		if(!$id) {
+			$this->badFlash(__('Invalid id for seo url'));
 		}
 		elseif($this->SeoUrl->setApproved($id)) {
-			$this->Flash->set(__('Seo Uri approved'));
+			$this->goodFlash(__('Seo Uri approved'));
 		}
 		$this->redirect(array('admin' => true, 'action' => 'index'));
 	}

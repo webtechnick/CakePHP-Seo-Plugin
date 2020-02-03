@@ -2,7 +2,7 @@
 class SeoCanonicalsController extends SeoAppController {
 
 	var $name = 'SeoCanonicals';
-	
+
 	var $helpers = array('Time');
 
 	function admin_index($filter = null) {
@@ -16,8 +16,7 @@ class SeoCanonicalsController extends SeoAppController {
 
 	function admin_view($id = null) {
 		if (!$id) {
-			$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-			$this->Flash->set(__('Invalid seo canonical'), $badFlash);
+			$this->badFlash(__('Invalid seo canonical'));
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('seoCanonical', $this->SeoCanonical->read(null, $id));
@@ -28,30 +27,25 @@ class SeoCanonicalsController extends SeoAppController {
 		if (!empty($this->data)) {
 			$this->SeoCanonical->clear();
 			if ($this->SeoCanonical->save($this->data)) {
-				$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
-				$this->Flash->set(__('The seo canonical has been saved'), $goodFlash);
+				$this->goodFlash(__('The seo canonical has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-				$this->Flash->set(__('The seo canonical could not be saved. Please, try again.'), $badFlash);
+				$this->badFlash(__('The seo canonical could not be saved. Please, try again.'));
 			}
 		}
 	}
 
 	function admin_edit($id = null) {
 		if (!$id && empty($this->data)) {
-			$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-			$this->Flash->set(__('Invalid seo canonical'), $badFlash);
+			$this->badFlash(__('Invalid seo canonical'));
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
 			if ($this->SeoCanonical->save($this->data)) {
-				$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
-				$this->Flash->set(__('The seo canonical has been saved'), $goodFlash);
+				$this->goodFlash(__('The seo canonical has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-				$this->Flash->set(__('The seo canonical could not be saved. Please, try again.'), $badFlash);
+				$this->badFlash(__('The seo canonical could not be saved. Please, try again.'));
 			}
 		}
 		if (empty($this->data)) {
@@ -62,17 +56,14 @@ class SeoCanonicalsController extends SeoAppController {
 
 	function admin_delete($id = null) {
 		if (!$id) {
-			$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-			$this->Flash->set(__('Invalid id for seo canonical'), $badFlash);
+			$this->badFlash(__('Invalid id for seo canonical'));
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->SeoCanonical->delete($id)) {
-			$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
-			$this->Flash->set(__('Seo canonical deleted'), $goodFlash);
+			$this->goodFlash(__('Seo canonical deleted'));
 			$this->redirect(array('action'=>'index'));
 		}
-		$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-		$this->Flash->set(__('Seo canonical was not deleted'), $badFlash);
+		$this->badFlash(__('Seo canonical was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
 }

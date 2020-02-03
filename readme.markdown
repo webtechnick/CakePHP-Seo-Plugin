@@ -37,7 +37,7 @@ Complete tool for all your CakePHP Search Engine Optimization needs
 
 Clone the repository into your `app/Plugin/Seo` directory:
 
-	$ git clone git://github.com/webtechnick/CakePHP-Seo-Plugin.git app/Plugin/Seo
+	$ git clone git@github.com:AudiologyHoldings/CakePHP-Seo-Plugin.git app/Plugin/Seo
 
 Run the schema into your database:
 
