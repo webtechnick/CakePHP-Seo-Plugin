@@ -3,7 +3,7 @@ class SeoTitlesController extends SeoAppController {
 
 	var $name = 'SeoTitles';
 	var $helpers = array('Time');
-	
+
 	function admin_index($filter = null) {
 		if(!empty($this->data)){
 			$filter = $this->data['SeoTitle']['filter'];
@@ -15,8 +15,7 @@ class SeoTitlesController extends SeoAppController {
 
 	function admin_view($id = null) {
 		if (!$id) {
-			$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-			$this->Session->setFlash(__('Invalid seo title'), $badFlash);
+			$this->badFlash(__('Invalid seo title'));
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('seoTitle', $this->SeoTitle->read(null, $id));
@@ -27,12 +26,10 @@ class SeoTitlesController extends SeoAppController {
 		if (!empty($this->data)) {
 			$this->SeoTitle->clear();
 			if ($this->SeoTitle->save($this->data)) {
-				$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
-				$this->Session->setFlash(__('The seo title has been saved'), $goodFlash);
+				$this->goodFlash(__('The seo title has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-				$this->Session->setFlash(__('The seo title could not be saved. Please, try again.'), $badFlash);
+				$this->badFlash(__('The seo title could not be saved. Please, try again.'));
 			}
 		}
 		$seoUris = $this->SeoTitle->SeoUri->find('list');
@@ -41,18 +38,15 @@ class SeoTitlesController extends SeoAppController {
 
 	function admin_edit($id = null) {
 		if (!$id && empty($this->data)) {
-			$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-			$this->Session->setFlash(__('Invalid seo title'), $badFlash);
+			$this->badFlash(__('Invalid seo title'));
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
 			if ($this->SeoTitle->save($this->data)) {
-				$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
-				$this->Session->setFlash(__('The seo title has been saved'), $goodFlash);
+				$this->goodFlash(__('The seo title has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-				$this->Session->setFlash(__('The seo title could not be saved. Please, try again.'), $badFlash);
+				$this->badFlash(__('The seo title could not be saved. Please, try again.'));
 			}
 		}
 		if (empty($this->data)) {
@@ -65,17 +59,14 @@ class SeoTitlesController extends SeoAppController {
 
 	function admin_delete($id = null) {
 		if (!$id) {
-			$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-			$this->Session->setFlash(__('Invalid id for seo title'), $badFlash);
+			$this->badFlash(__('Invalid id for seo title'));
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->SeoTitle->delete($id)) {
-			$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
-			$this->Session->setFlash(__('Seo title deleted'), $goodFlash);
+			$this->goodFlash(__('Seo title deleted'));
 			$this->redirect(array('action'=>'index'));
 		}
-		$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-		$this->Session->setFlash(__('Seo title was not deleted'), $badFlash);
+		$this->badFlash(__('Seo title was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
 }

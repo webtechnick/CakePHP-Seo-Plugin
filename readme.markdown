@@ -17,6 +17,7 @@ Complete tool for all your CakePHP Search Engine Optimization needs
 * Google Analytics AB Testing Management based on URIs
 
 ## Changelog
+* 6.2.2 Added disableNotifications option for Config/seo.php file
 * 6.2.1 Cleaup and bug fix, no more duplicate errors. new is_nocache boolean for SeoRedirects.
 * 6.2.0 Added SeoABTesting, update your Config/seo.php file
 * 6.1.0 Added special case 200 Status Code to return noindex for easier and low bandwidth url killing than 410
@@ -37,7 +38,7 @@ Complete tool for all your CakePHP Search Engine Optimization needs
 
 Clone the repository into your `app/Plugin/Seo` directory:
 
-	$ git clone git://github.com/webtechnick/CakePHP-Seo-Plugin.git app/Plugin/Seo
+	$ git clone git@github.com:AudiologyHoldings/CakePHP-Seo-Plugin.git app/Plugin/Seo
 
 Run the schema into your database:
 
@@ -75,7 +76,8 @@ Create the file `app/Config/seo.php` with the following configurations like so:
 				'legacy' => false, //Uses Legacy verion of Google Analytics JS code pageTracker._setCustomVar(...)
 				'session' => true, //will use sessions to store tests for users who've already seen them.
 				'redmine' => false, //or the full URL if your redmine http://www.redmine-example.com/issues/
-			)
+			),
+			'disableNotifications' => false // Disable notifications
 		)
 	);
 

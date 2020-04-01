@@ -11,19 +11,19 @@ App::uses('Controller', 'Controller');
 App::uses('CakeResponse', 'Network');
 App::uses('SeoUri','Seo.Model');
 class SeoAppError {
-	
+
 	var $SeoRedirect = null;
 	var $SeoStatusCode = null;
 	var $SeoUrl = null;
 	var $SeoUri = null;
-	
+
 	/**
 	* Overload constructor so we can test it properly
 	*/
 	function __construct($test = false){
 		$this->controller = new Controller(null, new CakeResponse);
 	}
-	
+
 	/**
 	* Helper method for use in the application to catch 404 errors if needed
 	* $this->cakeError('catch404');
@@ -32,14 +32,14 @@ class SeoAppError {
 		$this->__uriToStatusCode();
 		$this->__uriToRedirect();
 	}
-	
+
 	/**
 	* Update to levenshtien
 	*/
 	function runLevenshtein(){
 		$this->__uriToLevenshtein();
 	}
-	
+
 	/**
 	* Returns if the incomming request matches the seo_uri defined.
 	* @param incomming request
@@ -49,7 +49,7 @@ class SeoAppError {
 	function requestMatch($request, $uri){
 		return SeoUtil::requestMatch($request, $uri);
 	}
-	
+
 	/**
 	* Go through the uri to StatusCode database and see if we've hit a match that we've setup
 	* @param if testing, return the status code instead of setting it.
@@ -73,7 +73,7 @@ class SeoAppError {
 					return $code;
 				}
 				if($code == 200){
-					echo '<!doctype html> 
+					echo '<!doctype html>
 					<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 						<head>
 							<title>&nbsp;</title>
@@ -87,7 +87,7 @@ class SeoAppError {
 			}
 		}
 	}
-	
+
 	/**
 	* Actually execute the status code.
 	*/
@@ -124,7 +124,7 @@ class SeoAppError {
 			$uri = $seo_redirect['SeoUri']['uri'];
 			$redirect = $seo_redirect['SeoRedirect']['redirect'];
 			$callback = $seo_redirect['SeoRedirect']['callback'];
-			
+
 			if (!$this->requestMatch($request, $uri)) {
 				continue;
 			}
@@ -132,7 +132,7 @@ class SeoAppError {
 			if ($this->SeoRedirect->isRegEx($uri)) {
 				$redirect = preg_replace($uri, $redirect, $request);
 			}
-			
+
 			// Run callback if we have one
 			if (!empty($callback)) {
 				if (strpos($callback, '::') !== false) {
@@ -147,9 +147,12 @@ class SeoAppError {
 					// if we have false as the retval, do NOT run the redirect
 					return;
 				}
-				$redirect = str_replace('{callback}', $callback_retval, $redirect);
+                if (is_array($callback_retval)) {  // RM#15491
+                    $callback_retval = Router::url($callback_retval);  // Array->string
+                }
+                $redirect = str_replace('{callback}', $callback_retval, $redirect);
 			}
-			
+
 			// Look for loops.
 			if ($redirect == $request) {
 				if (SeoUtil::getConfig('log')) {
@@ -178,9 +181,9 @@ class SeoAppError {
 			return;
 		}
 	}
-	
+
 	/**
-	* Go through the uri to levenshtein url database and find the closest redirect based in sitemap 
+	* Go through the uri to levenshtein url database and find the closest redirect based in sitemap
 	* @return void
 	*/
 	function __uriToLevenshtein(){
@@ -188,7 +191,7 @@ class SeoAppError {
 		if(!$levconfig['active']){
 			return;
 		}
-		
+
 		$this->__loadModel('SeoUrl');
 		$request = env('REQUEST_URI');
 		$redirect = $this->SeoUrl->findRedirectByRequest($request);
@@ -200,7 +203,7 @@ class SeoAppError {
 		}
 		return;
 	}
-	
+
 	/**
 	* Load the SeoRedirect Model if it's not already loaded.
 	* @return void
@@ -224,7 +227,6 @@ class SeoExceptionHandler extends HttpException {
 			$SeoAppError->catch404();
 			$SeoAppError->runLevenshtein();
 		}
-		
 		$text = $message ? $message : $error->getMessage();
 		ErrorHandler::handleException($error);
 	}

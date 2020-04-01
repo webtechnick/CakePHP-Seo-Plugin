@@ -3,7 +3,7 @@ class SeoMetaTagsController extends SeoAppController {
 
 	var $name = 'SeoMetaTags';
 	var $helpers = array('Time');
-	
+
 	function admin_index($filter = null) {
 		if(!empty($this->data)){
 			$filter = $this->data['SeoMetaTag']['filter'];
@@ -12,11 +12,10 @@ class SeoMetaTagsController extends SeoAppController {
 		$this->set('seoMetaTags',$this->paginate($conditions));
 		$this->set('filter', $filter);
 	}
-	
+
 	function admin_view($id = null) {
 		if (!$id) {
-			$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-			$this->Session->setFlash(__('Invalid seo meta tag'), $badFlash);
+			$this->badFlash(__('Invalid seo meta tag'));
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('seoMetaTag', $this->SeoMetaTag->read(null, $id));
@@ -27,30 +26,25 @@ class SeoMetaTagsController extends SeoAppController {
 		if (!empty($this->data)) {
 			$this->SeoMetaTag->clear();
 			if ($this->SeoMetaTag->save($this->data)) {
-				$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
-				$this->Session->setFlash(__('The seo meta tag has been saved'), $goodFlash);
+				$this->goodFlash(__('The seo meta tag has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-				$this->Session->setFlash(__('The seo meta tag could not be saved. Please, try again.'), $badFlash);
+				$this->badFlash(__('The seo meta tag could not be saved. Please, try again.'));
 			}
 		}
 	}
 
 	function admin_edit($id = null) {
 		if (!$id && empty($this->data)) {
-			$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-			$this->Session->setFlash(__('Invalid seo meta tag'), $badFlash);
+			$this->badFlash(__('Invalid seo meta tag'));
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
 			if ($this->SeoMetaTag->save($this->data)) {
-				$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
-				$this->Session->setFlash(__('The seo meta tag has been saved'), $goodFlash);
+				$this->goodFlash(__('The seo meta tag has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-				$this->Session->setFlash(__('The seo meta tag could not be saved. Please, try again.'), $badFlash);
+				$this->badFlash(__('The seo meta tag could not be saved. Please, try again.'));
 			}
 		}
 		if (empty($this->data)) {
@@ -61,17 +55,14 @@ class SeoMetaTagsController extends SeoAppController {
 
 	function admin_delete($id = null) {
 		if (!$id) {
-			$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-			$this->Session->setFlash(__('Invalid id for seo meta tag'), $badFlash);
+			$this->badFlash(__('Invalid id for seo meta tag'));
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->SeoMetaTag->delete($id)) {
-			$goodFlash = $this->_getViewObject()->elementExists('goodFlash') ? 'goodFlash' : 'default';
-			$this->Session->setFlash(__('Seo meta tag deleted'), $goodFlash);
+			$this->goodFlash(__('Seo meta tag deleted'));
 			$this->redirect(array('action'=>'index'));
 		}
-		$badFlash = $this->_getViewObject()->elementExists('badFlash') ? 'badFlash' : 'default';
-		$this->Session->setFlash(__('Seo meta tag was not deleted'), $badFlash);
+		$this->badFlash(__('Seo meta tag was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
 }
